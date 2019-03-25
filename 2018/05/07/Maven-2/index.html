@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="baidu-site-verification" content="Yu0REDPjKL">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="maven,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="首先注册为bintray用户注册戳这里  点击Profile    接着新建仓库   创建仓库很简单我就不详说了，那么这一步就完成了 仓库创建完成后是以下情况  创建package在创建好的Repository中点击add New Package  填写好信息  这里要记住填写的信息，之后配置gradle的时候要用到   生成gpg秘钥并且添加在个人中心profile中找到GPG signing">
+<meta name="keywords" content="maven">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用Bintray上传你的应用到Maven，Jcenter">
+<meta property="og:url" content="https://tianhao.info/2018/05/07/Maven-2/index.html">
+<meta property="og:site_name" content="非淡泊无以明志，非宁静无以致远.">
+<meta property="og:description" content="首先注册为bintray用户注册戳这里  点击Profile    接着新建仓库   创建仓库很简单我就不详说了，那么这一步就完成了 仓库创建完成后是以下情况  创建package在创建好的Repository中点击add New Package  填写好信息  这里要记住填写的信息，之后配置gradle的时候要用到   生成gpg秘钥并且添加在个人中心profile中找到GPG signing">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/THtianhao/Picture/master/20190110112809_maven2-1.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/THtianhao/Picture/master/20190110112955_maven2-2.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/THtianhao/Picture/master/20190111111519_maven3-1.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/THtianhao/Picture/master/20190111111805_maven3-2.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/THtianhao/Picture/master/20190111112011_maven3-3.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/THtianhao/Picture/master/20190110141350_maven2-3.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/THtianhao/Picture/master/20190110143036_maven2-4.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/THtianhao/Picture/master/20190110141350_maven2-3.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/THtianhao/Picture/master/20190110150519_maven2-5.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/THtianhao/Picture/master/20190110150717_maven2-6.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/THtianhao/Picture/master/20190110152335_maven2-7.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/THtianhao/Picture/master/20190110152841_maven2-8.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/THtianhao/Picture/master/20190111115844_maven3-4.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/THtianhao/Picture/master/20190111120147_maven3-5.jpg">
+<meta property="og:updated_time" content="2019-03-25T03:16:15.767Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用Bintray上传你的应用到Maven，Jcenter">
+<meta name="twitter:description" content="首先注册为bintray用户注册戳这里  点击Profile    接着新建仓库   创建仓库很简单我就不详说了，那么这一步就完成了 仓库创建完成后是以下情况  创建package在创建好的Repository中点击add New Package  填写好信息  这里要记住填写的信息，之后配置gradle的时候要用到   生成gpg秘钥并且添加在个人中心profile中找到GPG signing">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/THtianhao/Picture/master/20190110112809_maven2-1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+  <link rel="canonical" href="https://tianhao.info/2018/05/07/Maven-2/">
+
+
+
+
+
+  <title>利用Bintray上传你的应用到Maven，Jcenter | 非淡泊无以明志，非宁静无以致远.</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://your-url" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">非淡泊无以明志，非宁静无以致远.</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tianhao.info/2018/05/07/Maven-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="田昊">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非淡泊无以明志，非宁静无以致远.">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">利用Bintray上传你的应用到Maven，Jcenter</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-07T09:50:46+08:00">
+                2018-05-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/07/Maven-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/05/07/Maven-2/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="首先注册为bintray用户"><a href="#首先注册为bintray用户" class="headerlink" title="首先注册为bintray用户"></a>首先注册为bintray用户</h1><p><a href="https://bintray.com/tototianhao" target="_blank" rel="noopener">注册戳这里</a></p>
+<blockquote>
+<p>点击Profile</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/THtianhao/Picture/master/20190110112809_maven2-1.jpg" alt></p>
+<blockquote>
+<p>接着新建仓库</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/THtianhao/Picture/master/20190110112955_maven2-2.jpg" alt="image-20190110112944441"></p>
+<p>创建仓库很简单我就不详说了，那么这一步就完成了</p>
+<p>仓库创建完成后是以下情况</p>
+<p><img src="https://raw.githubusercontent.com/THtianhao/Picture/master/20190111111519_maven3-1.jpg" alt></p>
+<h2 id="创建package"><a href="#创建package" class="headerlink" title="创建package"></a>创建package</h2><p>在创建好的<code>Repository</code>中点击<code>add New Package</code></p>
+<p><img src="https://raw.githubusercontent.com/THtianhao/Picture/master/20190111111805_maven3-2.jpg" alt="image-20190111111750350"></p>
+<p>填写好信息</p>
+<blockquote>
+<p>这里要记住填写的信息，之后配置gradle的时候要用到</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/THtianhao/Picture/master/20190111112011_maven3-3.jpg" alt></p>
+<h2 id="生成gpg秘钥并且添加"><a href="#生成gpg秘钥并且添加" class="headerlink" title="生成gpg秘钥并且添加"></a>生成gpg秘钥并且添加</h2><p>在个人中心<code>profile</code>中找到<code>GPG signing</code></p>
+<p><img src="https://raw.githubusercontent.com/THtianhao/Picture/master/20190110141350_maven2-3.jpg" alt></p>
+<p>GPG是一种非对称加密算法，没有安装gpg的同学请看我另一篇将加密的文章</p>
+<p>生成gpg命令</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg <span class="comment">--gen-key</span></span><br></pre></td></tr></table></figure>
+<p>查看pgp命令</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --<span class="keyword">list</span>-<span class="built_in">keys</span></span><br></pre></td></tr></table></figure>
+<p>没有意外的话你会看到</p>
+<p><img src="https://raw.githubusercontent.com/THtianhao/Picture/master/20190110143036_maven2-4.jpg" alt="image-20190110143018296"></p>
+<div class="note success"><p>现在要将key上传到公共的地址才可以，这里提供了一系列key的服务</p></div>
+<p><a href="https://sks-keyservers.net/overview-of-pools.php" target="_blank" rel="noopener">https://sks-keyservers.net/overview-of-pools.php</a></p>
+<p>上传命令</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gpg --keyserver hkps<span class="selector-class">.pool</span><span class="selector-class">.sks-keyservers</span><span class="selector-class">.net</span> --send-keys xxxxxxxxxx</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>xxxx是上图中用红色干掉的地方的十六进制后八位！！！否则各大站无法认证</p>
+</blockquote>
+<p>之后导出公钥和私钥</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gpg -<span class="selector-tag">a</span> --export tototianhao@gmail<span class="selector-class">.com</span> &gt; public_key_sender.asc</span><br><span class="line">gpg -<span class="selector-tag">a</span> --export-secret-key tototianhao@gmail<span class="selector-class">.com</span> &gt; private_key_sender.asc</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>导出私钥的时候需要输入你在创建时候输入的密码，执行完就可以看见自己导出的公钥和私钥了</p>
+<p>然后填入以下页面</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/THtianhao/Picture/master/20190110141350_maven2-3.jpg" alt="image-20190110141319142"></p>
+<h1 id="添加GPG签名认证"><a href="#添加GPG签名认证" class="headerlink" title="添加GPG签名认证"></a>添加GPG签名认证</h1><p>找到刚才新建的项目点击edit</p>
+<p><img src="https://raw.githubusercontent.com/THtianhao/Picture/master/20190110150519_maven2-5.jpg" alt="image-20190110150448551"></p>
+<p>然后勾线gpg认证</p>
+<p><img src="https://raw.githubusercontent.com/THtianhao/Picture/master/20190110150717_maven2-6.jpg" alt="image-20190110150702748"></p>
+<blockquote>
+<p>其实就是和github的ssh一个意思，非对称加密上传文件</p>
+</blockquote>
+<h1 id="注册maven仓库"><a href="#注册maven仓库" class="headerlink" title="注册maven仓库"></a>注册maven仓库</h1><p><a href="https://issues.sonatype.org/首先注册一个账号" target="_blank" rel="noopener">https://issues.sonatype.org/首先注册一个账号</a></p>
+<p>注册好后点击左上角的 create，创建新的项目</p>
+<p><img src="https://raw.githubusercontent.com/THtianhao/Picture/master/20190110152335_maven2-7.jpg" alt="image-20190110152302060"></p>
+<p>申请好后会给你发个邮件说明创建成功了</p>
+<h2 id="DNS添加记录值"><a href="#DNS添加记录值" class="headerlink" title="DNS添加记录值"></a>DNS添加记录值</h2><blockquote>
+<p>过两分钟后你会发现在你的JIRA中有一条新的评论</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">central-ossrh Central OSSRH added a <span class="keyword">comment</span> - <span class="number">6</span> minutes ago</span><br><span class="line"><span class="keyword">Do</span> you own the <span class="keyword">domain</span> tianhao.info? <span class="keyword">If</span> so, please <span class="keyword">verify</span> ownership via one <span class="keyword">of</span> the <span class="keyword">following</span> methods:</span><br><span class="line"></span><br><span class="line"><span class="keyword">Add</span> a TXT <span class="built_in">record</span> <span class="keyword">to</span> your DNS <span class="keyword">referencing</span> this JIRA ticket: OSSRH<span class="number">-45456</span> (Fastest)</span><br><span class="line">Setup a redirect <span class="keyword">to</span> your Github page (<span class="keyword">if</span> it does <span class="keyword">not</span> already exist)</span><br><span class="line">Send an email <span class="keyword">to</span> central@sonatype.com <span class="keyword">referencing</span> this issue <span class="keyword">from</span> a tianhao.info email address</span><br><span class="line"><span class="keyword">If</span> you <span class="keyword">do</span> <span class="keyword">not</span> own this <span class="keyword">domain</span>, please <span class="keyword">read</span>:</span><br><span class="line"><span class="keyword">http</span>://central.sonatype.org/pages/choosing-your-coordinates.html</span><br><span class="line">You may also <span class="keyword">choose</span> a groupId that reflects your <span class="keyword">project</span> hosting, <span class="keyword">in</span> this <span class="keyword">case</span>, something <span class="keyword">like</span> io.github.thtianhao <span class="keyword">or</span> com.github.thtianhao</span><br></pre></td></tr></table></figure>
+<p>你申请的<code>groupid</code>必须进行认证，那么在CDN中增加一条Text作为记录值就可以了</p>
+<blockquote>
+<p>记得设置完DNS解析后重新提交哦</p>
+</blockquote>
+<h3 id="添加sonatype用户名密码"><a href="#添加sonatype用户名密码" class="headerlink" title="添加sonatype用户名密码"></a>添加sonatype用户名密码</h3><p>然后在我们的bintray中加入sonatype的用户名和密码</p>
+<p><img src="https://raw.githubusercontent.com/THtianhao/Picture/master/20190110152841_maven2-8.jpg" alt="image-20190110152813084"></p>
+<p>完成</p>
+<h1 id="Android-Stuido配置篇"><a href="#Android-Stuido配置篇" class="headerlink" title="Android Stuido配置篇"></a>Android Stuido配置篇</h1><p>首先献上bintray提供的android上传的的<a href="https://github.com/bintray/gradle-bintray-plugin" target="_blank" rel="noopener">github</a></p>
+<h2 id="设置插件-项目级gradle"><a href="#设置插件-项目级gradle" class="headerlink" title="设置插件  项目级gradle"></a>设置插件  项目级gradle</h2><p>在<code>gradel</code>中插入插件</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">classpath</span> <span class="string">'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'</span></span><br><span class="line"><span class="keyword">classpath</span> <span class="string">'com.github.dcendents:android-maven-gradle-plugin:1.5'</span></span><br></pre></td></tr></table></figure>
+<p>然后在gradle中插入你的<code>bintray</code>的用户名和<code>APIKEY</code> ，<code>APIKEY</code>在<code>bintray</code>的个人信息中可以找到</p>
+<p>这里我是写在<code>model</code>下的<code>local.properties</code>中插入(没有的话创建一个)</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bintray.<span class="attribute">username</span>=xxxxxxxxx</span><br><span class="line">bintray.<span class="attribute">apikey</span>=xxxxxxxxxx</span><br></pre></td></tr></table></figure>
+<h2 id="设置上传文件信息"><a href="#设置上传文件信息" class="headerlink" title="设置上传文件信息"></a>设置上传文件信息</h2><p>然后插入你的仓库信息,同样的为了保密，我再<code>local.properties</code>中设置了这些信息</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">bintray &#123;</span><br><span class="line">    user = bintray.username</span><br><span class="line">    key = bintray.apikey</span><br><span class="line">    pkg &#123;</span><br><span class="line">        repo = bintray<span class="selector-class">.pkg</span><span class="selector-class">.repo</span></span><br><span class="line">        name = bintray<span class="selector-class">.pkg</span><span class="selector-class">.name</span></span><br><span class="line">        userOrg = bintray<span class="selector-class">.pkg</span><span class="selector-class">.userOrg</span></span><br><span class="line">        licenses = bintray<span class="selector-class">.pkg</span><span class="selector-class">.licenses</span></span><br><span class="line">        vcsUrl = bintray<span class="selector-class">.pkg</span><span class="selector-class">.vcsUrl</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>说下这些参数吧</p>
+<ul>
+<li>repo ：是你bintray的仓库的名称</li>
+<li>name：是你的包名</li>
+<li>userOrg：组织   <code>可选项</code></li>
+<li>license：执照<code>你的包如果你的包不存在的话就必须设置</code></li>
+<li>vcsUrl：你的版本控制url<code>你的包如果你的包不存在的话就必须设置</code></li>
+</ul>
+<h2 id="增加bintray的配置信息"><a href="#增加bintray的配置信息" class="headerlink" title="增加bintray的配置信息"></a>增加bintray的配置信息</h2><p>在pkg中下面的闭包中增加<code>version</code></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">pkg</span> &#123;</span><br><span class="line">    <span class="section">version</span> &#123;</span><br><span class="line">        <span class="attribute">name</span> = <span class="string">'1.0-Final'</span></span><br><span class="line">        desc = <span class="string">'Gradle Bintray Plugin 1.0 final'</span></span><br><span class="line">        released  = new Date()</span><br><span class="line">        vcsTag = <span class="string">'1.3.0'</span></span><br><span class="line">        attributes = [<span class="string">'gradle-plugin'</span>: <span class="string">'com.use.less:com.use.less.gradle:gradle-useless-plugin'</span>]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>name：版本号</li>
+<li>desc ：版本描述</li>
+<li>released：发布日期</li>
+<li>vcs：版本控制的tag</li>
+<li>attributes：可以增加属性</li>
+</ul>
+<h2 id="上传到Bintray"><a href="#上传到Bintray" class="headerlink" title="上传到Bintray"></a>上传到Bintray</h2><p>提供了三种凡是去上传到Bintry</p>
+<ul>
+<li><p><a href="https://docs.gradle.org/current/dsl/org.gradle.api.publish.maven.MavenPublication.html" target="_blank" rel="noopener">Maven Publications</a></p>
+</li>
+<li><p><a href="https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.Configuration.html" target="_blank" rel="noopener">gradle Configuration</a></p>
+</li>
+</ul>
+<ul>
+<li><a href="https://github.com/bintray/bintray-examples/tree/master/gradle-bintray-plugin-examples/filesSpec-example" target="_blank" rel="noopener">Example project</a> for using filesSpec.</li>
+</ul>
+<p>我相信既然是上传，肯定和仓库相关，那么用maven的方式最好，自动发布到jcenter和mavenCenter，但是也是最麻烦的，需要自定义pom文件，但是用<code>configuration</code>的的方式可以在Bintray中网页添加到Jcenter和MavenCenter就很方便了</p>
+<p>咱们暂时不研究MavenCenter，直接用Config的方式实现</p>
+<h2 id="利用Configuration的方式上传"><a href="#利用Configuration的方式上传" class="headerlink" title="利用Configuration的方式上传"></a>利用Configuration的方式上传</h2><h3 id="首先引用插件"><a href="#首先引用插件" class="headerlink" title="首先引用插件"></a>首先引用插件</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'com.jfrog.bintray'</span></span><br><span class="line">apply <span class="string">plugin:</span> <span class="string">'com.github.dcendents.android-maven'</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置artifacts信息"><a href="#配置artifacts信息" class="headerlink" title="配置artifacts信息"></a>配置artifacts信息</h3><p>这里的version是与你<code>bintray</code>对应的<code>version</code>,直接在gradle中插入</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version</span> = <span class="string">'1.0.0'</span></span><br></pre></td></tr></table></figure>
+<p>下面的<code>group</code>对应你在JIRA中创建仓库的maven group</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">group</span> <span class="title">= 'info</span>.tianhao'</span><br></pre></td></tr></table></figure>
+<h3 id="bintray闭包引用archives"><a href="#bintray闭包引用archives" class="headerlink" title="bintray闭包引用archives"></a>bintray闭包引用archives</h3><p>然后在<code>bintray</code>闭包中<code>key = &#39;bintray_api_key</code>之下添加一行代码</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">bintray</span> &#123;</span><br><span class="line">    <span class="attribute">user</span> = <span class="string">'bintray_user'</span></span><br><span class="line">    key = <span class="string">'bintray_api_key'</span> </span><br><span class="line">    configurations = [<span class="string">'archives'</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="pom信息配置"><a href="#pom信息配置" class="headerlink" title="pom信息配置"></a>pom信息配置</h3><p>最后来maven生成pom的代码</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">install</span> &#123;</span><br><span class="line">    repositories.mavenInstaller &#123;</span><br><span class="line">        pom &#123;</span><br><span class="line">            <span class="keyword">project</span> &#123;</span><br><span class="line">                packaging <span class="string">'aar'</span></span><br><span class="line">                groupId maven_groupId</span><br><span class="line">                artifactId maven_artifactId</span><br><span class="line"></span><br><span class="line">                // <span class="keyword">Add</span> your description here</span><br><span class="line">                <span class="keyword">name</span> maven_artifactId</span><br><span class="line">                description <span class="keyword">desc</span></span><br><span class="line">                <span class="keyword">url</span> gitUrl</span><br><span class="line"></span><br><span class="line">                // <span class="keyword">Set</span> your license</span><br><span class="line">                licenses &#123;</span><br><span class="line">                    license &#123;</span><br><span class="line">                        <span class="keyword">name</span> maven_licenses_name</span><br><span class="line">                        <span class="keyword">url</span> maven_licenses_url</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                developers &#123;</span><br><span class="line">                    developer &#123;</span><br><span class="line">                        <span class="keyword">id</span> maven_developers_id</span><br><span class="line">                        <span class="keyword">name</span> myName</span><br><span class="line">                        email myEmail</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                scm &#123;</span><br><span class="line">                    <span class="keyword">connection</span> gitUrl</span><br><span class="line">                    developerConnection gitUrl</span><br><span class="line">                    <span class="keyword">url</span> myUrl</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="生成jar和doc的代码"><a href="#生成jar和doc的代码" class="headerlink" title="生成jar和doc的代码"></a>生成jar和doc的代码</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> sourcesJar(type: Jar) &#123;</span><br><span class="line">    <span class="keyword">from</span> android.<span class="keyword">sourceSets</span>.main.java.srcDirs</span><br><span class="line">    classifier = <span class="string">'sources'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">task</span> javadoc(type: Javadoc) &#123;</span><br><span class="line">    <span class="keyword">source</span> = android.<span class="keyword">sourceSets</span>.main.java.srcDirs</span><br><span class="line">    <span class="keyword">options</span>.encoding = <span class="string">"UTF-8"</span></span><br><span class="line">    <span class="keyword">classpath</span> += <span class="keyword">project</span>.files(android.getBootClasspath().<span class="keyword">join</span>(<span class="keyword">File</span>.pathSeparator))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">task</span> javadocJar(type: Jar, dependsOn: javadoc) &#123;</span><br><span class="line">    classifier = <span class="string">'javadoc'</span></span><br><span class="line">    <span class="keyword">from</span> javadoc.<span class="keyword">destinationDir</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">artifacts</span> &#123;</span><br><span class="line">    archives sourcesJar</span><br><span class="line">    archives javadocJar</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至此所有的配置都完成了附上我配置的代码<code>bintray.gradle</code></p>
+<blockquote>
+<p>我这里是新建了一个名为bintray.gradle的脚本</p>
+</blockquote>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'com.jfrog.bintray'</span></span><br><span class="line">apply plugin: <span class="string">'com.github.dcendents.android-maven'</span></span><br><span class="line">apply plugin: <span class="string">'org.jetbrains.dokka-android'</span></span><br><span class="line"></span><br><span class="line">version =<span class="string">'2.3.6'</span></span><br><span class="line"><span class="keyword">group</span> = <span class="string">'info.tianhao'</span></span><br><span class="line"></span><br><span class="line">Properties properties = <span class="keyword">new</span> Properties()</span><br><span class="line">properties.load(<span class="keyword">project</span>.rootProject.<span class="keyword">file</span>(<span class="string">'local.properties'</span>).newDataInputStream())</span><br><span class="line"></span><br><span class="line">ext &#123;</span><br><span class="line">    bintray_pkg_licenses = [<span class="string">"Apache-2.0"</span>]</span><br><span class="line">    bintray_pkg_version_name = <span class="string">'1.0.3'</span></span><br><span class="line">    bintray_pkg_version_vcsTag = <span class="string">'1.0.3'</span></span><br><span class="line"><span class="comment">//    bintray_pkg_version_attributes = 'Provide Unity3d payment SDK for Android and IOS'</span></span><br><span class="line"></span><br><span class="line">    maven_groupId = <span class="string">'info.tianhao'</span></span><br><span class="line">    maven_artifactId = <span class="string">'unitybuy'</span></span><br><span class="line">    maven_name = <span class="string">'UnityBuy'</span></span><br><span class="line">    maven_licenses_name = <span class="string">'The Apache Software License, Version 2.0'</span></span><br><span class="line">    maven_licenses_url = <span class="string">'http://www.apache.org/licenses/LICENSE-2.0.txt'</span></span><br><span class="line">    maven_developers_id = <span class="string">'toto000888'</span></span><br><span class="line">    reponame =<span class="string">'UnityPay'</span></span><br><span class="line">    packagename =<span class="string">'gamepay'</span></span><br><span class="line">    myName = <span class="string">'tianhao'</span></span><br><span class="line">    myEmail = <span class="string">'356831631@gmail.com'</span></span><br><span class="line">    desc = <span class="string">'Provide Unity3d payment SDK for Android and IOS'</span></span><br><span class="line">    myUrl = <span class="string">'https://www.tianhao.info'</span></span><br><span class="line">    gitUrl = <span class="string">'https://github.com/THtianhao'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bintray &#123;</span><br><span class="line">    user = properties.getProperty(<span class="string">"bintray.username"</span>)</span><br><span class="line">    key = properties.getProperty(<span class="string">"bintray.apikey"</span>)</span><br><span class="line">    <span class="keyword">configurations</span> = [<span class="string">'archives'</span>]</span><br><span class="line">    pkg &#123;</span><br><span class="line">        repo = reponame <span class="comment">//Bintray上面repo的名字</span></span><br><span class="line">        name = packagename <span class="comment">//Bintray上面新建的包名字</span></span><br><span class="line">        licenses = bintray_pkg_licenses</span><br><span class="line">        websiteUrl = myUrl</span><br><span class="line">        vcsUrl = gitUrl</span><br><span class="line">        publish = <span class="keyword">true</span></span><br><span class="line">        publicDownloadNumbers = <span class="keyword">true</span></span><br><span class="line">        version &#123;</span><br><span class="line">            name = bintray_pkg_version_name   <span class="comment">//这个改变了会自动上传到bintray，称为仓库的新版本</span></span><br><span class="line">            desc = desc</span><br><span class="line">            released  = <span class="keyword">new</span> Date()</span><br><span class="line">            vcsTag = bintray_pkg_version_vcsTag</span><br><span class="line">            gpg &#123;</span><br><span class="line">                sign = <span class="keyword">true</span></span><br><span class="line">                passphrase = <span class="string">'54th55845'</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">install &#123;</span><br><span class="line">    <span class="keyword">repositories</span>.mavenInstaller &#123;</span><br><span class="line">        pom &#123;</span><br><span class="line">            <span class="keyword">project</span> &#123;</span><br><span class="line">                packaging <span class="string">'aar'</span></span><br><span class="line">                groupId maven_groupId</span><br><span class="line">                artifactId maven_artifactId</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Add your description here</span></span><br><span class="line">                name maven_artifactId</span><br><span class="line">                <span class="keyword">description</span> desc</span><br><span class="line">                url gitUrl</span><br><span class="line"></span><br><span class="line">                <span class="comment">// Set your license</span></span><br><span class="line">                licenses &#123;</span><br><span class="line">                    license &#123;</span><br><span class="line">                        name maven_licenses_name</span><br><span class="line">                        url maven_licenses_url</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                developers &#123;</span><br><span class="line">                    developer &#123;</span><br><span class="line">                        id maven_developers_id</span><br><span class="line">                        name myName</span><br><span class="line">                        email myEmail</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                scm &#123;</span><br><span class="line">                    connection gitUrl</span><br><span class="line">                    developerConnection gitUrl</span><br><span class="line">                    url myUrl</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">task</span> sourcesJar(type: Jar) &#123;</span><br><span class="line">    <span class="keyword">from</span> android.<span class="keyword">sourceSets</span>.main.java.srcDirs</span><br><span class="line">    classifier = <span class="string">'sources'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">task</span> javadoc(type: Javadoc) &#123;</span><br><span class="line">    <span class="keyword">source</span> = android.<span class="keyword">sourceSets</span>.main.java.srcDirs</span><br><span class="line">    <span class="keyword">options</span>.encoding = <span class="string">"UTF-8"</span></span><br><span class="line">    <span class="keyword">classpath</span> += <span class="keyword">project</span>.files(android.getBootClasspath().<span class="keyword">join</span>(<span class="keyword">File</span>.pathSeparator))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">task</span> javadocJar(type: Jar, dependsOn: javadoc) &#123;</span><br><span class="line">    classifier = <span class="string">'javadoc'</span></span><br><span class="line">    <span class="keyword">from</span> javadoc.<span class="keyword">destinationDir</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">artifacts</span> &#123;</span><br><span class="line">    archives sourcesJar</span><br><span class="line">    archives javadocJar</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="在model中gradle中引用脚本"><a href="#在model中gradle中引用脚本" class="headerlink" title="在model中gradle中引用脚本"></a>在model中gradle中引用脚本</h3><p>在modle的<strong>最后一行</strong>加入脚本</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">apply</span> <span class="keyword">from</span>: <span class="string">"bintray.gradle"</span></span><br></pre></td></tr></table></figure>
+<h2 id="另一种配置方法"><a href="#另一种配置方法" class="headerlink" title="另一种配置方法"></a>另一种配置方法</h2><p>直接在<code>modle</code>中新建一个<code>ext</code>，<code>ext</code>里面的参数对照填写下面两个网页的配置</p>
+<p>然后在<code>modle</code>中的<code>gradle</code>引用两个网址</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gradle form `https:<span class="regexp">//</span>raw.githubusercontent.com<span class="regexp">/nuuneoi/</span>JCenter<span class="regexp">/master/i</span>nstallv1.gradle`</span><br><span class="line"></span><br><span class="line">gradle form `https:<span class="regexp">//</span>raw.githubusercontent.com<span class="regexp">/nuuneoi/</span>JCenter<span class="regexp">/master/</span>bintrayv1.gradle`</span><br></pre></td></tr></table></figure>
+<p>#上传</p>
+<p>那么准备好了就上传吧</p>
+<p>首先要保证gradlew有权限，如果没有的话执行</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chorm +<span class="keyword">x</span> gradlew</span><br></pre></td></tr></table></figure>
+<p>生成文档和jar</p>
+<h2 id="gradlew-install"><a href="#gradlew-install" class="headerlink" title="./gradlew install"></a>./gradlew install</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew <span class="keyword">install</span></span><br></pre></td></tr></table></figure>
+<p>那么问题接踵而至</p>
+<ul>
+<li>Could not find method bintray() for arguments</li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'com.jfrog.bintray'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Could not find method project() for arguments</li>
+</ul>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'com.github.dcendents.android-maven'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Execution failed for task ‘:unitybuy:javadoc’.</li>
+</ul>
+<blockquote>
+<p>Javadoc generation failed. Generated Javadoc options file (useful for troubleshooting): ‘/Users/toto/Project/company/unit3D/unitybuy/android/googlePaySDk/unitybuy/build/tmp/javadoc/javadoc.options’</p>
+</blockquote>
+<p>kotlin生成doc文件时候出的错误</p>
+<p>那么查看了kotlin的论坛发现一个插件可以对kotlin生成javadoc</p>
+<p><a href="https://github.com/Kotlin/dokka" target="_blank" rel="noopener">dokka</a></p>
+<p>首先在根目录下添加</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">classpath</span> <span class="string">'org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.17'</span></span><br></pre></td></tr></table></figure>
+<p>然后在modle中添加</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apply <span class="string">plugin:</span> <span class="string">'org.jetbrains.dokka-android'</span></span><br></pre></td></tr></table></figure>
+<p>改变task，将原来的</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> javadocJar(type: Jar, dependsOn: javadoc) &#123;</span><br><span class="line">    classifier = <span class="string">'javadoc'</span></span><br><span class="line">    <span class="keyword">from</span> javadoc.<span class="keyword">destinationDir</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>改造为</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">task dokkaJavadoc(type: org<span class="selector-class">.jetbrains</span><span class="selector-class">.dokka</span><span class="selector-class">.gradle</span><span class="selector-class">.DokkaTask</span>) &#123;</span><br><span class="line">    outputFormat = <span class="string">"javadoc"</span></span><br><span class="line">    outputDirectory = javadoc.destinationDir</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">task generateJavadoc(type: Jar, dependsOn: dokkaJavadoc) &#123;</span><br><span class="line">    group = <span class="string">'jar'</span></span><br><span class="line">    classifier = <span class="string">'javadoc'</span></span><br><span class="line">    from javadoc.destinationDir</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>并且从<code>bintray.gradle</code>中奖这些生成docjar的文件取出来放到model中，不然找不到插件</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">bintray</span><span class="selector-class">.gradle</span></span><br></pre></td></tr></table></figure>
+<h2 id="gradlew-bintrayUpload"><a href="#gradlew-bintrayUpload" class="headerlink" title="./gradlew bintrayUpload"></a>./gradlew bintrayUpload</h2><p>在终端中执行</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">./gradlew</span> bintrayUpload</span><br></pre></td></tr></table></figure>
+<ul>
+<li>问题</li>
+</ul>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Could <span class="keyword">not</span> sign version <span class="string">'1.0.0'</span>: HTTP/<span class="number">1.1</span> <span class="number">401</span> Unauthorized [<span class="keyword">message</span>:This resource requires authentication]</span><br></pre></td></tr></table></figure>
+<p>肯定是用户名或者apikey错了要不就是gpg密码错了</p>
+<p>我的case是在modle里面有一个<code>local.properties</code>我以为是用的这个，其实生效的是项目目录下的<code>local.properties</code></p>
+<ul>
+<li>问题</li>
+</ul>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Could <span class="keyword">not</span> sign version <span class="string">'1.0.0'</span>: HTTP/<span class="number">1.1</span> <span class="number">404</span> <span class="keyword">Not</span> Found [<span class="keyword">message</span>:Repo <span class="string">'maven'</span> was <span class="keyword">not</span> found]</span><br></pre></td></tr></table></figure>
+<p>repo对应的是项目名称</p>
+<ul>
+<li>问题</li>
+</ul>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Could <span class="keyword">not</span> sign version <span class="string">'1.0.0'</span>: HTTP/<span class="number">1.1</span> <span class="number">404</span> <span class="keyword">Not</span> Found [<span class="keyword">message</span>:Package <span class="string">'123'</span> was <span class="keyword">not</span> found]</span><br></pre></td></tr></table></figure>
+<p>这</p>
+<ul>
+<li>问题</li>
+</ul>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Could <span class="keyword">not</span> sign <span class="built_in">version</span> <span class="string">'1.0.0'</span>: HTTP/<span class="number">1.1</span> <span class="number">400</span> Bad Request [message:Private key is required, please supply <span class="keyword">it</span> <span class="keyword">by</span> <span class="keyword">using</span> <span class="keyword">a</span> JSON body <span class="keyword">or</span> alternatively <span class="keyword">it</span> can be stored <span class="keyword">in</span> your Bintray profile]</span><br></pre></td></tr></table></figure>
+<p>在Bintray中，gpg私钥没有添加成功</p>
+<ul>
+<li><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Could <span class="keyword">not</span> upload <span class="built_in">to</span> <span class="string">'https://api.bintray.com/content/toto000888/UnityPay/gamepay/1.0.0/googlePaySDk/unitypay/unspecified/unitypay-unspecified.pom'</span>: HTTP/<span class="number">1.1</span> <span class="number">400</span> Bad Request [message:Unable <span class="built_in">to</span> upload <span class="built_in">files</span>: Maven group, artifact <span class="keyword">or</span> <span class="built_in">version</span> defined <span class="keyword">in</span> <span class="keyword">the</span> pom <span class="built_in">file</span> <span class="built_in">do</span> <span class="keyword">not</span> match <span class="keyword">the</span> <span class="built_in">file</span> path <span class="string">'googlePaySDk/unitypay/unspecified/unitypay-unspecified.pom'</span>]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>很多问题，是信息不对导致的</p>
+<ol>
+<li>首先</li>
+</ol>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version</span> =<span class="string">'1.0.0'</span></span><br></pre></td></tr></table></figure>
+<p>这个东西是上传url的这个尾巴1.0.0</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="regexp">//</span>api.bintray.com<span class="regexp">/content/</span>toto000888<span class="regexp">/UnityPay/g</span>amepay<span class="regexp">/1.0.0/g</span>ooglePaySDk<span class="regexp">/unitypay/</span><span class="number">2.3</span>.<span class="number">6</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>其次</li>
+</ol>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">group</span> <span class="title">= 'info</span>.tianhao'</span><br></pre></td></tr></table></figure>
+<p>这个东西是这个东西是上传url的这个尾巴googlePaySDk(应该是在JIRA创建时候的graopid)</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="regexp">//</span>api.bintray.com<span class="regexp">/content/</span>toto000888<span class="regexp">/UnityPay/g</span>amepay<span class="regexp">/1.0.0/g</span>ooglePaySDk</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>其次在pom中</li>
+</ol>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">artifactId</span> maven_artifactId</span><br></pre></td></tr></table></figure>
+<p>这个东西是上传url的这个尾巴unitypay</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="regexp">//</span>api.bintray.com<span class="regexp">/content/</span>toto000888<span class="regexp">/UnityPay/g</span>amepay<span class="regexp">/1.0.0/g</span>ooglePaySDk<span class="regexp">/unitypay</span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li><p>在bintray中</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">version</span> &#123;</span><br><span class="line">    name = bintray_pkg_<span class="keyword">version</span>_name   <span class="string">//</span>这一条的值</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这个东西是上传url的这个尾巴unitypay</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="regexp">//</span>api.bintray.com<span class="regexp">/content/</span>toto000888<span class="regexp">/UnityPay/g</span>amepay<span class="regexp">/1.0.0</span></span><br></pre></td></tr></table></figure>
+<p>至此，全部填写正确就好了</p>
+<p>googlePaySDk/unitybuy/1.0.3/unitybuy-1.0.3.pom’.</p>
+<p>groupId/artifactId/version/maven_artifactId-version.pom</p>
+<p>要一一对应</p>
+<h2 id="有个问题搞了很长时间"><a href="#有个问题搞了很长时间" class="headerlink" title="有个问题搞了很长时间"></a>有个问题搞了很长时间</h2><p>上传url中</p>
+<p><a href="https://api.bintray.com/content/toto000888/UnityPay/gamepay/1.0.3/googlePaySDk/unitybuy/2.3.6/unitybuy-2.3.6.pom.." target="_blank" rel="noopener">https://api.bintray.com/content/toto000888/UnityPay/gamepay/1.0.3/googlePaySDk/unitybuy/2.3.6/unitybuy-2.3.6.pom..</a>.</p>
+<p>这个<code>googlePaySDk</code>是我的项目名字，一直想换成maven注册的groupid都换不了，查了很长时间在gradle的网站上</p>
+<p>查看gradle的源码Groovy</p>
+<p><a href="https://github.com/bintray/gradle-bintray-plugin/blob/master/src/main/groovy/com/jfrog/bintray/gradle/tasks/BintrayUploadTask.groovy" target="_blank" rel="noopener">https://github.com/bintray/gradle-bintray-plugin/blob/master/src/main/groovy/com/jfrog/bintray/gradle/tasks/BintrayUploadTask.groovy</a></p>
+<p>发现<img src="https://raw.githubusercontent.com/THtianhao/Picture/master/20190111115844_maven3-4.jpg" alt="image-20190111011908946"></p>
+<p>那么我们把目标转向artifac.path这个属性</p>
+<p>最后在</p>
+<p><a href="https://docs.gradle.org/current/userguide/maven_plugin.html" target="_blank" rel="noopener">https://docs.gradle.org/current/userguide/maven_plugin.html</a></p>
+<p>发现这么一句话</p>
+<h2 id="Maven-POM-generation"><a href="#Maven-POM-generation" class="headerlink" title="Maven POM generation"></a><a href="https://docs.gradle.org/current/userguide/maven_plugin.html#sec:maven_pom_generation" target="_blank" rel="noopener">Maven POM generation</a></h2><p>When deploying an artifact to a Maven repository, Gradle automatically generates a POM for it. The <code>groupId</code>, <code>artifactId</code>, <code>version</code> and <code>packaging</code> elements used for the POM default to the values shown in the table below. The <code>dependency</code> elements are created from the project’s dependency declarations.</p>
+<p><em>Table 3. Default Values for Maven POM generation</em></p>
+<table>
+<thead>
+<tr>
+<th>Maven Element</th>
+<th>Default Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>groupId</td>
+<td>project.group</td>
+</tr>
+<tr>
+<td>artifactId</td>
+<td>uploadTask.repositories.mavenDeployer.pom.artifactId (if set) or archiveTask.baseName.</td>
+</tr>
+<tr>
+<td>version</td>
+<td>project.version</td>
+</tr>
+<tr>
+<td>packaging</td>
+<td>archiveTask.extension</td>
+</tr>
+</tbody>
+</table>
+<p>其实就是用install命令的时候，Maven生成pom文件时会根据这些配置来生成对应的上传地址。。。。佩服我的毅力。。。</p>
+<p>那么就能理解为什么要在根目录下增加这条配置了</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version</span> =<span class="string">'2.3.6'</span></span><br></pre></td></tr></table></figure>
+<p>我们再加一条</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">group</span> <span class="title">= 'info</span>.tianhao'</span><br></pre></td></tr></table></figure>
+<p>执行</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">./gradlew</span> bintrayUpload</span><br></pre></td></tr></table></figure>
+<p>终于看到我想要的路径了</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Uploading to https:<span class="regexp">//</span>api.bintray.com<span class="regexp">/content/</span>toto000888<span class="regexp">/UnityPay/g</span>amepay<span class="regexp">/1.0.3/i</span>nfo<span class="regexp">/tianhao/u</span>nitybuy<span class="regexp">/2.3.6/u</span>nitybuy-<span class="number">2.3</span>.<span class="number">6</span>.pom...</span><br><span class="line">Uploaded to <span class="string">'https://api.bintray.com/content/toto000888/UnityPay/gamepay/1.0.3/info/tianhao/unitybuy/2.3.6/unitybuy-2.3.6.pom'</span>.</span><br><span class="line">Uploading to https:<span class="regexp">//</span>api.bintray.com<span class="regexp">/content/</span>toto000888<span class="regexp">/UnityPay/g</span>amepay<span class="regexp">/1.0.3/i</span>nfo<span class="regexp">/tianhao/u</span>nitybuy<span class="regexp">/2.3.6/u</span>nitybuy-<span class="number">2.3</span>.<span class="number">6</span>-javadoc.jar...</span><br><span class="line">Uploaded to <span class="string">'https://api.bintray.com/content/toto000888/UnityPay/gamepay/1.0.3/info/tianhao/unitybuy/2.3.6/unitybuy-2.3.6-javadoc.jar'</span>.</span><br><span class="line">Uploading to https:<span class="regexp">//</span>api.bintray.com<span class="regexp">/content/</span>toto000888<span class="regexp">/UnityPay/g</span>amepay<span class="regexp">/1.0.3/i</span>nfo<span class="regexp">/tianhao/u</span>nitybuy<span class="regexp">/2.3.6/u</span>nitybuy-<span class="number">2.3</span>.<span class="number">6</span>-sources.jar...</span><br><span class="line">Uploaded to <span class="string">'https://api.bintray.com/content/toto000888/UnityPay/gamepay/1.0.3/info/tianhao/unitybuy/2.3.6/unitybuy-2.3.6-sources.jar'</span>.</span><br><span class="line">Uploading to https:<span class="regexp">//</span>api.bintray.com<span class="regexp">/content/</span>toto000888<span class="regexp">/UnityPay/g</span>amepay<span class="regexp">/1.0.3/i</span>nfo<span class="regexp">/tianhao/u</span>nitybuy<span class="regexp">/2.3.6/u</span>nitybuy-<span class="number">2.3</span>.<span class="number">6</span>.aar...</span><br><span class="line">Uploaded to <span class="string">'https://api.bintray.com/content/toto000888/UnityPay/gamepay/1.0.3/info/tianhao/unitybuy/2.3.6/unitybuy-2.3.6.aar'</span>.</span><br><span class="line">BUILD SUCCESSFUL <span class="keyword">in</span> <span class="number">38</span>s</span><br></pre></td></tr></table></figure>
+<h2 id="上传后的问题"><a href="#上传后的问题" class="headerlink" title="上传后的问题"></a>上传后的问题</h2><p>上传后发现文件里面没有包含的aar文件</p>
+<p>已经将aar放到了lib里面了还是没有，依赖声明的是</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">implementation</span>(<span class="attribute">name</span>: <span class="string">'billing-1.1'</span>, <span class="attribute">ext</span>: <span class="string">'aar'</span>)</span><br></pre></td></tr></table></figure>
+<p>换一种方式</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">implementation</span> files(<span class="string">'libs/billing-1.1.aar'</span>)</span><br></pre></td></tr></table></figure>
+<p>就可以打包进去了</p>
+<h1 id="同步到Jcenter"><a href="#同步到Jcenter" class="headerlink" title="同步到Jcenter"></a>同步到Jcenter</h1><p>上传后我们只是上传到了Bintray，如果想在项目中直接引用的话还不可以</p>
+<p>需要上传到Jcenter</p>
+<p><img src="https://raw.githubusercontent.com/THtianhao/Picture/master/20190111120147_maven3-5.jpg" alt="image-20190111120128496"></p>
+<p>提交后提示</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The version <span class="section">control</span> <span class="number">1.0</span><span class="number">.1</span> returns <span class="number">404.</span></span><br></pre></td></tr></table></figure>
+<p>原因是VCS 不是一个有效的链接导致的，修改成一个链接即可</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://www.jfrog.com/confluence/display/RTF3X/Gradle+Artifactory+Plugin" target="_blank" rel="noopener">bintry文档</a></p>
+<p><a href="https://github.com/bintray/gradle-bintray-plugin" target="_blank" rel="noopener">gradle-bintray-plugin的git</a></p>
+<p><a href="https://github.com/hehonghui/android-tech-frontier/blob/master/issue-17/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Android-Studio%E6%8A%8A%E8%87%AA%E5%B7%B1%E7%9A%84Android-library%E5%88%86%E5%8F%91%E5%88%B0jCenter%E5%92%8CMaven-Central.md" target="_blank" rel="noopener">一个很厉害的翻译仓库</a></p>
+<p><a href="https://github.com/Kotlin/dokka/blob/master/README.md" target="_blank" rel="noopener">https://github.com/Kotlin/dokka/blob/master/README.md</a></p>
+<p><a href="https://liungkejin.github.io/2016/04/12/Publish-Kotlin-Lib-To-Jcenter.html" target="_blank" rel="noopener">https://liungkejin.github.io/2016/04/12/Publish-Kotlin-Lib-To-Jcenter.html</a></p>
+<p><a href="https://blog.csdn.net/qq_30034925/article/details/79445072" target="_blank" rel="noopener">https://blog.csdn.net/qq_30034925/article/details/79445072</a></p>
+<p><a href="https://github.com/bintray/gradle-bintray-plugin/blob/master/src/main/groovy/com/jfrog/bintray/gradle/tasks/BintrayUploadTask.groovy" target="_blank" rel="noopener">bintray 插件源码</a></p>
+<p><a href="https://docs.gradle.org/current/userguide/maven_plugin.html" target="_blank" rel="noopener">gradle官方文档</a></p>
+
+      
+    </div>
+    
+    
+    
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢您的鼓励~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="田昊 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="田昊 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/maven/" rel="tag"># maven</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/05/Maven-1/" rel="next" title="理解并使用Maven，Jcenter管理你的应用">
+                <i class="fa fa-chevron-left"></i> 理解并使用Maven，Jcenter管理你的应用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/08/Maven-3/" rel="prev" title="上传kotlin代码到Jcenter">
+                上传kotlin代码到Jcenter <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="田昊">
+            
+              <p class="site-author-name" itemprop="name">田昊</p>
+              <p class="site-description motion-element" itemprop="description">一个对技术有态度的程序员</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/THtianhao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="envelope" target="_blank" title="E-Mail tototianhao@gmail.com">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail tototianhao@gmail.com</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="QQ 356831631">
+                      
+                        <i class="fa fa-fw fa-globe"></i>QQ 356831631</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="tel 13233422221">
+                      
+                        <i class="fa fa-fw fa-globe"></i>tel 13233422221</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="weChat toto000888">
+                      
+                        <i class="fa fa-fw fa-globe"></i>weChat toto000888</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#首先注册为bintray用户"><span class="nav-number">1.</span> <span class="nav-text">首先注册为bintray用户</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建package"><span class="nav-number">1.1.</span> <span class="nav-text">创建package</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成gpg秘钥并且添加"><span class="nav-number">1.2.</span> <span class="nav-text">生成gpg秘钥并且添加</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加GPG签名认证"><span class="nav-number">2.</span> <span class="nav-text">添加GPG签名认证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注册maven仓库"><span class="nav-number">3.</span> <span class="nav-text">注册maven仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS添加记录值"><span class="nav-number">3.1.</span> <span class="nav-text">DNS添加记录值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加sonatype用户名密码"><span class="nav-number">3.1.1.</span> <span class="nav-text">添加sonatype用户名密码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-Stuido配置篇"><span class="nav-number">4.</span> <span class="nav-text">Android Stuido配置篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置插件-项目级gradle"><span class="nav-number">4.1.</span> <span class="nav-text">设置插件  项目级gradle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置上传文件信息"><span class="nav-number">4.2.</span> <span class="nav-text">设置上传文件信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加bintray的配置信息"><span class="nav-number">4.3.</span> <span class="nav-text">增加bintray的配置信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传到Bintray"><span class="nav-number">4.4.</span> <span class="nav-text">上传到Bintray</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用Configuration的方式上传"><span class="nav-number">4.5.</span> <span class="nav-text">利用Configuration的方式上传</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先引用插件"><span class="nav-number">4.5.1.</span> <span class="nav-text">首先引用插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置artifacts信息"><span class="nav-number">4.5.2.</span> <span class="nav-text">配置artifacts信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bintray闭包引用archives"><span class="nav-number">4.5.3.</span> <span class="nav-text">bintray闭包引用archives</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pom信息配置"><span class="nav-number">4.5.4.</span> <span class="nav-text">pom信息配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成jar和doc的代码"><span class="nav-number">4.6.</span> <span class="nav-text">生成jar和doc的代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在model中gradle中引用脚本"><span class="nav-number">4.6.1.</span> <span class="nav-text">在model中gradle中引用脚本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#另一种配置方法"><span class="nav-number">4.7.</span> <span class="nav-text">另一种配置方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gradlew-install"><span class="nav-number">4.8.</span> <span class="nav-text">./gradlew install</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gradlew-bintrayUpload"><span class="nav-number">4.9.</span> <span class="nav-text">./gradlew bintrayUpload</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有个问题搞了很长时间"><span class="nav-number">4.10.</span> <span class="nav-text">有个问题搞了很长时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Maven-POM-generation"><span class="nav-number">4.11.</span> <span class="nav-text">Maven POM generation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传后的问题"><span class="nav-number">4.12.</span> <span class="nav-text">上传后的问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#同步到Jcenter"><span class="nav-number">5.</span> <span class="nav-text">同步到Jcenter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">一点零点零</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">90.6k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'HLUXSB6s2sdrSljlaJgMe8x8-gzGzoHsz',
+        appKey: 'vaOKTphb8yk9eoDDp5NvC6Ip',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！快活呀！~',
+        avatar:'/upload/avatar.jpg',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

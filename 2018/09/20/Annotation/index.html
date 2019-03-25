@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="baidu-site-verification" content="Yu0REDPjKL">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="注解,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="注解注解是一种元数据，提供非程序本身的程序，注解不直接影响代码本身。 注解的用处：  编译器的信息：注解用在编译器检测错误和取缔warning 编译和部署的时候的处理：软件工具可以处理注释信息以生成代码，XML文件 运行时处理：在运行时检查问题  注解的基础注解用@向编译器指示后面的内容是注释。在以下例子，注解的名字是Override 12@Overridevoid mySuperMethod()">
+<meta name="keywords" content="注解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java注解">
+<meta property="og:url" content="https://tianhao.info/2018/09/20/Annotation/index.html">
+<meta property="og:site_name" content="非淡泊无以明志，非宁静无以致远.">
+<meta property="og:description" content="注解注解是一种元数据，提供非程序本身的程序，注解不直接影响代码本身。 注解的用处：  编译器的信息：注解用在编译器检测错误和取缔warning 编译和部署的时候的处理：软件工具可以处理注释信息以生成代码，XML文件 运行时处理：在运行时检查问题  注解的基础注解用@向编译器指示后面的内容是注释。在以下例子，注解的名字是Override 12@Overridevoid mySuperMethod()">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-25T03:16:15.763Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java注解">
+<meta name="twitter:description" content="注解注解是一种元数据，提供非程序本身的程序，注解不直接影响代码本身。 注解的用处：  编译器的信息：注解用在编译器检测错误和取缔warning 编译和部署的时候的处理：软件工具可以处理注释信息以生成代码，XML文件 运行时处理：在运行时检查问题  注解的基础注解用@向编译器指示后面的内容是注释。在以下例子，注解的名字是Override 12@Overridevoid mySuperMethod()">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+  <link rel="canonical" href="https://tianhao.info/2018/09/20/Annotation/">
+
+
+
+
+
+  <title>Java注解 | 非淡泊无以明志，非宁静无以致远.</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://your-url" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">非淡泊无以明志，非宁静无以致远.</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tianhao.info/2018/09/20/Annotation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="田昊">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非淡泊无以明志，非宁静无以致远.">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java注解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-20T10:15:47+08:00">
+                2018-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/20/Annotation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/09/20/Annotation/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h1><p>注解是一种元数据，提供非程序本身的程序，注解不直接影响代码本身。</p>
+<p>注解的用处：</p>
+<ul>
+<li>编译器的信息：注解用在编译器检测错误和取缔warning</li>
+<li>编译和部署的时候的处理：软件工具可以处理注释信息以生成代码，XML文件</li>
+<li>运行时处理：在运行时检查问题</li>
+</ul>
+<h2 id="注解的基础"><a href="#注解的基础" class="headerlink" title="注解的基础"></a>注解的基础</h2><p>注解用<code>@</code>向编译器指示后面的内容是注释。在以下例子，注解的名字是<code>Override</code></p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mySuperMethod</span><span class="params">()</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>注释可以包含可以命名或未命名的元素，并且这些元素有值：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SuppressWarnings</span>(value = <span class="string">"unchecked"</span>)</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">myMethod</span><span class="params">()</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>如果注解有个叫value的值的话，可以省略这个值直接写，如下：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">myMethod</span><span class="params">()</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>如果注释没有元素，则可以省略括号，如前面的@Override示例所示。</p>
+<p>也可以在同一声明中使用多个注释：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Author</span>(name = <span class="string">"Jane Doe"</span>)</span><br><span class="line"><span class="variable">@EBook</span></span><br><span class="line">class MyClass &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>如果注释具有相同的类型，则称为重复注释：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@Author</span>(name = <span class="string">"Jane Doe"</span>)</span><br><span class="line"><span class="variable">@Author</span>(name = <span class="string">"John Smith"</span>)</span><br><span class="line">class MyClass &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>从Java SE 8发行版开始，支持重复注释</p>
+<h2 id="声明注释类型"><a href="#声明注释类型" class="headerlink" title="声明注释类型"></a>声明注释类型</h2><p>许多注释会替换代码中的注释。</p>
+<p>假设传统上启动每个类提供重要信息的注释：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">Generation3List</span> <span class="keyword">extends</span> <span class="title">Generation2List</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// Author: John Doe</span></span><br><span class="line">   <span class="comment">// Date: 3/17/2002</span></span><br><span class="line">   <span class="comment">// Current revision: 6</span></span><br><span class="line">   <span class="comment">// Last modified: 4/12/2004</span></span><br><span class="line">   <span class="comment">// By: Jane Doe</span></span><br><span class="line">   <span class="comment">// Reviewers: Alice, Bill, Cindy</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// class code goes here</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要使用注释添加此相同元数据，必须先定义注释类型，语法是：</p>
+<blockquote>
+<p>这里设置了注解的默认值default</p>
+</blockquote>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">@interface</span> ClassPreamble &#123;</span><br><span class="line">   <span class="built_in">String</span> author()<span class="comment">;</span></span><br><span class="line">   <span class="built_in">String</span> date()<span class="comment">;</span></span><br><span class="line">   <span class="built_in">int</span> currentRevision() <span class="keyword">default</span> <span class="number">1</span><span class="comment">;</span></span><br><span class="line">   <span class="built_in">String</span> lastModified() <span class="keyword">default</span> <span class="string">"N/A"</span><span class="comment">;</span></span><br><span class="line">   <span class="built_in">String</span> lastModifiedBy() <span class="keyword">default</span> <span class="string">"N/A"</span><span class="comment">;</span></span><br><span class="line">   <span class="built_in">String</span>[] reviewers()<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>就像interface的定义一样，只不过在前面增加了一个<code>@</code>，在定义了之后你就可以使用注解了</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ClassPreamble</span> (</span><br><span class="line">   author = <span class="string">"John Doe"</span>,</span><br><span class="line">   date = <span class="string">"3/17/2002"</span>,</span><br><span class="line">   currentRevision = <span class="number">6</span>,</span><br><span class="line">   lastModified = <span class="string">"4/12/2004"</span>,</span><br><span class="line">   lastModifiedBy = <span class="string">"Jane Doe"</span>,</span><br><span class="line">   reviewers = &#123;<span class="string">"Alice"</span>, <span class="string">"Bob"</span>, <span class="string">"Cindy"</span>&#125;</span><br><span class="line">)</span><br><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">Generation3List</span> <span class="keyword">extends</span> <span class="title">Generation2List</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要使<code>@ClassPreamble</code>出现在java文档中，需要使用@<code>Documented</code>来表示。</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">import</span> java.lang.annotation.*;</span></span><br><span class="line"></span><br><span class="line">@Documented</span><br><span class="line">@<span class="class"><span class="keyword">interface</span> <span class="title">ClassPreamble</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// Annotation element definitions</span></span><br><span class="line">   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="预定义的注释类型"><a href="#预定义的注释类型" class="headerlink" title="预定义的注释类型"></a>预定义的注释类型</h2><p>在JAVA SE中预定义了一种注解类型，Java编译器使用这种注解类型</p>
+<p>他们分别是<code>@Deprecated</code>,<code>@Override</code>和<code>@SuppressWarnings</code></p>
+<p><strong>@Deprecated</strong> 注解表示已<em>弃用</em>标记的元素，不应再使用只要使用了编译器就会发出警告。</p>
+<p><strong>@Override</strong>注解表示编译器覆盖类的元素，虽然在重写方法时候不需要此批注，但是他有助于防止出错。如果标记的方法@Override无法正确的覆盖某个超类中的方法，则会编译器会出现错误</p>
+<p><strong>@SuppressWarnings</strong>注解告诉编译器不要生成相关的警告。在以下实例中，使用了不推荐使用的方法，编译器会发出警告，但是使用了这个注释，编译器就不会发出警告了</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"deprecation"</span>)</span><br><span class="line"> <span class="function"><span class="keyword">void</span> <span class="title">useDeprecatedMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="comment">// - suppressed</span></span><br><span class="line">     objectOne.deprecatedMethod();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>@SafeVarargs</strong>注解，当应用于方法或构造函数时，断言代码不对其<code>varargs</code>参数执行可能不安全的操作。使用此注释类型时，<code>varargs</code>将禁止与使用相关的未经检查的警告。</p>
+<h2 id="适用于其他注释的注释"><a href="#适用于其他注释的注释" class="headerlink" title="适用于其他注释的注释"></a>适用于其他注释的注释</h2><ul>
+<li><p><strong>@Retention</strong>注解指定标记注释的存储方式：</p>
+<ul>
+<li><code>RetentionPolicy.SOURCE</code> - 标记的注释仅保留在源级别中，并由编译器忽略。</li>
+<li><code>RetentionPolicy.CLASS</code> - 标记的注释在编译时由编译器保留，但Java虚拟机（JVM）会忽略。</li>
+<li><code>RetentionPolicy.RUNTIME</code> - 标记的注释由JVM保留，因此运行时环境可以使用它。</li>
+</ul>
+</li>
+<li><p><strong>@Documented</strong>无论何时使用指定的注释，都应使用Javadoc工具记录这些元素。</p>
+</li>
+<li><p><strong>@Target</strong>注释标记另一个注释，以限制可以应用注释的Java元素类型。也就是在什么地方注释。</p>
+<ul>
+<li><code>ElementType.ANNOTATION_TYPE</code> 可以应用于注释类型。</li>
+<li><code>ElementType.CONSTRUCTOR</code> 可以应用于构造函数。</li>
+<li><code>ElementType.FIELD</code> 可以应用于字段或属性。</li>
+<li><code>ElementType.LOCAL_VARIABLE</code> 可以应用于局部变量。</li>
+<li><code>ElementType.METHOD</code> 可以应用于方法级注释。</li>
+<li><code>ElementType.PACKAGE</code> 可以应用于包声明。</li>
+<li><code>ElementType.PARAMETER</code> 可以应用于方法的参数。</li>
+<li><code>ElementType.TYPE</code> 可以应用于类的任何元素。</li>
+</ul>
+</li>
+<li><p><strong>@Inherited</strong>注释表明注释类型可以从超类继承。当用户查询注释类型并且该类没有此类型的注释时，将查询类的超类以获取注释类型。此注释仅适用于类声明。</p>
+</li>
+</ul>
+<h2 id="类型注释和可插入类型系统"><a href="#类型注释和可插入类型系统" class="headerlink" title="类型注释和可插入类型系统"></a>类型注释和可插入类型系统</h2><p>在<code>java SE 8</code>之前,注释只能应用于声明，在java SE 8之后，注释可以用于任何类型的使用。这种注释称为类型注释，例如常见的<code>@NonNull</code>等。</p>
+<h2 id="一些tip"><a href="#一些tip" class="headerlink" title="一些tip"></a>一些tip</h2><p>其实注解的定义很简单，就是@interface，然后配合@Target @Retention来说明注解的用在哪里，最后通过注解解释器，也就是反射，反射出注解以及其值下面给一个例子</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@MyAnnotation(color=<span class="meta-string">"red"</span>)</span><span class="comment">//应用MyAnnotation注解的color属性</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAnnotationTest</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> static void main(String[] args) &#123;</span><br><span class="line">        MyAnnotation <span class="keyword">annotation</span> = (MyAnnotation)MyAnnotationTest.<span class="keyword">class</span>.getAnnotation(MyAnnotation.<span class="keyword">class</span>);</span><br><span class="line">        System.<span class="keyword">out</span>.println(<span class="keyword">annotation</span>.color());<span class="comment">//输出red</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢您的鼓励~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="田昊 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="田昊 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/注解/" rel="tag"># 注解</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/21/Reflect-3/" rel="next" title="反射三步曲之三反射数组和枚举">
+                <i class="fa fa-chevron-left"></i> 反射三步曲之三反射数组和枚举
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/07/JNI介绍(一)/" rel="prev" title="JNI介绍(一)">
+                JNI介绍(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="田昊">
+            
+              <p class="site-author-name" itemprop="name">田昊</p>
+              <p class="site-description motion-element" itemprop="description">一个对技术有态度的程序员</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/THtianhao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="envelope" target="_blank" title="E-Mail tototianhao@gmail.com">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail tototianhao@gmail.com</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="QQ 356831631">
+                      
+                        <i class="fa fa-fw fa-globe"></i>QQ 356831631</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="tel 13233422221">
+                      
+                        <i class="fa fa-fw fa-globe"></i>tel 13233422221</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="weChat toto000888">
+                      
+                        <i class="fa fa-fw fa-globe"></i>weChat toto000888</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#注解"><span class="nav-number">1.</span> <span class="nav-text">注解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注解的基础"><span class="nav-number">1.1.</span> <span class="nav-text">注解的基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#声明注释类型"><span class="nav-number">1.2.</span> <span class="nav-text">声明注释类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预定义的注释类型"><span class="nav-number">1.3.</span> <span class="nav-text">预定义的注释类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#适用于其他注释的注释"><span class="nav-number">1.4.</span> <span class="nav-text">适用于其他注释的注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型注释和可插入类型系统"><span class="nav-number">1.5.</span> <span class="nav-text">类型注释和可插入类型系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些tip"><span class="nav-number">1.6.</span> <span class="nav-text">一些tip</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">一点零点零</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">90.6k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'HLUXSB6s2sdrSljlaJgMe8x8-gzGzoHsz',
+        appKey: 'vaOKTphb8yk9eoDDp5NvC6Ip',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！快活呀！~',
+        avatar:'/upload/avatar.jpg',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

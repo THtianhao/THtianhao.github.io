@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="baidu-site-verification" content="Yu0REDPjKL">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C#,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="[TOC] C#编译 在.net上运行，.net包括CLR和类库 程序集包含一个介绍程序集的类型、版本、区域性和安全要求的清单。 用 C# 编写的源代码被编译成符合 CLI 规范的中间语言 (IL)。 IL 代码和资源（如位图和字符串）存储在磁盘上名为“程序集”的可执行文件（扩展名通常为 .exe 或 .dll）中 当 C# 程序执行时，程序集会加载到 CLR 中，可能根据清单中的信息执行各种操作">
+<meta name="keywords" content="C#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C#基本语法与Kotlin java的差异">
+<meta property="og:url" content="https://tianhao.info/2018/04/03/C#基本语法与Kotlin java的差异/index.html">
+<meta property="og:site_name" content="非淡泊无以明志，非宁静无以致远.">
+<meta property="og:description" content="[TOC] C#编译 在.net上运行，.net包括CLR和类库 程序集包含一个介绍程序集的类型、版本、区域性和安全要求的清单。 用 C# 编写的源代码被编译成符合 CLI 规范的中间语言 (IL)。 IL 代码和资源（如位图和字符串）存储在磁盘上名为“程序集”的可执行文件（扩展名通常为 .exe 或 .dll）中 当 C# 程序执行时，程序集会加载到 CLR 中，可能根据清单中的信息执行各种操作">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/THtianhao/Picture/master/20181217162307_C%23generate.jpg">
+<meta property="og:updated_time" content="2019-03-25T03:16:15.763Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C#基本语法与Kotlin java的差异">
+<meta name="twitter:description" content="[TOC] C#编译 在.net上运行，.net包括CLR和类库 程序集包含一个介绍程序集的类型、版本、区域性和安全要求的清单。 用 C# 编写的源代码被编译成符合 CLI 规范的中间语言 (IL)。 IL 代码和资源（如位图和字符串）存储在磁盘上名为“程序集”的可执行文件（扩展名通常为 .exe 或 .dll）中 当 C# 程序执行时，程序集会加载到 CLR 中，可能根据清单中的信息执行各种操作">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/THtianhao/Picture/master/20181217162307_C%23generate.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+  <link rel="canonical" href="https://tianhao.info/2018/04/03/C#基本语法与Kotlin java的差异/">
+
+
+
+
+
+  <title>C#基本语法与Kotlin java的差异 | 非淡泊无以明志，非宁静无以致远.</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://your-url" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">非淡泊无以明志，非宁静无以致远.</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tianhao.info/2018/04/03/C#基本语法与Kotlin java的差异/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="田昊">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非淡泊无以明志，非宁静无以致远.">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C#基本语法与Kotlin java的差异</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-03T05:15:06+08:00">
+                2018-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity3D/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity3D</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/04/03/C#基本语法与Kotlin java的差异/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/04/03/C#基本语法与Kotlin java的差异/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.8k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  11
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[TOC]</p>
+<h1 id="C-编译"><a href="#C-编译" class="headerlink" title="C#编译"></a>C#编译</h1><p><img src="https://raw.githubusercontent.com/THtianhao/Picture/master/20181217162307_C%23generate.jpg" alt></p>
+<p>在.net上运行，.net包括CLR和类库</p>
+<p>程序集包含一个介绍程序集的类型、版本、区域性和安全要求的清单。</p>
+<p>用 C# 编写的源代码被编译成符合 CLI 规范的中间语言 (IL)。 IL 代码和资源（如位图和字符串）存储在磁盘上名为“程序集”的可执行文件（扩展名通常为 .exe 或 .dll）中</p>
+<p>当 C# 程序执行时，程序集会加载到 CLR 中，可能根据清单中的信息执行各种操作。<br>然后，如果满足安全要求，CLR 会直接执行实时 (JIT) 编译，将 IL 代码转换成本机指令。CLR 还提供其他与自动垃圾回收、异常处理和资源管理相关的服务</p>
+<p>CLR 执行的代码有时称为“托管代码”（而不是“非托管代码”），被编译成面向特定系统的本机语言。</p>
+<h1 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h1><h2 id="类型变量"><a href="#类型变量" class="headerlink" title="类型变量"></a>类型变量</h2><ul>
+<li>有符号的整型：sbyte、short、int、long</li>
+<li>无符号的整型：byte、ushort、uint、ulong</li>
+</ul>
+<blockquote>
+<p>八个整型类型支持带符号或不带符号格式的 8 位、16 位、32 位和 64 位值。</p>
+</blockquote>
+<ul>
+<li>Unicode 字符：char</li>
+<li>IEEE 浮点：float、double</li>
+</ul>
+<blockquote>
+<p>两个浮点类型（float 和 double）分别使用 32 位单精度和 64 位双精度 IEC-60559 格式表示。</p>
+</blockquote>
+<ul>
+<li>高精度小数：decimal</li>
+</ul>
+<blockquote>
+<p>decimal 类型是适用于财务和货币计算的 128 位数据类型。<br>十进制<br>decimal：128 位，至少介于 -7.9 × 10-28 到 7.9 × 1028 之间，至少为 28 位精度</p>
+</blockquote>
+<ul>
+<li>布尔：bool</li>
+</ul>
+<p>枚举</p>
+<ul>
+<li>格式为 enum E {…} 的用户定义类型</li>
+</ul>
+<p>结构类型</p>
+<ul>
+<li>格式为 struct S {…} 的用户定义类型</li>
+</ul>
+<blockquote>
+<p>struct 类型定义包含数据成员和函数成员的结构，这一点与类类型相似。 不过，与类不同的是，结构是值类型，通常不需要进行堆分配。 结构类型不支持用户指定的继承，并且所有结构类型均隐式继承自类型 object。</p>
+</blockquote>
+<p>委托类型</p>
+<ul>
+<li>格式为 delegate int D(…) 的用户定义类型</li>
+</ul>
+<p>包箱和拆箱<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">class</span> <span class="title">BoxingExample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">123</span>;</span><br><span class="line">        <span class="keyword">object</span> o = i;    <span class="comment">// Boxing</span></span><br><span class="line">        <span class="keyword">int</span> j = (<span class="keyword">int</span>)o;  <span class="comment">// Unboxing</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><h3 id="访问修饰符"><a href="#访问修饰符" class="headerlink" title="访问修饰符"></a>访问修饰符</h3><ul>
+<li>internal 访问限于当前程序集。</li>
+<li>protected internal 访问限于当前程序集或派生自包含类的类型。</li>
+<li>private protected 访问限于包含类或当前程序集中派生自包含类的类型。 自 C# 7.2 之后可用。</li>
+<li>async 同flutter</li>
+<li>wait 同flutter</li>
+<li>const 编译时常量</li>
+<li>event 是一种特殊的多播委托</li>
+<li>extern 修饰符用于声明在外部实现的方法。使用 extern 修饰符意味着方法是在 C# 代码的外部实现的</li>
+</ul>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//using System.Runtime.InteropServices;</span></span><br><span class="line"><span class="keyword">class</span> <span class="title">ExternTest</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">DllImport(<span class="meta-string">"User32.dll"</span>, CharSet=CharSet.Unicode)</span>] </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">MessageBox</span>(<span class="params">IntPtr h, <span class="keyword">string</span> m, <span class="keyword">string</span> c, <span class="keyword">int</span> type</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Main</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">string</span> myString;</span><br><span class="line">        Console.Write(<span class="string">"Enter your message: "</span>);</span><br><span class="line">        myString = Console.ReadLine();</span><br><span class="line">        <span class="keyword">return</span> MessageBox((IntPtr)<span class="number">0</span>, myString, <span class="string">"My Message Box"</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>in 泛型修饰符 in 关键字可指定类型参数是逆变的。</li>
+<li>out 泛型修饰符 out 关键字可指定类型参数是协变的。 </li>
+<li>readonly 只在声明或者同一个类的构造函数中赋值</li>
+</ul>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">和<span class="keyword">const</span>的区别：</span><br><span class="line"><span class="keyword">const</span> 字段只能在该字段的声明中初始化。 可以在字段声明或任何构造函数中多次分配 <span class="keyword">readonly</span> 字段。 因此，根据所使用的构造函数，<span class="keyword">readonly</span> 字段可能具有不同的值。</span><br><span class="line"><span class="keyword">const</span>是编译时常量，<span class="keyword">readonly</span>是运行时常量</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> x;</span><br><span class="line">    <span class="comment">// Initialize a readonly field</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">readonly</span> <span class="keyword">int</span> y = <span class="number">25</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">readonly</span> <span class="keyword">int</span> z;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SampleClass</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// Initialize a readonly instance field</span></span><br><span class="line">        z = <span class="number">24</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SampleClass</span>(<span class="params"><span class="keyword">int</span> p1, <span class="keyword">int</span> p2, <span class="keyword">int</span> p3</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        x = p1;</span><br><span class="line">        y = p2;</span><br><span class="line">        z = p3;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">ref</span> <span class="keyword">return</span> 上的 <span class="keyword">readonly</span> 修饰符指示返回的引用无法修改。</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">readonly</span> Point origin = <span class="keyword">new</span> Point(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">ref</span> <span class="keyword">readonly</span> Point Origin =&gt; <span class="keyword">ref</span> origin;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>sealed 应用于某个类时，sealed 修饰符可阻止其他类继承自该类</li>
+<li>unsafe  关键字表示不安全上下文，该上下文是任何涉及指针的操作所必需的.</li>
+<li>virtual 关键字用于修改方法、属性、索引器或事件声明，并使它们可以在派生类中被重写。和抽象方法很相似</li>
+<li>volatile 关键字指示一个字段可以由多个同时执行的线程修改。<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">出于性能原因，编译器，运行时系统甚至硬件都可能重新排列对存储器位置的读取和写入。 </span><br><span class="line">声明了 <span class="keyword">volatile</span> 的字段不进行这些优化。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h2><ul>
+<li><p>felx 可以通过使用一个数组、字符串、固定大小的缓冲区或变量的地址来初始化指针。</p>
+</li>
+<li><p>lock 语句获取给定对象的互斥 lock，执行语句块，然后释放 lock。异步调用代码块</p>
+</li>
+</ul>
+<h2 id="方法参数"><a href="#方法参数" class="headerlink" title="方法参数"></a>方法参数</h2><hr>
+<blockquote>
+<p>不能将 in、ref 和 out 关键字用于以下几种方法：</p>
+<ul>
+<li>异步方法,通过使用 async 修饰符定义。</li>
+</ul>
+</blockquote>
+<ul>
+<li>迭代器方法，包括 yield return 或 yield break 语句。</li>
+</ul>
+<hr>
+<ul>
+<li>in 关键字通过引用传递参数。不同之处在于 in 参数无法通过调用的方法进行修改。<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InArgExample</span>(<span class="params"><span class="keyword">in</span> <span class="keyword">int</span> number</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Uncomment the following line to see error CS8331</span></span><br><span class="line">    <span class="comment">//number = 19;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>某些 struct 类型参数可能很大，在紧凑的循环或关键代码路径中调用方法时，<br>复制这些结构的成本就很高。<br>方法声明 in 参数以指定参数可能按引用安全传递，因为所调用的方法不修改该参数的状态。<br>按引用传递这些参数可以避免（可能产生的）高昂的复制成本。</p>
+</blockquote>
+<ul>
+<li>ref 关键字指示按引用传递的值。<ul>
+<li>在方法签名和方法调用中，按引用将参数传递给方法。 </li>
+<li>在方法签名中，按引用将值返回给调用方。 </li>
+<li>在成员正文中，指示引用返回值是否作为调用方欲修改的引用被存储在本地，或在一般情况下，局部变量按引用访问另一个值。 </li>
+<li>在 struct 声明中声明 ref struct 或 ref readonly struct。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>按引用传递的效果是，对所调用方法中参数进行的任何更改都反映在调用方法中。 例如，如果调用方传递本地变量表达式或数组元素访问表达式，所调用方法会替换 ref 参数引用的对象，然后，当该方法返回时，调用方的本地变量或数组元素将开始引用新对象。</p>
+</blockquote>
+<ul>
+<li>out 关键字通过引用传递参数。</li>
+</ul>
+<blockquote>
+<p>方法定义和调用方法均必须显式使用 out 关键字</p>
+</blockquote>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> initializeInMethod;</span><br><span class="line">OutArgExample(<span class="keyword">out</span> initializeInMethod);</span><br><span class="line">Console.WriteLine(initializeInMethod);     <span class="comment">// value is now 44</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">OutArgExample</span>(<span class="params"><span class="keyword">out</span> <span class="keyword">int</span> number</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    number = <span class="number">44</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在 C# 6 及更早版本中，必须先在单独的语句中声明变量，然后才能将其作为 out 参数传递。</p>
+</blockquote>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> <span class="keyword">number</span>;</span><br><span class="line"><span class="keyword">if</span> (Int32.TryParse(numberAsString, <span class="keyword">out</span> <span class="keyword">number</span>))</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>从 C# 7.0 开始，可以在方法调用的参数列表而不是单独的变量声明中声明 out 变量。</p>
+</blockquote>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> numberAsString = <span class="string">"1640"</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (Int32.TryParse(numberAsString, out <span class="built_in">int</span> <span class="built_in">number</span>))</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>你也可以声明一个隐式类型本地变量，</p>
+</blockquote>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Int32.TryParse(numberAsString, <span class="keyword">out</span> <span class="keyword">var</span> number)</span><br></pre></td></tr></table></figure>
+<h2 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h2><hr>
+<ul>
+<li>namespace 关键字用于声明包含一组相关对象的作用域。 可以使用命名空间来组织代码元素并创建全局唯一类型。</li>
+</ul>
+<hr>
+<ul>
+<li>using <ul>
+<li>允许在命名空间中使用类型，这样无需在该命名空间中限定某个类型的使用<ul>
+<li>using System.Text;  </li>
+</ul>
+</li>
+<li>允许访问类型的静态成员和嵌套类型，而无需限定使用类型名称进行访问。<ul>
+<li>using static System.Math;   </li>
+</ul>
+</li>
+<li>为命名空间或类型创建别名。 这称为 using 别名指令。<ul>
+<li>using Project = PC.MyCompany.Project;   </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>可能出现 using 指令的位置：</p>
+<ul>
+<li>源代码文件的开头，位于任何命名空间或类型定义之前。</li>
+<li>在任何命名空间中，但位于此命名空间中声明的任何命名空间或类型之前。</li>
+</ul>
+</blockquote>
+<h2 id="运算符关键字"><a href="#运算符关键字" class="headerlink" title="运算符关键字"></a>运算符关键字</h2><ul>
+<li>await 同Flutter</li>
+<li>new </li>
+<li>sizeof</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">sizeof</span><span class="params">(sbyte)</span></span>	<span class="number">1</span></span><br><span class="line"><span class="function"><span class="title">sizeof</span><span class="params">(byte)</span></span>	<span class="number">1</span></span><br><span class="line"><span class="function"><span class="title">sizeof</span><span class="params">(short)</span></span>	<span class="number">2</span></span><br><span class="line"><span class="function"><span class="title">sizeof</span><span class="params">(ushort)</span></span>	<span class="number">2</span></span><br><span class="line"><span class="function"><span class="title">sizeof</span><span class="params">(int)</span></span>	<span class="number">4</span></span><br><span class="line"><span class="function"><span class="title">sizeof</span><span class="params">(uint)</span></span>	<span class="number">4</span></span><br><span class="line"><span class="function"><span class="title">sizeof</span><span class="params">(long)</span></span>	<span class="number">8</span></span><br><span class="line"><span class="function"><span class="title">sizeof</span><span class="params">(ulong)</span></span>	<span class="number">8</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>typeof</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.Type<span class="built_in"> type </span>= typeof(int);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>stackallow 在不安全代码上下文中使用 stackalloc 关键字在堆栈上分配内存块。</p>
+</li>
+<li>nameof 用于获取变量、类型或成员的简单（非限定）字符串名称。</li>
+</ul>
+<h2 id="转换关键字"><a href="#转换关键字" class="headerlink" title="转换关键字"></a>转换关键字</h2><ul>
+<li><p>explicit 关键字声明必须通过转换来调用的用户定义的类型转换运算符。</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Fahrenheit fahr = new Fahrenheit(<span class="number">100</span>.<span class="number">0</span>f)<span class="comment">;</span></span><br><span class="line">Console.Write($<span class="string">"&#123;fahr.Degrees&#125; Fahrenheit"</span>)<span class="comment">;</span></span><br><span class="line">Celsius c = (Celsius)fahr<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>implicit 关键字用于声明隐式的用户定义类型转换运算符。</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// User-defined conversion from Digit to <span class="keyword">double</span></span><br><span class="line"><span class="keyword">public</span> static <span class="keyword">implicit</span> operator <span class="keyword">double</span>(Digit d)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> d.val;</span><br><span class="line">&#125;</span><br><span class="line">//  User-defined conversion from <span class="keyword">double</span> to Digit</span><br><span class="line"><span class="keyword">public</span> static <span class="keyword">implicit</span> operator Digit(<span class="keyword">double</span> d)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> new Digit(d);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">    Digit dig = new Digit(<span class="number">7</span>);</span><br><span class="line">    //This <span class="keyword">call</span> invokes the <span class="keyword">implicit</span> <span class="string">"double"</span> operator</span><br><span class="line">    <span class="keyword">double</span> num = dig;</span><br><span class="line">    //This <span class="keyword">call</span> invokes the <span class="keyword">implicit</span> <span class="string">"Digit"</span> operator</span><br><span class="line">    Digit dig2 = <span class="number">12</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>operator</p>
+<blockquote>
+<p>使用 operator 关键字重载内置运算符，或在类或结构声明中提供用户定义的转换</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public <span class="keyword">static</span> Fraction <span class="keyword">operator</span> +(Fraction a, Fraction b)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Fraction(a.<span class="built_in">num</span> * b.den + b.<span class="built_in">num</span> * a.den,</span><br><span class="line">       a.den * b.den);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<h2 id="上下文关键字"><a href="#上下文关键字" class="headerlink" title="上下文关键字"></a>上下文关键字</h2><ul>
+<li>global 上下文关键字位于 :: 运算符 之前时引用全局命名空间（即任何 C# 程序的默认命名空间，否则其未被命名）。</li>
+<li><p>when 在以下两个上下文中，可以使用上下文关键字 when 指定筛选条件</p>
+<ul>
+<li><p>try-cache中使用</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">catch</span> (HttpRequestException e) <span class="keyword">when</span> (e.Message.Contains(<span class="string">"301"</span>)) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">"Site Moved"</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>switch-case</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> (obj)</span><br><span class="line">  &#123;</span><br><span class="line">     <span class="keyword">case</span> Shape shape when shape.Area == <span class="number">0</span>:</span><br><span class="line">        Console.WriteLine(<span class="string">$"The shape: <span class="subst">&#123;shape.GetType().Name&#125;</span> with no dimensions"</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">     <span class="keyword">case</span> Square sq when sq.Area &gt; <span class="number">0</span>:</span><br><span class="line">        Console.WriteLine(<span class="string">"Information about the square:"</span>);</span><br><span class="line">        Console.WriteLine(<span class="string">$"   Length of a side: <span class="subst">&#123;sq.Side&#125;</span>"</span>);</span><br><span class="line">        Console.WriteLine(<span class="string">$"   Area: <span class="subst">&#123;sq.Area&#125;</span>"</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">     <span class="keyword">case</span> Rectangle r when r.Area &gt; <span class="number">0</span>:</span><br><span class="line">        Console.WriteLine(<span class="string">"Information about the rectangle:"</span>);</span><br><span class="line">        Console.WriteLine(<span class="string">$"   Dimensions: <span class="subst">&#123;r.Length&#125;</span> x <span class="subst">&#123;r.Width&#125;</span>"</span>);</span><br><span class="line">        Console.WriteLine(<span class="string">$"   Area: <span class="subst">&#123;r.Area&#125;</span>"</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">     <span class="keyword">case</span> Shape shape:</span><br><span class="line">        Console.WriteLine(<span class="string">$"A <span class="subst">&#123;shape.GetType().Name&#125;</span> shape"</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">     <span class="keyword">case</span> <span class="literal">null</span>:</span><br><span class="line">        Console.WriteLine(<span class="string">$"The <span class="subst">&#123;<span class="keyword">nameof</span>(obj)&#125;</span> variable is uninitialized."</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">     <span class="keyword">default</span>:</span><br><span class="line">        Console.WriteLine(<span class="string">$"The <span class="subst">&#123;<span class="keyword">nameof</span>(obj)&#125;</span> variable does not represent a Shape."</span>);</span><br><span class="line">        <span class="keyword">break</span>;   </span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>yield关键字</p>
+</li>
+</ul>
+<p>通过 foreach 语句或 LINQ 查询来使用迭代器方法。 foreach 循环的每次迭代都会调用迭代器方法。 迭代器方法运行到 yield return 语句时，会返回一个 expression，并保留当前在代码中的位置。 下次调用迭代器函数时，将从该位置重新开始执行</p>
+<p>返回 yield 或 IEnumerable 的迭代器的 IEnumerator 类型为 object。 如果迭代器返回 IEnumerable<t> 或 IEnumerator<t>，则必须将 yield return 语句中的表达式类型隐式转换为泛型类型参数。</t></t></p>
+<h2 id="查询关键字"><a href="#查询关键字" class="headerlink" title="查询关键字"></a>查询关键字</h2><ul>
+<li>asending</li>
+<li>desending</li>
+</ul>
+<h2 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h2><h3 id="基本表达式"><a href="#基本表达式" class="headerlink" title="基本表达式"></a>基本表达式</h3><ul>
+<li>new {…}：匿名对象初始值设定项</li>
+<li>typeof(T)：获取 T 的 Type 对象</li>
+<li>checked(x)：在已检查的上下文中计算表达式</li>
+<li>unchecked(x)：在未检查的上下文中计算表达式</li>
+<li>default(T)：获取类型为 T 的默认值</li>
+<li>delegate {…}：匿名函数（匿名方法）</li>
+</ul>
+<h3 id="一元运算"><a href="#一元运算" class="headerlink" title="一元运算"></a>一元运算</h3><ul>
+<li>+x：标识</li>
+<li>~x：按位取反</li>
+<li>await x：异步等待 x 完成</li>
+</ul>
+<h3 id="关系和类型测试"><a href="#关系和类型测试" class="headerlink" title="关系和类型测试"></a>关系和类型测试</h3><ul>
+<li>x is T：如果 x 是 T，返回 true；否则，返回 false</li>
+<li>x as T：返回类型为 T 的 x；如果 x 的类型不是 T，返回 null</li>
+</ul>
+<h3 id="null-合并"><a href="#null-合并" class="headerlink" title="null 合并"></a>null 合并</h3><ul>
+<li>x ?? y：如果 x 为 null，计算结果为 y；否则，计算结果为 x</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢您的鼓励~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="田昊 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="田昊 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C#</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/11/Dart语言与Java和Kotlin的差异/" rel="next" title="Dart语言与Java和Kotlin的差异">
+                <i class="fa fa-chevron-left"></i> Dart语言与Java和Kotlin的差异
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/06/Flutter学习Demo1/" rel="prev" title="Flutter学习Demo1">
+                Flutter学习Demo1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="田昊">
+            
+              <p class="site-author-name" itemprop="name">田昊</p>
+              <p class="site-description motion-element" itemprop="description">一个对技术有态度的程序员</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/THtianhao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="envelope" target="_blank" title="E-Mail tototianhao@gmail.com">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail tototianhao@gmail.com</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="QQ 356831631">
+                      
+                        <i class="fa fa-fw fa-globe"></i>QQ 356831631</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="tel 13233422221">
+                      
+                        <i class="fa fa-fw fa-globe"></i>tel 13233422221</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="weChat toto000888">
+                      
+                        <i class="fa fa-fw fa-globe"></i>weChat toto000888</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C-编译"><span class="nav-number">1.</span> <span class="nav-text">C#编译</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本语法"><span class="nav-number">2.</span> <span class="nav-text">基本语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类型变量"><span class="nav-number">2.1.</span> <span class="nav-text">类型变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修饰符"><span class="nav-number">2.2.</span> <span class="nav-text">修饰符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#访问修饰符"><span class="nav-number">2.2.1.</span> <span class="nav-text">访问修饰符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语句"><span class="nav-number">2.3.</span> <span class="nav-text">语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法参数"><span class="nav-number">2.4.</span> <span class="nav-text">方法参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命名空间"><span class="nav-number">2.5.</span> <span class="nav-text">命名空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运算符关键字"><span class="nav-number">2.6.</span> <span class="nav-text">运算符关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转换关键字"><span class="nav-number">2.7.</span> <span class="nav-text">转换关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上下文关键字"><span class="nav-number">2.8.</span> <span class="nav-text">上下文关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询关键字"><span class="nav-number">2.9.</span> <span class="nav-text">查询关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表达式"><span class="nav-number">2.10.</span> <span class="nav-text">表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本表达式"><span class="nav-number">2.10.1.</span> <span class="nav-text">基本表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一元运算"><span class="nav-number">2.10.2.</span> <span class="nav-text">一元运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关系和类型测试"><span class="nav-number">2.10.3.</span> <span class="nav-text">关系和类型测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null-合并"><span class="nav-number">2.10.4.</span> <span class="nav-text">null 合并</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">一点零点零</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">90.6k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'HLUXSB6s2sdrSljlaJgMe8x8-gzGzoHsz',
+        appKey: 'vaOKTphb8yk9eoDDp5NvC6Ip',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！快活呀！~',
+        avatar:'/upload/avatar.jpg',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

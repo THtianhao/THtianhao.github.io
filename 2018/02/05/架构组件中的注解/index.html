@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="baidu-site-verification" content="Yu0REDPjKL">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="MVVM,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="架构组件中的注解 在架构组件中，由于注册了声明周期，所以可以在任何地方利用注解使用声明周期，而不用去添加调用方法啦！这个用途非常广！，Flutter也用到了这个办法管理FlutterView的声明周期123static class BoundLocationListener implements LifecycleObserverlifecycleOwner.getLifecycle().addO">
+<meta name="keywords" content="MVVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android架构组件中的注解">
+<meta property="og:url" content="https://tianhao.info/2018/02/05/架构组件中的注解/index.html">
+<meta property="og:site_name" content="非淡泊无以明志，非宁静无以致远.">
+<meta property="og:description" content="架构组件中的注解 在架构组件中，由于注册了声明周期，所以可以在任何地方利用注解使用声明周期，而不用去添加调用方法啦！这个用途非常广！，Flutter也用到了这个办法管理FlutterView的声明周期123static class BoundLocationListener implements LifecycleObserverlifecycleOwner.getLifecycle().addO">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-25T03:16:15.772Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android架构组件中的注解">
+<meta name="twitter:description" content="架构组件中的注解 在架构组件中，由于注册了声明周期，所以可以在任何地方利用注解使用声明周期，而不用去添加调用方法啦！这个用途非常广！，Flutter也用到了这个办法管理FlutterView的声明周期123static class BoundLocationListener implements LifecycleObserverlifecycleOwner.getLifecycle().addO">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+  <link rel="canonical" href="https://tianhao.info/2018/02/05/架构组件中的注解/">
+
+
+
+
+
+  <title>Android架构组件中的注解 | 非淡泊无以明志，非宁静无以致远.</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://your-url" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">非淡泊无以明志，非宁静无以致远.</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tianhao.info/2018/02/05/架构组件中的注解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="田昊">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非淡泊无以明志，非宁静无以致远.">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android架构组件中的注解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-05T06:19:08+08:00">
+                2018-02-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/02/05/架构组件中的注解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/02/05/架构组件中的注解/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="架构组件中的注解"><a href="#架构组件中的注解" class="headerlink" title="架构组件中的注解"></a>架构组件中的注解</h1><p> 在架构组件中，由于注册了声明周期，所以可以在任何地方利用注解使用声明周期，而不用去添加调用方法啦！这个用途非常广！，Flutter也用到了这个办法管理FlutterView的声明周期<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">BoundLocationListener</span> <span class="keyword">implements</span> <span class="title">LifecycleObserver</span></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"><span class="title">lifecycleOwner</span>.<span class="title">getLifecycle</span>().<span class="title">addObserver</span>(<span class="title">this</span>)</span>;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@OnLifecycleEvent</span>(Lifecycle.Event.ON_RESUME)</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addLocationListener</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Note: Use the Fused Location Provider from Google Play Services instead.</span></span><br><span class="line">    <span class="comment">// https://developers.google.com/android/reference/com/google/android/gms/location/FusedLocationProviderApi</span></span><br><span class="line"></span><br><span class="line">    mLocationManager =</span><br><span class="line">            (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);</span><br><span class="line">    mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, <span class="number">0</span>, <span class="number">0</span>, mListener);</span><br><span class="line">    Log.d(<span class="string">"BoundLocationMgr"</span>, <span class="string">"Listener added"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Force an update with the last location, if available.</span></span><br><span class="line">    Location lastLocation = mLocationManager.getLastKnownLocation(</span><br><span class="line">            LocationManager.GPS_PROVIDER);</span><br><span class="line">    <span class="keyword">if</span> (lastLocation != <span class="keyword">null</span>) &#123;</span><br><span class="line">        mListener.onLocationChanged(lastLocation);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么看一下此的实现</p>
+<p>首先在上一个流程当中<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">static <span class="type">GenericLifecycleObserver</span> getCallback(<span class="type">Object</span> <span class="class"><span class="keyword">object</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="class"><span class="keyword">object</span> <span class="title">instanceof</span> <span class="title">FullLifecycleObserver</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">FullLifecycleObserverAdapter</span>((<span class="type">FullLifecycleObserver</span>) <span class="class"><span class="keyword">object</span>)</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="class"><span class="keyword">object</span> <span class="title">instanceof</span> <span class="title">GenericLifecycleObserver</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> (<span class="type">GenericLifecycleObserver</span>) <span class="class"><span class="keyword">object</span></span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="type">Class</span>&lt;?&gt; klass = <span class="class"><span class="keyword">object</span>.<span class="title">getClass</span>(<span class="params"></span>)</span>;</span><br><span class="line">        int <span class="class"><span class="keyword">type</span> </span>= getObserverConstructorType(klass);</span><br><span class="line">        <span class="keyword">if</span> (<span class="class"><span class="keyword">type</span> <span class="title">==</span> <span class="title">GENERATED_CALLBACK</span>) </span>&#123;</span><br><span class="line">            <span class="type">List</span>&lt;<span class="type">Constructor</span>&lt;? <span class="keyword">extends</span> <span class="type">GeneratedAdapter</span>&gt;&gt; constructors =</span><br><span class="line">                    sClassToAdapters.get(klass);</span><br><span class="line">            <span class="keyword">if</span> (constructors.size() == <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="type">GeneratedAdapter</span> generatedAdapter = createGeneratedAdapter(</span><br><span class="line">                        constructors.get(<span class="number">0</span>), <span class="class"><span class="keyword">object</span>)</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">SingleGeneratedAdapterObserver</span>(generatedAdapter);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">GeneratedAdapter</span>[] adapters = <span class="keyword">new</span> <span class="type">GeneratedAdapter</span>[constructors.size()];</span><br><span class="line">            <span class="keyword">for</span> (int i = <span class="number">0</span>; i &lt; constructors.size(); i++) &#123;</span><br><span class="line">                adapters[i] = createGeneratedAdapter(constructors.get(i), <span class="class"><span class="keyword">object</span>)</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">CompositeGeneratedAdaptersObserver</span>(adapters);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">ReflectiveGenericLifecycleObserver</span>(<span class="class"><span class="keyword">object</span>)</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这里判断Observer类型的时候，如果不是以上任何类型的Observer的话，那么就是默认的ReflectiveGenericLifecycleObserver（）<br>那么在在这个类的构造方法<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ReflectiveGenericLifecycleObserver(Object wrapped) &#123;</span><br><span class="line">        mWrapped = wrapped<span class="comment">;</span></span><br><span class="line">        mInfo = ClassesInfoCache.sInstance.getInfo(mWrapped.getClass())<span class="comment">;</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>从ClassesInfoCache里面拿了一个info<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CallbackInfo getInfo(Class klass) &#123;</span><br><span class="line">    CallbackInfo existing = mCallbackMap.<span class="keyword">get</span>(klass);</span><br><span class="line">    <span class="keyword">if</span> (existing != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> existing;</span><br><span class="line">    &#125;</span><br><span class="line">    existing = createInfo(klass, <span class="literal">null</span>);</span><br><span class="line">    <span class="keyword">return</span> existing;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>那么在反射建立的方法中<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">Class</span> superclass = klass.getSuperclass();</span><br><span class="line">Map&lt;MethodReference, Lifecycle.EventhandlerToEvent = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"><span class="keyword">if</span> (superclass != null) <span class="comment">&#123;</span></span><br><span class="line"><span class="comment">    CallbackInfo superInfo getInfo(superclass);</span></span><br><span class="line"><span class="comment">    if (superInfo != null) &#123;</span></span><br><span class="line"><span class="comment">handlerToEvent.putAll(superInfo.mHandlToEvent);</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Class</span>[] interfaces = klass.getInterfaces();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">Class</span> intrfc : interfaces) <span class="comment">&#123;</span></span><br><span class="line"><span class="comment">    for (Map.Entry&lt;MethodReferenceLifecycle.Event&gt; entry : getInfo(</span></span><br><span class="line"><span class="comment">            intrfc).mHandlerToEvent.entrySet()&#123;</span></span><br><span class="line"><span class="comment">        verifyAndPutHandler(handlerToEvententry.getKey(), entry.getValue()klass);</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">Method</span>[] <span class="title">methods</span> = <span class="title">declaredMethods</span> != <span class="title">null</span> <span class="title">declaredMethods</span> :</span> getDeclaredMethods(klass);</span><br><span class="line">boolean hasLifecycleMethods = <span class="keyword">false</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="function"><span class="keyword">Method</span> <span class="title">method</span> :</span> methods) <span class="comment">&#123;</span></span><br><span class="line"><span class="comment">    OnLifecycleEvent annotation method.getAnnotation(OnLifecycleEvent.clas;</span></span><br><span class="line"><span class="comment">    if (annotation == null) &#123;</span></span><br><span class="line"><span class="comment">        continue;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line">    hasLifecycleMethods = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">Class</span>&lt;?&gt;[] <span class="keyword">params</span> <span class="function"><span class="keyword">method</span>.<span class="title">getParameterTypes</span><span class="params">()</span>;</span></span><br><span class="line">    int callType = CALL_TYPE_NO_ARG;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">params</span>.length &gt; <span class="number">0</span>) <span class="comment">&#123;</span></span><br><span class="line"><span class="comment">        callType = CALL_TYPE_PROVIDER;</span></span><br><span class="line"><span class="comment">        i(!params[0].isAssignableFrom(Lifecyclener.class)) &#123;</span></span><br><span class="line"><span class="comment">            throw new IllegalArgumentException(</span></span><br><span class="line"><span class="comment">                    "invalid parameter typeMust be one and instanceoLifecycleOwner");</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line">    &#125;</span><br><span class="line">    Lifecycle.Event <span class="keyword">event</span> = annotation.value()</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">params</span>.length &gt; <span class="number">1</span>) <span class="comment">&#123;</span></span><br><span class="line"><span class="comment">        callType CALL_TYPE_PROVIDER_WITH_EVENT;</span></span><br><span class="line"><span class="comment">        i(!params[1].isAssignableFrom(Lifecyclevent.class)) &#123;</span></span><br><span class="line"><span class="comment">            throw new IllegalArgumentException(</span></span><br><span class="line"><span class="comment">                    "invalid parameter typesecond arg must be aevent");</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">event</span> != Lifecycle.Event.ON_ANY) <span class="comment">&#123;</span></span><br><span class="line"><span class="comment">            throw new IllegalArgumentException(</span></span><br><span class="line"><span class="comment">                    "Second arg is supporteonly for ON_ANY value");</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">params</span>.length &gt; <span class="number">2</span>) <span class="comment">&#123;</span></span><br><span class="line"><span class="comment">        throw neIllegalArgumentException("cannot havmore than 2 params");</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line">    MethodReference methodReference = neMethodReference(callType, <span class="function"><span class="keyword">method</span>);</span></span><br><span class="line">    verifyAndPutHandler(handlerToEventmethodReference, <span class="keyword">event</span>, klass);</span><br><span class="line">&#125;</span><br><span class="line">CallbackInfo info = neCallbackInfo(handlerToEvent);</span><br><span class="line">mCallbackMap.put(klass, info);</span><br><span class="line">mHasLifecycleMethods.put(klasshasLifecycleMethods);</span><br><span class="line">return info;</span><br></pre></td></tr></table></figure></p>
+<p>那么从中可以看到，作为Observer的注解的方法是不可以有参数的，如果参数为1个，必须是（LifecycleOwner类型）如果行参有两个那么必须是（Lifecycle.Event.class)类型），若为两个以上是不行的<br>并且在<br>MethodReference中<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MethodReference(int callType, <span class="function"><span class="keyword">Method</span> <span class="title">method</span>) <span class="comment">&#123;</span></span></span><br><span class="line"><span class="function"><span class="comment">    mCallType = callType;</span></span></span><br><span class="line"><span class="function"><span class="comment">    mMethod = method;</span></span></span><br><span class="line"><span class="function"><span class="comment">    mMethod.setAccessible(true);</span></span></span><br><span class="line"><span class="function"><span class="comment">&#125;</span></span></span><br></pre></td></tr></table></figure></p>
+<p>并且在取消了编译时方法检查</p>
+<p>由此我们可知，官方偷偷的留了一手，其实这个注解还有两个隐藏使用方法</p>
+<p>首先在Event中可以看到<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">enum</span> <span class="title">Event</span> &#123;</span></span><br><span class="line"></span><br><span class="line">        ON_CREATE,</span><br><span class="line"></span><br><span class="line">        ON_START,</span><br><span class="line"></span><br><span class="line">        ON_RESUME,</span><br><span class="line"></span><br><span class="line">        ON_PAUSE,</span><br><span class="line"></span><br><span class="line">        ON_STOP,</span><br><span class="line"></span><br><span class="line">        ON_DESTROY,</span><br><span class="line"></span><br><span class="line">        ON_ANY</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>那么我的注解如果写成<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">OnLifecycleEvent</span>(<span class="keyword">Lifecycle</span>.<span class="keyword">Event</span>.<span class="keyword">ON_ANY</span>)</span><br></pre></td></tr></table></figure></p>
+<p>会回调所有的方法</p>
+<p>从注解代码中可以看到必须是两个参数才会将flog设置为ANY</p>
+<h3 id="官方的骚操作"><a href="#官方的骚操作" class="headerlink" title="官方的骚操作"></a>官方的骚操作</h3><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">invokeCallbacks</span>(<span class="params">LifecycleOwner source, Lifecycle.Event <span class="keyword">event</span>, Object target</span>)</span> &#123;</span><br><span class="line">    invokeMethodsForEvent(mEventToHandlers.<span class="keyword">get</span>(<span class="keyword">event</span>), source, <span class="keyword">event</span>, target);</span><br><span class="line">    invokeMethodsForEvent(mEventToHandlers.<span class="keyword">get</span>(Lifecycle.Event.ON_ANY), source, <span class="keyword">event</span>,</span><br><span class="line">            target);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>拿到所有evet持有的方法<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@SuppressWarnings(<span class="string">"ConstantConditions"</span>)</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">invokeCallbacks</span>(<span class="params">LifecycleOwner source, Lifecycle.Event <span class="keyword">event</span>, Object target</span>)</span> &#123;</span><br><span class="line">    invokeMethodsForEvent(mEventToHandlers.<span class="keyword">get</span>(<span class="keyword">event</span>), source, <span class="keyword">event</span>, target);</span><br><span class="line">    invokeMethodsForEvent(mEventToHandlers.<span class="keyword">get</span>(Lifecycle.Event.ON_ANY), source, <span class="keyword">event</span>,</span><br><span class="line">            target);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">invokeMethodsForEvent</span>(<span class="params">List&lt;MethodReference&gt; handlers,</span></span></span><br><span class="line"><span class="function"><span class="params">        LifecycleOwner source, Lifecycle.Event <span class="keyword">event</span>, Object mWrapped</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (handlers != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = handlers.size() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            handlers.<span class="keyword">get</span>(i).invokeCallback(source, <span class="keyword">event</span>, mWrapped);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> CALL_TYPE_NO_ARG:</span><br><span class="line">    mMethod.invoke(<span class="keyword">target</span>);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">case</span> CALL_TYPE_PROVIDER:</span><br><span class="line">    mMethod.invoke(<span class="keyword">target</span>, source);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">case</span> CALL_TYPE_PROVIDER_WITH_EVENT:</span><br><span class="line">    mMethod.invoke(<span class="keyword">target</span>, source, event);</span><br><span class="line">    <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="google官方的骚操作"><a href="#google官方的骚操作" class="headerlink" title="google官方的骚操作"></a>google官方的骚操作</h3><p>那么这个注解隐藏的两个接口就是<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@OnLifecycleEvent(Lifecycle.Event.ON_ANY)</span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">method</span><span class="params">(LifecycleOwner owner,Lifecycle.<span class="keyword">Event</span> <span class="keyword">event</span>)</span></span></span><br><span class="line"><span class="function">   </span></span><br><span class="line"><span class="function">   //或者是</span></span><br><span class="line"><span class="function">   </span></span><br><span class="line"><span class="function">@<span class="title">OnLifecycleEvent</span><span class="params">(Lifecycle.<span class="keyword">Event</span>.ONC_REATE)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">   <span class="title">method</span><span class="params">(LifecycleOwner owner)</span></span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="2018-8-7更新"><a href="#2018-8-7更新" class="headerlink" title="2018.8.7更新"></a>2018.8.7更新</h2><p>Flutter中用到了这个办法来执行FlutterView的声明周期<br><figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">lifecycle.addObserver(<span class="keyword">new</span> LifecycleObserver() &#123;</span><br><span class="line">      <span class="meta">@OnLifecycleEvent</span>(Lifecycle.Event.ON_CREATE)</span><br><span class="line">      <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> FlutterRunArguments arguments = <span class="keyword">new</span> FlutterRunArguments();</span><br><span class="line">        arguments.bundlePath = FlutterMain.findAppBundlePath(activity.getApplicationContext());</span><br><span class="line">        arguments.entrypoint = <span class="string">"main"</span>;</span><br><span class="line">        flutterView.runFromBundle(arguments);</span><br><span class="line">        GeneratedPluginRegistrant.registerWith(flutterView.getPluginRegistry());</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="meta">@OnLifecycleEvent</span>(Lifecycle.Event.ON_START)</span><br><span class="line">      <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onStart</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        flutterView.onStart();</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="meta">@OnLifecycleEvent</span>(Lifecycle.Event.ON_RESUME)</span><br><span class="line">      <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        flutterView.onPostResume();</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="meta">@OnLifecycleEvent</span>(Lifecycle.Event.ON_PAUSE)</span><br><span class="line">      <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onPause</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        flutterView.onPause();</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="meta">@OnLifecycleEvent</span>(Lifecycle.Event.ON_STOP)</span><br><span class="line">      <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onStop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        flutterView.onStop();</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="meta">@OnLifecycleEvent</span>(Lifecycle.Event.ON_DESTROY)</span><br><span class="line">      <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        flutterView.destroy();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢您的鼓励~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="田昊 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="田昊 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MVVM/" rel="tag"># MVVM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/04/架构组件之LiveData/" rel="next" title="Android 架构组件之LiveData">
+                <i class="fa fa-chevron-left"></i> Android 架构组件之LiveData
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/09/架构组件之Room数据库/" rel="prev" title="Android架构组件之Room数据库">
+                Android架构组件之Room数据库 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="田昊">
+            
+              <p class="site-author-name" itemprop="name">田昊</p>
+              <p class="site-description motion-element" itemprop="description">一个对技术有态度的程序员</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/THtianhao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="envelope" target="_blank" title="E-Mail tototianhao@gmail.com">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail tototianhao@gmail.com</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="QQ 356831631">
+                      
+                        <i class="fa fa-fw fa-globe"></i>QQ 356831631</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="tel 13233422221">
+                      
+                        <i class="fa fa-fw fa-globe"></i>tel 13233422221</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="weChat toto000888">
+                      
+                        <i class="fa fa-fw fa-globe"></i>weChat toto000888</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#架构组件中的注解"><span class="nav-number">1.</span> <span class="nav-text">架构组件中的注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#官方的骚操作"><span class="nav-number">1.0.1.</span> <span class="nav-text">官方的骚操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#google官方的骚操作"><span class="nav-number">1.0.2.</span> <span class="nav-text">google官方的骚操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2018-8-7更新"><span class="nav-number">1.1.</span> <span class="nav-text">2018.8.7更新</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">一点零点零</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">90.6k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'HLUXSB6s2sdrSljlaJgMe8x8-gzGzoHsz',
+        appKey: 'vaOKTphb8yk9eoDDp5NvC6Ip',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！快活呀！~',
+        avatar:'/upload/avatar.jpg',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="baidu-site-verification" content="Yu0REDPjKL">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Unity3D,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Unity与Andorid之间的调用在Unity3D开发中,可能会遇到需要在Android中进行一些操作的情况,那么我们如何做呢? 比如开发Android的jar和aar给Unity调用,这其中很多坑是Unity开发和Android 开发没有接触过的 Unity调用Android首先添加一个GameObject（Button） 然后在Hierarchy目录下找到Canvas中添加的Button，增">
+<meta name="keywords" content="Unity3D">
+<meta property="og:type" content="article">
+<meta property="og:title" content="U3D中Android和C#之间的调用">
+<meta property="og:url" content="https://tianhao.info/2018/11/15/U3D中Android和C之间的调用/index.html">
+<meta property="og:site_name" content="非淡泊无以明志，非宁静无以致远.">
+<meta property="og:description" content="Unity与Andorid之间的调用在Unity3D开发中,可能会遇到需要在Android中进行一些操作的情况,那么我们如何做呢? 比如开发Android的jar和aar给Unity调用,这其中很多坑是Unity开发和Android 开发没有接触过的 Unity调用Android首先添加一个GameObject（Button） 然后在Hierarchy目录下找到Canvas中添加的Button，增">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-25T03:16:15.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="U3D中Android和C#之间的调用">
+<meta name="twitter:description" content="Unity与Andorid之间的调用在Unity3D开发中,可能会遇到需要在Android中进行一些操作的情况,那么我们如何做呢? 比如开发Android的jar和aar给Unity调用,这其中很多坑是Unity开发和Android 开发没有接触过的 Unity调用Android首先添加一个GameObject（Button） 然后在Hierarchy目录下找到Canvas中添加的Button，增">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+  <link rel="canonical" href="https://tianhao.info/2018/11/15/U3D中Android和C之间的调用/">
+
+
+
+
+
+  <title>U3D中Android和C#之间的调用 | 非淡泊无以明志，非宁静无以致远.</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://your-url" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">非淡泊无以明志，非宁静无以致远.</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tianhao.info/2018/11/15/U3D中Android和C之间的调用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="田昊">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非淡泊无以明志，非宁静无以致远.">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">U3D中Android和C#之间的调用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-15T00:00:00Z">
+                2018-11-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity3D/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity3D</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/15/U3D中Android和C之间的调用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/11/15/U3D中Android和C之间的调用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Unity与Andorid之间的调用"><a href="#Unity与Andorid之间的调用" class="headerlink" title="Unity与Andorid之间的调用"></a>Unity与Andorid之间的调用</h1><p>在Unity3D开发中,可能会遇到需要在Android中进行一些操作的情况,那么我们如何做呢?</p>
+<p>比如开发Android的<code>jar</code>和<code>aar</code>给Unity调用,这其中很多坑是Unity开发和Android 开发没有接触过的</p>
+<h1 id="Unity调用Android"><a href="#Unity调用Android" class="headerlink" title="Unity调用Android"></a>Unity调用Android</h1><p>首先添加一个GameObject（Button）</p>
+<p>然后在Hierarchy目录下找到Canvas中添加的Button，增加些好的C#脚本</p>
+<p>在C#中的新建一个脚本，继承与<code>MonoBehaviour</code>然后在Update当中写入点击事件的捕获</p>
+<ul>
+<li><p>点击事件方法一</p>
+<div class="note warning"><p>使用这种方法注意，首先要在Canvas中添加这个脚本</p></div>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Update</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="comment">//左键        </span></span><br><span class="line">      <span class="keyword">if</span> (Input.GetMouseButtonDown(<span class="number">0</span>)) disFlag = <span class="literal">true</span>;</span><br><span class="line">      <span class="comment">//右键        </span></span><br><span class="line">      <span class="keyword">if</span> (Input.GetMouseButtonDown(<span class="number">1</span>)) disFlag = <span class="literal">true</span>;</span><br><span class="line">      <span class="comment">//中键        </span></span><br><span class="line">      <span class="keyword">if</span> (Input.GetMouseButtonDown(<span class="number">2</span>)) disFlag = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>点击事件方法二</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine.UI;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.Events;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ClickObject</span> :</span> MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span> <span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//获取按钮游戏对象</span></span><br><span class="line">        GameObject btnObj = GameObject.Find (<span class="string">"Canvas/Button"</span>);</span><br><span class="line">        <span class="comment">//获取按钮脚本组件</span></span><br><span class="line">        Button btn = (Button) btnObj.GetComponent&lt;Button&gt;();</span><br><span class="line">        <span class="comment">//添加点击侦听</span></span><br><span class="line">        btn.onClick.AddListener (onClick);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onClick</span> <span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Debug.Log (<span class="string">"click!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>点击事件添加方法三</li>
+</ul>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine.UI;<span class="comment">//Button的包</span></span><br><span class="line"><span class="keyword">using</span> UnityEngine.Events;<span class="comment">//</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ClickObject2</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Start</span> (<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">//获取按钮游戏对象</span></span><br><span class="line">        GameObject btnObj = GameObject.Find (<span class="string">"Canvas/Button"</span>);</span><br><span class="line">        <span class="comment">//获取按钮脚本组件</span></span><br><span class="line">        Button btn = (Button) btnObj.GetComponent&lt;Button&gt;();</span><br><span class="line">        <span class="comment">//添加点击侦听</span></span><br><span class="line">        btn.onClick.AddListener (<span class="keyword">delegate</span>() &#123;</span><br><span class="line">            onClick(btnObj);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onClick</span> (<span class="params">GameObject obj</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Debug.Log (<span class="string">"click: "</span> + obj.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果没有执行start中的</p>
+<figure class="highlight hsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取按钮游戏对象</span></span><br><span class="line">GameObject btnObj = GameObject.Find (<span class="string">"Canvas/Button"</span>)<span class="comment">;</span></span><br><span class="line"><span class="comment">//获取按钮脚本组件</span></span><br><span class="line"><span class="keyword">Button</span> btn = (<span class="keyword">Button</span>) btnObj.GetComponent&lt;<span class="keyword">Button</span>&gt;()<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Unity-调用android的一些tips"><a href="#Unity-调用android的一些tips" class="headerlink" title="Unity 调用android的一些tips"></a>Unity 调用android的一些tips</h2><h3 id="androidJavaClass和AndroidJavaObject的区别"><a href="#androidJavaClass和AndroidJavaObject的区别" class="headerlink" title="androidJavaClass和AndroidJavaObject的区别"></a>androidJavaClass和AndroidJavaObject的区别</h3><ul>
+<li><code>androidJavaClass</code> 只调用Activity的实例</li>
+<li><code>AndroidJavaObject</code>会创建一个对象</li>
+</ul>
+<h3 id="Unity在UI线程中调用andorid"><a href="#Unity在UI线程中调用andorid" class="headerlink" title="Unity在UI线程中调用andorid"></a>Unity在UI线程中调用andorid</h3><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">activity.Call(<span class="string">"runOnUiThread"</span>, <span class="keyword">new</span> AndroidJavaRunnable(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    plugin.Call(<span class="string">"testToast"</span>);</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+<h3 id="高级功能"><a href="#高级功能" class="headerlink" title="高级功能"></a>高级功能</h3><p>最初的使用是讲Unity导出android工程后,自带了class.jar文件</p>
+<p>我们不依赖于Unity来做一些事情的话需要使用Unity的扩展功能,如拿<code>UnityPlayerActivity</code>等</p>
+<p>首先我们需要拿到Unity的java类资源class.jar,在Unity中的<code>*/Applications/Unity* (on Mac)) in a sub-folder called *PlaybackEngines/AndroidPlayer/Variations/mono or il2cpp/Development or Release/Classes/*.</code></p>
+<p>如果引入了class.jar,通常你的aar在打包的时候会将<code>class.jar</code>带上,这样的话unity编译会有两个<code>class.jar</code>,我们可以在Android中这样做,新建一个modle然后,modle中添加<code>class.jar</code>,再创建依赖</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    <span class="keyword">compile</span> <span class="keyword">project</span>(<span class="string">':unitylibrary'</span>)</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从一个报错中可以看出来Unity调用Android是通过JNI调用的,签名符为<code>(Ljava/lang/String;)Ljava/lang/String;</code></p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">E/Unity: AndroidJavaException: java.lang.NoSuchMethodError: no non-<span class="keyword">static</span> method <span class="keyword">with</span> <span class="keyword">name</span>=<span class="string">'test1'</span> signature=<span class="string">'(Ljava/lang/String;)Ljava/lang/String;'</span> <span class="keyword">in</span> <span class="keyword">class</span> Ljava.lang.<span class="keyword">Object</span>;</span><br><span class="line">    java.lang.NoSuchMethodError: no non-<span class="keyword">static</span> method <span class="keyword">with</span> <span class="keyword">name</span>=<span class="string">'test1'</span> signature=<span class="string">'(Ljava/lang/String;)Ljava/lang/String;'</span> <span class="keyword">in</span> <span class="keyword">class</span> Ljava.lang.<span class="keyword">Object</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="获取android的类并且调用方法"><a href="#获取android的类并且调用方法" class="headerlink" title="获取android的类并且调用方法"></a>获取android的类并且调用方法</h2><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">AndroidJavaClass unityPlayer = <span class="keyword">new</span> AndroidJavaClass(<span class="string">"com.unity3d.player.UnityPlayer"</span>);</span><br><span class="line">AndroidJavaObject activity = unityPlayer.GetStatic(<span class="string">"currentActivity"</span>);</span><br><span class="line">activity.CallStatic(<span class="string">"testMethod"</span>);</span><br><span class="line"><span class="comment">//or</span></span><br><span class="line">activity.<span class="keyword">Call</span>(<span class="string">"testMethod"</span>, <span class="string">"testString"</span>);</span><br><span class="line"><span class="comment">//or</span></span><br><span class="line">activity.<span class="keyword">Call</span>(<span class="string">"runOnUiThread"</span>, <span class="keyword">new</span> AndroidJavaRunnable(() =&gt;</span><br><span class="line">                                                                   &#123;</span><br><span class="line">                    activity.<span class="keyword">Call</span>(<span class="string">"testMethod"</span>, <span class="string">"testString"</span>);</span><br><span class="line">            &#125;));</span><br><span class="line"><span class="comment">//or</span></span><br><span class="line">myClass.<span class="keyword">Call</span>(<span class="string">"testMethod"</span>, <span class="keyword">new</span> object[] &#123; <span class="string">"testString"</span> &#125; );</span><br></pre></td></tr></table></figure>
+<p>上面的真个流程是</p>
+<ol>
+<li>首先<code>new AndroidJavaClass</code>拿到类<code>UnityPlayer</code></li>
+<li>然后获取静态或者动态对象<code>unityPlayer.GetStatic</code></li>
+<li>用拿到的方法执行<code>CallStatic</code>或者<code>Call</code>来调用</li>
+<li>可以传递多个参数,可以是对象可以是字符创</li>
+</ol>
+<blockquote>
+<p>从这里可以看出来,是拿到了<code>UnityPlayer</code>的<code>currentActivity</code>,Unity的导出工程有<code>class.jar</code>中有这么一个包,这个是unity的api,如果要自己开发Unity的aar的话,这部分相当于调用<code>UnityPlayer.currentActivity</code>中拿到了当前activity</p>
+</blockquote>
+<h1 id="Android调用Unity"><a href="#Android调用Unity" class="headerlink" title="Android调用Unity"></a>Android调用Unity</h1><p>在android原生中</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UnityPlayer.UnitySendMessage(objectname, methodName, <span class="keyword">message</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>callbackName传递的是GameObject的名字</p>
+</li>
+<li><p>methodName传递的是方法名</p>
+</li>
+<li><p>message传递的是String参数</p>
+</li>
+</ul>
+<p>这里调用Unity方法的参数貌似只能是String.</p>
+<h1 id="Unity中开发Android时发现的一些东西"><a href="#Unity中开发Android时发现的一些东西" class="headerlink" title="Unity中开发Android时发现的一些东西"></a>Unity中开发Android时发现的一些东西</h1><ul>
+<li>开发aar的时候如何拿到一个Activity</li>
+</ul>
+<p>一开始不知道怎么拿Activity?后开想了一下,其实不就是Unity调用android的时候调用的过程吗?</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">UnityPlayer</span><span class="selector-class">.currentActivity</span>()</span><br></pre></td></tr></table></figure>
+<p>这样在aar开发的过程中就不需要调用activity了,但是注意,这个<code>UnityPlayer</code>是Unity架包中的,因此需要先将Unity的架包<code>class.jar</code>引入</p>
+<ul>
+<li>Android打aar怎么包含aar或者jar</li>
+</ul>
+<p>出现一种情况,要将代码打成<code>aar</code>,发现libs下的另一个<code>aar</code>,不出现在打包后的aar中</p>
+<p>这种情况解决的很诡异,我在libs中加了一个<code>jar</code>并在<code>gradle</code>中配置后打包后,另一个<code>aar</code> 就打进去了</p>
+<ul>
+<li>打aar的时候怎么不包含jar</li>
+</ul>
+<p>一般出现这种情况是因为需要获取一个Activity从而引入了Unity架包<code>class.jar</code>,有两种解决方案</p>
+<ol>
+<li><p>从libs目录下将这个jar移除,然后再进行关联</p>
+</li>
+<li><p>将aar解压,删除文件后再压缩,记得用命令 <code>unzip</code> 和<code>jar</code></p>
+</li>
+</ol>
+<h1 id="依赖配置"><a href="#依赖配置" class="headerlink" title="依赖配置"></a>依赖配置</h1><p>依次点击<code>Project Settings-&gt;Player-&gt;Publish Setting-&gt;Custom Gradle Template</code></p>
+<p>会在<code>Asset/Plugin/Android/</code>目录下生成<code>mainTemplate.gradle</code>文件</p>
+<p>然后就可以直接自己写gradle就可以啦</p>
+<h1 id="aar打包问题"><a href="#aar打包问题" class="headerlink" title="aar打包问题"></a>aar打包问题</h1><p>aar中是否包含aar或者jar用什么来表示呢?</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">implementation</span> <span class="selector-tag">fileTree</span>(<span class="attribute">include</span>: [<span class="string">'*.jar'</span>], <span class="attribute">dir</span>: <span class="string">'libs'</span>)</span><br></pre></td></tr></table></figure>
+<p>关键在<code>include: [&#39;*.jar&#39;]</code>中,如果是<code>include: [&#39;*.jar&#39;,&#39;*.aar&#39;]</code>就会将aar也打进去</p>
+<h1 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h1><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2019-01-09 20:59:37.602 17807-17837/com.crush.gogo E/Unity: NullReferenceException: Object reference <span class="keyword">not</span> <span class="builtin-name">set</span> <span class="keyword">to</span> an<span class="built_in"> instance </span>of an object</span><br><span class="line">      at GooglePayUnity.Start () [0x00054] <span class="keyword">in</span> &lt;b0bcfc76f7c5481a906ea15afbb434af&gt;:0</span><br></pre></td></tr></table></figure>
+<p>问题，UNity测试的时候出现错误，最后发现是改了GameObject后Untiy报错的</p>
+<ul>
+<li>那么得出结论<code>E/Unity</code>报错是Unity中的代码有问题,不是Android代码问题</li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://leoncvlt.com/blog/a-primer-on-android-plugin-development-in-unity/" target="_blank" rel="noopener">http://leoncvlt.com/blog/a-primer-on-android-plugin-development-in-unity/</a></p>
+
+      
+    </div>
+    
+    
+    
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢您的鼓励~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="田昊 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="田昊 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Unity3D/" rel="tag"># Unity3D</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/23/密码学/" rel="next" title="加密算法">
+                <i class="fa fa-chevron-left"></i> 加密算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/29/Hexo的一些配置/" rel="prev" title="Hexo的配置">
+                Hexo的配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="田昊">
+            
+              <p class="site-author-name" itemprop="name">田昊</p>
+              <p class="site-description motion-element" itemprop="description">一个对技术有态度的程序员</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/THtianhao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="envelope" target="_blank" title="E-Mail tototianhao@gmail.com">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail tototianhao@gmail.com</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="QQ 356831631">
+                      
+                        <i class="fa fa-fw fa-globe"></i>QQ 356831631</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="tel 13233422221">
+                      
+                        <i class="fa fa-fw fa-globe"></i>tel 13233422221</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="weChat toto000888">
+                      
+                        <i class="fa fa-fw fa-globe"></i>weChat toto000888</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Unity与Andorid之间的调用"><span class="nav-number">1.</span> <span class="nav-text">Unity与Andorid之间的调用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unity调用Android"><span class="nav-number">2.</span> <span class="nav-text">Unity调用Android</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Unity-调用android的一些tips"><span class="nav-number">2.1.</span> <span class="nav-text">Unity 调用android的一些tips</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#androidJavaClass和AndroidJavaObject的区别"><span class="nav-number">2.1.1.</span> <span class="nav-text">androidJavaClass和AndroidJavaObject的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Unity在UI线程中调用andorid"><span class="nav-number">2.1.2.</span> <span class="nav-text">Unity在UI线程中调用andorid</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高级功能"><span class="nav-number">2.1.3.</span> <span class="nav-text">高级功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取android的类并且调用方法"><span class="nav-number">2.2.</span> <span class="nav-text">获取android的类并且调用方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Android调用Unity"><span class="nav-number">3.</span> <span class="nav-text">Android调用Unity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unity中开发Android时发现的一些东西"><span class="nav-number">4.</span> <span class="nav-text">Unity中开发Android时发现的一些东西</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#依赖配置"><span class="nav-number">5.</span> <span class="nav-text">依赖配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#aar打包问题"><span class="nav-number">6.</span> <span class="nav-text">aar打包问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FAQ"><span class="nav-number">7.</span> <span class="nav-text">FAQ</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">一点零点零</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">90.6k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'HLUXSB6s2sdrSljlaJgMe8x8-gzGzoHsz',
+        appKey: 'vaOKTphb8yk9eoDDp5NvC6Ip',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！快活呀！~',
+        avatar:'/upload/avatar.jpg',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

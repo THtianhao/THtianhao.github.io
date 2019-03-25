@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="baidu-site-verification" content="Yu0REDPjKL">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android源码,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="[TOC] ActivityActivity的启动过程sequenceDiagram     ActivityThread-&amp;gt;&amp;gt;ActivityThread:main()init application     ActivityThread-&amp;gt;&amp;gt;ActivityThread:attach()      ActivityManagerNative-&amp;gt;&amp;gt;ActivityManagerNative:ge">
+<meta name="keywords" content="Android源码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Activity启动源码解析">
+<meta property="og:url" content="https://tianhao.info/2017/11/12/Activity启动源码解析/index.html">
+<meta property="og:site_name" content="非淡泊无以明志，非宁静无以致远.">
+<meta property="og:description" content="[TOC] ActivityActivity的启动过程sequenceDiagram     ActivityThread-&amp;gt;&amp;gt;ActivityThread:main()init application     ActivityThread-&amp;gt;&amp;gt;ActivityThread:attach()      ActivityManagerNative-&amp;gt;&amp;gt;ActivityManagerNative:ge">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-25T03:16:15.761Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Activity启动源码解析">
+<meta name="twitter:description" content="[TOC] ActivityActivity的启动过程sequenceDiagram     ActivityThread-&amp;gt;&amp;gt;ActivityThread:main()init application     ActivityThread-&amp;gt;&amp;gt;ActivityThread:attach()      ActivityManagerNative-&amp;gt;&amp;gt;ActivityManagerNative:ge">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+  <link rel="canonical" href="https://tianhao.info/2017/11/12/Activity启动源码解析/">
+
+
+
+
+
+  <title>Activity启动源码解析 | 非淡泊无以明志，非宁静无以致远.</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://your-url" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">非淡泊无以明志，非宁静无以致远.</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tianhao.info/2017/11/12/Activity启动源码解析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="田昊">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非淡泊无以明志，非宁静无以致远.">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Activity启动源码解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-12T09:15:31+08:00">
+                2017-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/12/Activity启动源码解析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/11/12/Activity启动源码解析/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[TOC]</p>
+<h1 id="Activity"><a href="#Activity" class="headerlink" title="Activity"></a>Activity</h1><h2 id="Activity的启动过程"><a href="#Activity的启动过程" class="headerlink" title="Activity的启动过程"></a>Activity的启动过程</h2><pre class="mermaid">sequenceDiagram
+    ActivityThread->>ActivityThread:main()init application
+    ActivityThread->>ActivityThread:attach() 
+    ActivityManagerNative->>ActivityManagerNative:getDefault
+    ActivityManagerNative->>ActivityManagerProxy:attachApplication
+    ActivityThread->>ActivityThread:handleLaunchActivity()
+    ActivityThread->>ActivityThread:performLaunchActivity(r, customIntent)</pre>
+
+<ul>
+<li>main()方法里面有个主要做了创建ActivityThread还有创建application的操作</li>
+</ul>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">final IActivityManager mgr = ActivityManagerNative.getDefault()<span class="comment">;</span></span><br><span class="line">mgr.attachApplication(mAppThread)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在attach里面 创建了ActivityManagerNative是一个单例,继承于Bundle，实现了IActivityManager，其实和native交互的方法接口</li>
+<li>单例获取的是一个代理类ActivityManagerProxy，其实ActivityManagerNative的一个内部类,那么是怎么创建的呢？拿单例的时候<br>先从service中拿到了activity的服务然后传递个asinterface<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton&lt;IActivityManager&gt; gDefault = <span class="keyword">new</span> 		Singleton&lt;IActivityManager&gt;() &#123;</span><br><span class="line">        <span class="keyword">protected</span> <span class="function">IActivityManager <span class="title">create</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            IBinder b = ServiceManager.getService(<span class="string">"activity"</span>);</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">false</span>) &#123;</span><br><span class="line">                Log.v(<span class="string">"ActivityManager"</span>, <span class="string">"default service binder = "</span> + b);</span><br><span class="line">            &#125;</span><br><span class="line">            IActivityManager am = asInterface(b);</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">false</span>) &#123;</span><br><span class="line">                Log.v(<span class="string">"ActivityManager"</span>, <span class="string">"default service = "</span> + am);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> am;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>再通过asinterface创建<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">public</span> IActivityManager <span class="title">asInterface</span>(<span class="params">IBinder obj</span>)</span> &#123;</span><br><span class="line">     <span class="keyword">if</span> (obj == <span class="literal">null</span>) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     IActivityManager <span class="keyword">in</span> =</span><br><span class="line">         (IActivityManager)obj.queryLocalInterface(descriptor);</span><br><span class="line">     <span class="keyword">if</span> (<span class="keyword">in</span> != <span class="literal">null</span>) &#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">in</span>;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">new</span> ActivityManagerProxy(obj);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>获取这个IBinder实例是为了和ActivityManager进行通讯，<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">IBinder b</span> = ServiceManager.getService(<span class="string">"activity"</span>);</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>再来看<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="literal">void</span> attachApplication(IApplicationThread app)&#123;</span><br><span class="line">  <span class="params">...</span></span><br><span class="line">  mRemote.transact(ATTACH_APPLICATION_TRANSACTION, <span class="built_in">data</span>, reply, <span class="number">0</span>);  </span><br><span class="line">  <span class="params">...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>这里讲这个IApplicationThread传递给 并且通过tracsact传递给ActivityManager<br>回到<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">final IActivityManager mgr = ActivityManagerNative.getDefault()<span class="comment">;</span></span><br><span class="line">mgr.attachApplication(mAppThread)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>这里面mAppThread是什么呢？是ActivityThread的一个内部类<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">ApplicationThread</span> <span class="keyword">extends</span> <span class="title">ApplicationThreadNative</span> </span>&#123;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>那么ApplicationThreadNative呢？<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">ApplicationThreadNative</span> <span class="keyword">extends</span> <span class="title">Binder</span></span></span><br><span class="line"><span class="class">        <span class="title">implements</span> <span class="title">IApplicationThread</span> </span>&#123;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>留意一下这个参数<br><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IApplicationThread</span> <span class="keyword"><span class="keyword">extends</span> <span class="type">IInterface</span></span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">String</span> descriptor = <span class="string">"android.app.IApplicationThread"</span>; </span><br><span class="line">    <span class="comment">//留意下这个参数</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>那么接着走attachApplication<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> final <span class="built_in">boolean</span> attachApplicationLocked(IApplicationThread <span class="keyword">thread</span></span><br><span class="line">, int pid) &#123;</span><br><span class="line">    <span class="params">...</span></span><br><span class="line">    <span class="keyword">thread</span>.bindApplication();</span><br><span class="line">    <span class="comment">//注意啦！</span></span><br><span class="line">    <span class="params">...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后和之前一样transact方法<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">public</span> final void <span class="keyword">bindApplication(String </span>packageName, ApplicationInfo <span class="meta">info</span>,</span><br><span class="line">        List&lt;ProviderInfo&gt; providers, ComponentName testName, ProfilerInfo profilerInfo,</span><br><span class="line">        <span class="keyword">Bundle </span>testArgs, IInstrumentationWatcher testWatcher,</span><br><span class="line">        IUiAutomationConnection uiAutomationConnection, int debugMode,</span><br><span class="line">        <span class="keyword">boolean </span>openGlTrace, <span class="keyword">boolean </span>restrictedBackupMode, <span class="keyword">boolean </span>persistent,</span><br><span class="line">        Configuration config, CompatibilityInfo compatInfo, <span class="meta">Map</span>&lt;<span class="keyword">String, </span>IBinder&gt; services,</span><br><span class="line">        <span class="keyword">Bundle </span>coreSettings) throws RemoteException &#123;</span><br><span class="line">    </span><br><span class="line">    mRemote.transact(<span class="keyword">BIND_APPLICATION_TRANSACTION, </span><span class="meta">data</span>, null,</span><br><span class="line">            IBinder.FLAG_ONEWAY)<span class="comment">;</span></span><br><span class="line">    <span class="meta">data</span>.recycle()<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这时候调用到了ApplicationThread里面<br><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">public</span> final void bindApplication(<span class="type">String</span> processName, <span class="type">ApplicationInfo</span> appInfo,</span><br><span class="line">                <span class="type">List</span>&lt;<span class="type">ProviderInfo</span>&gt; providers, <span class="type">ComponentName</span> instrumentationName,</span><br><span class="line">                <span class="type">ProfilerInfo</span> profilerInfo, <span class="type">Bundle</span> instrumentationArgs,</span><br><span class="line">                <span class="type">IInstrumentationWatcher</span> instrumentationWatcher,</span><br><span class="line">                <span class="type">IUiAutomationConnection</span> instrumentationUiConnection, int debugMode,</span><br><span class="line">                boolean enableOpenGlTrace, boolean isRestrictedBackupMode, boolean persistent,</span><br><span class="line">                <span class="type">Configuration</span> config, <span class="type">CompatibilityInfo</span> compatInfo, <span class="type">Map</span>&lt;<span class="type">String</span>, <span class="type">IBinder</span>&gt; services,</span><br><span class="line">                <span class="type">Bundle</span> coreSettings) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="type">AppBindData</span> <span class="class"><span class="keyword">data</span> = new <span class="type">AppBindData</span>();</span></span><br><span class="line">            <span class="class"><span class="keyword">data</span>.processName = processName;</span></span><br><span class="line">            <span class="class"><span class="keyword">data</span>.appInfo = appInfo;</span></span><br><span class="line">            <span class="class"><span class="keyword">data</span>.providers = providers;</span></span><br><span class="line">            <span class="class"><span class="keyword">data</span>.instrumentationName = instrumentationName;</span></span><br><span class="line">            <span class="class"><span class="keyword">data</span>.instrumentationArgs = instrumentationArgs;</span></span><br><span class="line">            <span class="class"><span class="keyword">data</span>.instrumentationWatcher = instrumentationWatcher;</span></span><br><span class="line">            <span class="class"><span class="keyword">data</span>.instrumentationUiAutomationConnection = instrumentationUiConnection;</span></span><br><span class="line">            <span class="class"><span class="keyword">data</span>.debugMode = debugMode;</span></span><br><span class="line">            <span class="class"><span class="keyword">data</span>.enableOpenGlTrace = enableOpenGlTrace;</span></span><br><span class="line">            <span class="class"><span class="keyword">data</span>.restrictedBackupMode = isRestrictedBackupMode;</span></span><br><span class="line">            <span class="class"><span class="keyword">data</span>.persistent = persistent;</span></span><br><span class="line">            <span class="class"><span class="keyword">data</span>.config = config;</span></span><br><span class="line">            <span class="class"><span class="keyword">data</span>.compatInfo = compatInfo;</span></span><br><span class="line">            <span class="class"><span class="keyword">data</span>.initProfilerInfo = profilerInfo;</span></span><br><span class="line">            sendMessage(<span class="type">H</span>.<span class="type">BIND_APPLICATION</span>, <span class="class"><span class="keyword">data</span>);</span></span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
+<p>由于ApplicationThread是ActivityThread的内部类，这里的消息发送到了ActivityThread<br>然后在handler里面看到以下代码<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="literal">void</span> handleBindApplication(AppBindData <span class="built_in">data</span>) &#123;</span><br><span class="line">    <span class="params">...</span></span><br><span class="line">    mInstrumentation = (Instrumentation)</span><br><span class="line">        cl.loadClass(<span class="built_in">data</span>.instrumentationName.getClassName())</span><br><span class="line">        .newInstance();</span><br><span class="line">    <span class="comment">//通过反射初始化一个Instrumentation仪表。后面会介绍。</span></span><br><span class="line">    <span class="params">...</span></span><br><span class="line">    Application app = <span class="built_in">data</span>.info.makeApplication(<span class="built_in">data</span>.restrictedBackupMode, <span class="built_in">null</span>);</span><br><span class="line">    <span class="comment">//通过LoadedApp命令创建Application实例</span></span><br><span class="line">    mInitialApplication = app;</span><br><span class="line">    <span class="params">...</span></span><br><span class="line">    mInstrumentation.callApplicationOnCreate(app);</span><br><span class="line">    <span class="comment">//让仪器调用Application的onCreate()方法</span></span><br><span class="line">    <span class="params">...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里创建了mInstrumentation</p>
+<ul>
+<li>performLaunchActivity 利用 Instrumentation.newActivity()<strong>利用classloader</strong>创建了一个activity并且执行attach方法将token传入,并且在里面初始化了window,设置activity的windowManager<blockquote>
+<p>window的实现是phoneWindow 里面有两个东西一个是DocView    <strong>FrameLayout</strong>，一个是 mContentParent  <strong>ViewGroup</strong><br>setContentView里面的installDocer()方法里面有<br>mContentParent = generateLayout(mDecor);这样一句话就很明亮了</p>
+</blockquote>
+</li>
+</ul>
+<pre class="mermaid">sequenceDiagram
+
+    Launcher(Activity)->>Activity:点击屏幕，startActivitySafely()
+    Launcher(Activity)->>Activity:startActivity
+    Activity->>Instrumentation:startActivityForResult
+    Instrumentation->>ActivityManagerProxy:execStartActivity
+    ActivityManagerProxy->>ActivityManagerService:startActivity</pre>
+*从ActivityLauncher启动
+
+> Launcher.onClick（View v）单击app图标
+> Launcher.startActivitySafely(v, intent, tag)这里比4.0多的一个参数，可能性能优化吧
+> Launcher.startActivity(v, intent, tag)
+> Activity.startActivity(intent, opts.toBundle())
+> Activity.startActivityForResult(intent, -1, options); 
+
+
+不管是在桌面启动还是一个app启动另一个app都是由ActivityManager管理的，他们则要用到Binder
+activity在启动的过程就是执行startActivityForResult()
+那么startActivityForResult执行了Instrumentation的 executeStartActiivty方法
+
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> startActivityForResult(Intent intent, <span class="keyword">int</span> requestCode, @Nullable Bundle <span class="keyword">options</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (mParent == <span class="keyword">null</span>) &#123;</span><br><span class="line">            Instrumentation.ActivityResult ar =</span><br><span class="line">                mInstrumentation.execStartActivity(</span><br><span class="line">                    <span class="keyword">this</span>, mMainThread.getApplicationThread(), mToken, <span class="keyword">this</span>,</span><br><span class="line">                    intent, requestCode, <span class="keyword">options</span>);</span><br></pre></td></tr></table></figure>
+
+然后ActivityMonitor会将这一消息分发到ActivityManager
+
+* 这里有两个重要的东西一个是mMainThread.getApplicationThread()
+  其实就是一个Bundler因为ApplicationThread继承ApplicationThreadNative，其相当于Stub，ApplicationThreadProxy相当于proxy
+* 还有一个东西是token，在activity attach的时候传入，也就是Activity创建与关联的时候，也是个Bundle对象，它代表Launcher这个Activity，也就是通过Instrumentation传给ActivityServiceManager
+* 然后instrumentation这个对象再通过ActivityManagerNative.GetDefault()的startactivity方法来完成相应的对象创建
+> 此处省略bundle的机制
+> 由此可知Activity是由activityManagerNative.getDefault()
+
+> 以上处是启动activity后调用Native的过程
+
+<pre class="mermaid">sequenceDiagram
+    ActivityManagerService->>ActivityManagerService:startActivityMayWait
+    ActivityManagerService->>ActivityManagerService:startActivityLocked
+    ActivityManagerService->>ActivityManagerService:startActivityUncheckedLocked:1675
+    ActivityManagerService->>ActivityStack:ActivityManagerService:2074
+    ActivityStack->>ActivityStack:resumeTopActivitiesLocked</pre>
+
+
+<pre class="mermaid">sequenceDiagram
+    Launcher->>ActivityManagerService:启动Activity传递thread和activity
+    ActivityManagerService->>Launcher:记录信息通知进入pause状态
+    Launcher->>ActivityManagerService:暂停后，告诉你可以启动新的activity了
+    ActivityManagerService->>新app:启动进程，创建thread并attach传递
+    新app->>ActivityManagerService:启动后将thread传递给AMS
+    ActivityManagerService->>新app:绑定application，启动Activity</pre>
+
+
+
+
+<p>那么可以知道启动过程是</p>
+<p>启动app先通过ActiivtyManagerService，ActivityManagerService记录信息，并将原来的app进入pause状态，先pause然后启动想要启动的app，</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">graphy</span></span><br></pre></td></tr></table></figure>
+<h2 id="Activity的四种启动模式"><a href="#Activity的四种启动模式" class="headerlink" title="Activity的四种启动模式"></a>Activity的四种启动模式</h2><h3 id="Activity的四种启动模式是什么？"><a href="#Activity的四种启动模式是什么？" class="headerlink" title="Activity的四种启动模式是什么？"></a>Activity的四种启动模式是什么？</h3><h5 id="Standard"><a href="#Standard" class="headerlink" title="Standard"></a>Standard</h5><ul>
+<li>Activit的模式启动模式大部分情况下都使用这种模式</li>
+</ul>
+<h5 id="SingleTop"><a href="#SingleTop" class="headerlink" title="SingleTop"></a>SingleTop</h5><ul>
+<li>如果SingleTop已经位于栈顶，就不去创建新的Activity</li>
+<li>如果SingleTop不位于栈顶，则创建新的Activity</li>
+<li>系统不会调用Oncreate，而是走OnNewIntent()方法<blockquote>
+<p>比如一个搜索页面，可以产生搜索内容和结果，则不会用户每次搜索都产生一个实例.</p>
+</blockquote>
+<h5 id="SingleTask"><a href="#SingleTask" class="headerlink" title="SingleTask"></a>SingleTask</h5></li>
+<li>位于栈顶则和SingleTop一样</li>
+<li>不在栈顶的时候，把Activity移动到栈顶，并执行OnNewIntent方法</li>
+<li>在Activity栈内，其实单例<blockquote>
+</blockquote>
+<h5 id="SingleInstance"><a href="#SingleInstance" class="headerlink" title="SingleInstance"></a>SingleInstance</h5></li>
+<li>启动一个新的Activity栈，并将Activity移动新的栈内</li>
+<li>不同Activity栈切换的话，Activity切换动画会不流畅</li>
+<li>重复创建SingleInstance的话，只会存在一个</li>
+<li>在不是SingleInatance的栈内，点击返回，则会返回这个栈内所有的Activity，然后才会回到SingleInstance</li>
+<li><h3 id="动态设置Activity的启动模式"><a href="#动态设置Activity的启动模式" class="headerlink" title="动态设置Activity的启动模式"></a>动态设置Activity的启动模式</h3></li>
+</ul>
+<h4 id="affinity"><a href="#affinity" class="headerlink" title="affinity"></a>affinity</h4><ul>
+<li>默认是app的包名</li>
+<li>在application可以设置</li>
+<li><p>activity和application都有这个属性</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;<span class="built_in">application</span></span><br><span class="line">        android:taskAffinity=<span class="string">"gf.zy"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Intent.FLAG_ACTIVITY_NEW_TASK</p>
+<blockquote>
+<p>意思是创建一个新的栈，举了一个例子，oneapp启动twoapp<strong><strong>两个app</strong></strong>如果没有用FLAG_ACTIVITY_NEW_TASK，则按home是一个app如果用了FLAG_ACTIVITY_NEW_TASK，则是两个app</p>
+</blockquote>
+</li>
+<li><p>Intent.FLAG_ACTIVITY_SINGLE_TOP<br>和SingleTop相同</p>
+</li>
+<li><p>Intent.FLAG_ACTIVITY_CLEAR_TOP<br>》</p>
+<h2 id="Activity的栈"><a href="#Activity的栈" class="headerlink" title="Activity的栈"></a>Activity的栈</h2><h3 id="任务栈（Task-Stack）-回退栈（Back-Stack）"><a href="#任务栈（Task-Stack）-回退栈（Back-Stack）" class="headerlink" title="任务栈（Task Stack） 回退栈（Back Stack）"></a>任务栈（Task Stack） 回退栈（Back Stack）</h3></li>
+<li>Activity在创建初期都会默认的分配一个任务栈</li>
+<li>一个TaskStack只要不在栈顶，就是Stop状态</li>
+<li>任务栈的Id是自增长的，Integer类型</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢您的鼓励~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="田昊 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="田昊 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android源码/" rel="tag"># Android源码</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/13/Android7-0、8-0适配/" rel="next" title="Android7.0、8.0适配">
+                <i class="fa fa-chevron-left"></i> Android7.0、8.0适配
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/13/JobScheduler介绍/" rel="prev" title="JobScheduler介绍">
+                JobScheduler介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="田昊">
+            
+              <p class="site-author-name" itemprop="name">田昊</p>
+              <p class="site-description motion-element" itemprop="description">一个对技术有态度的程序员</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/THtianhao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="envelope" target="_blank" title="E-Mail tototianhao@gmail.com">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail tototianhao@gmail.com</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="QQ 356831631">
+                      
+                        <i class="fa fa-fw fa-globe"></i>QQ 356831631</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="tel 13233422221">
+                      
+                        <i class="fa fa-fw fa-globe"></i>tel 13233422221</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="weChat toto000888">
+                      
+                        <i class="fa fa-fw fa-globe"></i>weChat toto000888</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity"><span class="nav-number">1.</span> <span class="nav-text">Activity</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity的启动过程"><span class="nav-number">1.1.</span> <span class="nav-text">Activity的启动过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity的四种启动模式"><span class="nav-number">1.2.</span> <span class="nav-text">Activity的四种启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity的四种启动模式是什么？"><span class="nav-number">1.2.1.</span> <span class="nav-text">Activity的四种启动模式是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Standard"><span class="nav-number">1.2.1.0.1.</span> <span class="nav-text">Standard</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SingleTop"><span class="nav-number">1.2.1.0.2.</span> <span class="nav-text">SingleTop</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SingleTask"><span class="nav-number">1.2.1.0.3.</span> <span class="nav-text">SingleTask</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SingleInstance"><span class="nav-number">1.2.1.0.4.</span> <span class="nav-text">SingleInstance</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态设置Activity的启动模式"><span class="nav-number">1.2.2.</span> <span class="nav-text">动态设置Activity的启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#affinity"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">affinity</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity的栈"><span class="nav-number">1.3.</span> <span class="nav-text">Activity的栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务栈（Task-Stack）-回退栈（Back-Stack）"><span class="nav-number">1.3.1.</span> <span class="nav-text">任务栈（Task Stack） 回退栈（Back Stack）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">一点零点零</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">90.6k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'HLUXSB6s2sdrSljlaJgMe8x8-gzGzoHsz',
+        appKey: 'vaOKTphb8yk9eoDDp5NvC6Ip',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！快活呀！~',
+        avatar:'/upload/avatar.jpg',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+<meta name="baidu-site-verification" content="Yu0REDPjKL">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="hide,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1四大组件ActivityActivity的四种启动模式是什么？ standard : 默认的启动模式，启动会创建一个实例，也可以用Intent.FLAG_ACTIVITY_NEW_TASK而改变  singleTop:当启动activity时，有相同的activity在前台与用户交互，那就复用这个activity，这个实例会被调用Activity.onNewIntent())。  当只需要一个实">
+<meta name="keywords" content="hide">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2">
+<meta property="og:url" content="https://tianhao.info/2018/12/29/问题总结Android/index.html">
+<meta property="og:site_name" content="非淡泊无以明志，非宁静无以致远.">
+<meta property="og:description" content="1四大组件ActivityActivity的四种启动模式是什么？ standard : 默认的启动模式，启动会创建一个实例，也可以用Intent.FLAG_ACTIVITY_NEW_TASK而改变  singleTop:当启动activity时，有相同的activity在前台与用户交互，那就复用这个activity，这个实例会被调用Activity.onNewIntent())。  当只需要一个实">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-25T03:16:15.774Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2">
+<meta name="twitter:description" content="1四大组件ActivityActivity的四种启动模式是什么？ standard : 默认的启动模式，启动会创建一个实例，也可以用Intent.FLAG_ACTIVITY_NEW_TASK而改变  singleTop:当启动activity时，有相同的activity在前台与用户交互，那就复用这个activity，这个实例会被调用Activity.onNewIntent())。  当只需要一个实">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+  <link rel="canonical" href="https://tianhao.info/2018/12/29/问题总结Android/">
+
+
+
+
+
+  <title>2 | 非淡泊无以明志，非宁静无以致远.</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://your-url" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">非淡泊无以明志，非宁静无以致远.</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Subtitle</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://tianhao.info/2018/12/29/问题总结Android/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="田昊">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非淡泊无以明志，非宁静无以致远.">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-28T20:32:07Z">
+                2018-12-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/interview/" itemprop="url" rel="index">
+                    <span itemprop="name">interview</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/12/29/问题总结Android/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/12/29/问题总结Android/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1四大组件"><a href="#1四大组件" class="headerlink" title="1四大组件"></a>1四大组件</h1><h2 id="Activity"><a href="#Activity" class="headerlink" title="Activity"></a>Activity</h2><h3 id="Activity的四种启动模式是什么？"><a href="#Activity的四种启动模式是什么？" class="headerlink" title="Activity的四种启动模式是什么？"></a>Activity的四种启动模式是什么？</h3><ul>
+<li><p>standard : 默认的启动模式，启动会创建一个实例，也可以用<a href="https://blog.csdn.net/wangxueming/article/details/73294777#FLAG_ACTIVITY_NEW_TASK" target="_blank" rel="noopener">Intent.FLAG_ACTIVITY_NEW_TASK</a>而改变</p>
+</li>
+<li><p>singleTop:当启动activity时，有相同的activity在前台与用户交互，那就复用这个activity，这个实例会被调用<a href="https://blog.csdn.net/wangxueming/article/details/73294777#onNewIntent(android.content.Intent" target="_blank" rel="noopener">Activity.onNewIntent()</a>)。</p>
+<blockquote>
+<p>当只需要一个实例的时候需要用这种模式</p>
+</blockquote>
+</li>
+<li><p>singleTask:在启动activity时，若有一个运行着这个activity的task，那这个activity实例会被调到前台，并调用<a href="https://blog.csdn.net/wangxueming/article/details/73294777#onNewIntent(android.content.Intent" target="_blank" rel="noopener">Activity.onNewIntent()</a>) </p>
+<blockquote>
+<p>这里常用的地方为层级重复的地方，比如说个人页，就会使用这种模式</p>
+</blockquote>
+</li>
+<li><p>singleInstance:开辟一个只允许一个activity实例在里头运行的task. 如果用同样的intent再次启动这个activity，task会被调到前台</p>
+<p>重新启动的时候回调动onNewIntent();</p>
+<blockquote>
+<p>用到的地方是完全分离程序的地方</p>
+</blockquote>
+<p>例子：b为singelInstance 进入abc -&gt;出来cab</p>
+</li>
+</ul>
+<h3 id="Activity的生命周期都有哪些？"><a href="#Activity的生命周期都有哪些？" class="headerlink" title="Activity的生命周期都有哪些？"></a>Activity的生命周期都有哪些？</h3><ul>
+<li>onCreate：点击activity的时候，初始化布局setContentLayout();</li>
+<li>onStart：activity为可见状态，但是没有焦点，不能交互</li>
+<li>onResume：可以交互</li>
+<li>onPause：onPuase中，是可见的但是没有焦点不能交互</li>
+<li>onStop：不可见的，内存紧张的状态可能被回收，所以这里做资源回收，并且透明的actiivty除非销毁不会执行stop方法。</li>
+<li>onDestory：销毁，可以结束当前的activity</li>
+<li>onRestart :Home再回来的时候，切换到其他的Activity再回来的时候，</li>
+<li>onStaveInstance：onstop之后，destory之前</li>
+</ul>
+<h3 id="Activity的进程优先级"><a href="#Activity的进程优先级" class="headerlink" title="Activity的进程优先级"></a>Activity的进程优先级</h3><p> Low Memory Killer是什么</p>
+<p>oom_adj</p>
+<ul>
+<li><p>前台进程：activity正在与用户交互onreume状态</p>
+</li>
+<li><p>可见进程：</p>
+<ul>
+<li><p>有一个acitivyt，不在前台，处于onPause</p>
+</li>
+<li><p>有一个service，service和一个activity绑定</p>
+</li>
+</ul>
+</li>
+<li><p>service进程：</p>
+<ul>
+<li>startService（）启动一个service服务的时候就是服务进程</li>
+</ul>
+</li>
+<li><p>后台进程：</p>
+<ul>
+<li>stop被调用的时候</li>
+</ul>
+</li>
+<li><p>空进程</p>
+<ul>
+<li>没有任何运行的数据，保留内存空间，没有被kill</li>
+</ul>
+</li>
+</ul>
+<h2 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h2><h3 id="Service和Thread的区别？"><a href="#Service和Thread的区别？" class="headerlink" title="Service和Thread的区别？"></a>Service和Thread的区别？</h3><p>首先Thread是程序执行的最小单元，是分配CPU的基本单位，可以用Thread来执行一些基本的操作</p>
+<p>Service是Android的一种机制，如果是本地服务，那么它是在主进程上运行的，如果是远程服务它是在独立进程上的mainThread上运行的，从这个角度来讲Thread包含在Service中。</p>
+<p>并且Thread的优先级是低于Service的优先级的。</p>
+<h3 id="Service的启动方式？"><a href="#Service的启动方式？" class="headerlink" title="Service的启动方式？"></a>Service的启动方式？</h3><ul>
+<li>startService方式：分别执行的onCreate() onstartCommend() onDestory()，我们需要注意的是：<ul>
+<li>多次调用startService的话执行多次onStartCommend()方法,onCreate()只会执行一次</li>
+<li>以startService方式启动可以调用bind，也可以调用unbind，但是必须调用stopService才可以销毁service</li>
+<li>启动后调用bindService后调用stopService并不会销毁服务，调用stopService后调用unBindService会执行onUnbind和onDestroy</li>
+</ul>
+</li>
+<li>bind方式：分别执行onCreatea() onBind() onUnbind() onDestory()</li>
+</ul>
+<h3 id="Handler的原理？"><a href="#Handler的原理？" class="headerlink" title="Handler的原理？"></a>Handler的原理？</h3><p>一般的情况下用于线程间的切换。</p>
+<p>首先说说handler的构造，handler的构造当中调用了Looper.myLooper()创建了一个得到一个Looper，和从looper当中拿到的messagequeue。,如果当前的looper没有的话，就从threadlocal当中去创建一个looper，然后，放入到其当中去</p>
+<p>附加。</p>
+<p>handler分发消息的方法有很多，有post()postdelay() sendmessage()sendmessagedelay()sendtmptymessage()</p>
+<p>给handler的全局变量。</p>
+<p>其里面都调用了sengmessageatTime()方法。如果没有指定时间，那么他们的时间就是0；</p>
+<p>Looper的构造，Looper中做的主要的事情就是构建一个messagerQueue,Looper中有很多方法主要用到的是prepare()loop(),</p>
+<p>messageQueue里面的数据结构是一个arraylist(),里面的方法主要是get()和set()Message。</p>
+<p>Message()就是在开发中常用到的，其实他的数据结构是一个单链表，在Message里面维护了一个大小为50的单链表，来去执行Message的回收</p>
+<p>前面有说到在handler的构造函数当中，我拿到了当前Looper的MessageQueue，然后也有说到handler里面的方法都是执行了sendMessageAtTtime()，他实际就是调用了message的enqueue方法，当message退出的flat标志位true的时候，就会把这个message放入到Message类的静态链表当中。用message。obtain来使用。</p>
+<p>首先从构造函数来讲，handler在构造函数中调用了mylooper创建了一个当前线程的looper，</p>
+<p>然后从looper中拿到一个messageQueue对象。</p>
+<p>那么构成handler的最主要的三个成员就准备好了</p>
+<ul>
+<li>Looper<ul>
+<li>mainlooper的具体实现是什么？Looper调用mylooper会从ThreadLocal中get一个looper对象，threadlocal底层是一个threadmap，是由android系统实现的一个hashmap</li>
+<li>threadlocal的中的looper是从哪里来的？是从activity启动的时候获取的，在app的启动的时候，会调用ActivityThread，而在ActivityThread的main方法中，调用了Looper的prepareMainLooper()方法，并且在之后调用了looper.prepare()方法和looper.loop()方法。</li>
+<li>prepareMainLooper()方法的实现?有点像单例模式，但是这个是创建了一个looper对象mainLooper,存放在Looper当中做一个静态变量，当需要获取主线程的looper的时候可以从这个地方获取</li>
+<li>Looper.prepare方法的实现？新建一个looper，并且把这个looper保存到threadlocal当中，这里就解释了为什么我们创建hadler的时候可以取出来一个looper对象了。</li>
+<li>Looper.loop()方法的实现？就是一个死循环，然后拿到Looper中的messagequeue，从messagequeue中拿到message之后调用dispathmessage分发给handler</li>
+<li>Looper的构造方法做了哪些事情？新建一个messageQueue，然后通过Thead.getcurrentThread拿到当前线程。</li>
+</ul>
+</li>
+<li>MessageQueue<ul>
+<li>就是一个消息队列,里面存放了所有的message</li>
+</ul>
+</li>
+<li>Message:<ul>
+<li>obtain方法怎么怎么实现的？message其实就是一个链表，在Message中有50个size的链表，当obtain的时候讲链表的头结点取出然后移动到下个结点。</li>
+</ul>
+</li>
+<li>Handler：<ul>
+<li>post（Runnable）方法怎么实现的？就是从Message中obtain一个message，然后将callback传给message，这样message就可以回调回去了。</li>
+</ul>
+</li>
+</ul>
+<h3 id="热修复的原理？"><a href="#热修复的原理？" class="headerlink" title="热修复的原理？"></a>热修复的原理？</h3><p>java虚拟机是java加载类的class文件，而dalvik虚拟机呢是加载dex文件的。</p>
+<p>而他们加载类的时候Classloader，classloader有一个子类BaseDexClassLoader，而其之下有一个DexpathList，用来存放dex文件的列表，当BaseDexClassLoader调用findClass方法的时候实际上就是遍历数组找到对应的文件。而热修复的解决方法就是加到dex当中去。并且在旧的dex之前，这样就会取出来返回了。</p>
+<h3 id="JVM和divlik之间的区别？"><a href="#JVM和divlik之间的区别？" class="headerlink" title="JVM和divlik之间的区别？"></a>JVM和divlik之间的区别？</h3><p>JVM是加载</p>
+<h3 id="Android跨进程通信的机制"><a href="#Android跨进程通信的机制" class="headerlink" title="Android跨进程通信的机制"></a>Android跨进程通信的机制</h3><p>四大组件</p>
+<p>AIDL</p>
+<p>socket</p>
+<p>pip</p>
+<h3 id="Android中资源查找的过程？"><a href="#Android中资源查找的过程？" class="headerlink" title="Android中资源查找的过程？"></a>Android中资源查找的过程？</h3><h3 id="MVC-MVP-MVVM"><a href="#MVC-MVP-MVVM" class="headerlink" title="MVC MVP MVVM"></a>MVC MVP MVVM</h3><p>mvc的关注点是分离，业务模型，视图，数据模型的解耦</p>
+<p>view将指令传递给controller controller完成任务时候，传递给model，model将新的数据发送给view。用户得到了反馈</p>
+<p>优点：是实现简单，视图和业务的分离，可以更改视图而不需要改动controller和model的代码</p>
+<p>缺点：视图和controller和model结合比较紧密，基本上一个view绑定了一个controller，让controller的复用很难</p>
+<p>mvp</p>
+<p>和mvc类似，也是为了视图控制数据模型的解耦，他们之前的区别是改变了数据传递的方向，数据模型不再传递给view，controller负责他们之间的通信。</p>
+<p>优点：    模型与视图完全完全解耦</p>
+<p>​        增加了present的复用，的可能性，</p>
+<p>​        独立测试，因为将present处理逻辑，view的接口</p>
+<p>缺点：view和present联系紧密，交互比较频繁</p>
+<p>mvvm：</p>
+<p>优点：独立测试：完全解耦，可重用，可独立开发</p>
+<p>缺点：实现复杂，对MVVM需要有比较深入的理解。</p>
+<p>实现难度：</p>
+<p>耦合性：</p>
+<p>重用性：</p>
+<p>测试性：</p>
+<p>独立开发性：</p>
+<h3 id="关闭app的方法"><a href="#关闭app的方法" class="headerlink" title="关闭app的方法"></a>关闭app的方法</h3><h3 id="各个动画的实现机制"><a href="#各个动画的实现机制" class="headerlink" title="各个动画的实现机制"></a>各个动画的实现机制</h3><p>帧动画</p>
+<p>补间动画</p>
+<p>属性动画</p>
+<h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><p><a href="http://baijiahao.baidu.com/s?id=1585269929754900992&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">http://baijiahao.baidu.com/s?id=1585269929754900992&amp;wfr=spider&amp;for=pc</a></p>
+<p>hashMap里面存档的是散列+链表实现的，并且在JDK1.7之后用的是平衡b-树，红黑树</p>
+<p>主要记得他们的get put 还有扩容机制还有版本</p>
+<p>要描述他们的put和get首先要从他们的扩容量来说默认是1无符号左位移了4位，大小为16，那么当前大小大于这默认值16的时候回进行第一次扩容，扩容的操作是做了一次无符号的左位移1，也就是扩容了二倍，那么下次扩容是基于他扩容后的带下*扩容能力的，默认是3/4也可以去指定。</p>
+<p>接下来说一下put方法，首先将大小得到key的hash，然后用size-1，由于size是2的n次方扩容的所以减一位数为011111，那么与hashcode就得到了一个值，如果散列数组中这个位置为null，就将keyvalue设置到链表的一个节点，并将此节点放入到这个位置上，如果不为null，则放入到下个节点，在jdk1.7之后节点的长度当达到7的时候，会用红黑树来存储。</p>
+<h3 id="Activity的启动过程是什么？"><a href="#Activity的启动过程是什么？" class="headerlink" title="Activity的启动过程是什么？"></a>Activity的启动过程是什么？</h3><h3 id="AIDL的原理？"><a href="#AIDL的原理？" class="headerlink" title="AIDL的原理？"></a>AIDL的原理？</h3><h3 id="NDK的注册方式？"><a href="#NDK的注册方式？" class="headerlink" title="NDK的注册方式？"></a>NDK的注册方式？</h3><p>分为两种注册方式</p>
+<p>静态注册和动态注册：</p>
+<p>静态注册是调用System.loadLibrary()方法。将相应的so库注册到里面</p>
+<p>动态注册其实和静态注册的原理是一样的，调用System.Load()时候，调用JNI_load()方法，里面会执行JNIEnv的registerNative方法，那么我们只需要在registerNative方法中奖C++和java代码关联起来。</p>
+<h3 id="Universal-ImageLoader，Picasso，Fresco，Glide对比"><a href="#Universal-ImageLoader，Picasso，Fresco，Glide对比" class="headerlink" title="Universal-ImageLoader，Picasso，Fresco，Glide对比"></a>Universal-ImageLoader，Picasso，Fresco，Glide对比</h3><h3 id="OKhttp-Volley-Retrofit对比"><a href="#OKhttp-Volley-Retrofit对比" class="headerlink" title="OKhttp, Volley, Retrofit对比"></a>OKhttp, Volley, Retrofit对比</h3><h3 id="View绘制的流程"><a href="#View绘制的流程" class="headerlink" title="View绘制的流程"></a>View绘制的流程</h3><p>onmeasure onlayout ondraw</p>
+<h3 id="屏幕适配解决方案"><a href="#屏幕适配解决方案" class="headerlink" title="屏幕适配解决方案"></a>屏幕适配解决方案</h3><p><a href="https://www.cnblogs.com/yaozhongxiao/archive/2014/07/14/3842908.html" target="_blank" rel="noopener">https://www.cnblogs.com/yaozhongxiao/archive/2014/07/14/3842908.html</a></p>
+<p>今日头条解决方法</p>
+<h3 id="事件分发机制"><a href="#事件分发机制" class="headerlink" title="事件分发机制"></a>事件分发机制</h3><p><a href="https://www.cnblogs.com/huangjialin/p/8657696.html" target="_blank" rel="noopener">https://www.cnblogs.com/huangjialin/p/8657696.html</a></p>
+<p>down，move，cancel 。</p>
+<p>cancel的触发</p>
+<h3 id="asynctask的原理"><a href="#asynctask的原理" class="headerlink" title="asynctask的原理"></a>asynctask的原理</h3><h3 id="binder机制"><a href="#binder机制" class="headerlink" title="binder机制"></a>binder机制</h3><h3 id="图片加载三级缓存，有一个功能，做一个能放大缩小的图片查看器，加载一张巨大的图片，怎么做"><a href="#图片加载三级缓存，有一个功能，做一个能放大缩小的图片查看器，加载一张巨大的图片，怎么做" class="headerlink" title="图片加载三级缓存，有一个功能，做一个能放大缩小的图片查看器，加载一张巨大的图片，怎么做"></a>图片加载三级缓存，有一个功能，做一个能放大缩小的图片查看器，加载一张巨大的图片，怎么做</h3><h3 id="图片加载框架优劣比较"><a href="#图片加载框架优劣比较" class="headerlink" title="图片加载框架优劣比较"></a>图片加载框架优劣比较</h3><h3 id="断点续传"><a href="#断点续传" class="headerlink" title="断点续传"></a>断点续传</h3><h3 id="四种线程池区别"><a href="#四种线程池区别" class="headerlink" title="四种线程池区别"></a>四种线程池区别</h3><p>### </p>
+<p>异常关闭页面之后的恢复</p>
+
+      
+    </div>
+    
+    
+    
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>谢谢您的鼓励~</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="田昊 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="田昊 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hide/" rel="tag"># hide</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/29/问题总结计算机/" rel="next" title="1">
+                <i class="fa fa-chevron-left"></i> 1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/31/Reflect-4/" rel="prev" title="利用动态代码反射接口">
+                利用动态代码反射接口 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="田昊">
+            
+              <p class="site-author-name" itemprop="name">田昊</p>
+              <p class="site-description motion-element" itemprop="description">一个对技术有态度的程序员</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/THtianhao" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="envelope" target="_blank" title="E-Mail tototianhao@gmail.com">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail tototianhao@gmail.com</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="QQ 356831631">
+                      
+                        <i class="fa fa-fw fa-globe"></i>QQ 356831631</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="tel 13233422221">
+                      
+                        <i class="fa fa-fw fa-globe"></i>tel 13233422221</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="undefined" target="_blank" title="weChat toto000888">
+                      
+                        <i class="fa fa-fw fa-globe"></i>weChat toto000888</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1四大组件"><span class="nav-number">1.</span> <span class="nav-text">1四大组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity"><span class="nav-number">1.1.</span> <span class="nav-text">Activity</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity的四种启动模式是什么？"><span class="nav-number">1.1.1.</span> <span class="nav-text">Activity的四种启动模式是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity的生命周期都有哪些？"><span class="nav-number">1.1.2.</span> <span class="nav-text">Activity的生命周期都有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity的进程优先级"><span class="nav-number">1.1.3.</span> <span class="nav-text">Activity的进程优先级</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service"><span class="nav-number">1.2.</span> <span class="nav-text">Service</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Service和Thread的区别？"><span class="nav-number">1.2.1.</span> <span class="nav-text">Service和Thread的区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Service的启动方式？"><span class="nav-number">1.2.2.</span> <span class="nav-text">Service的启动方式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Handler的原理？"><span class="nav-number">1.2.3.</span> <span class="nav-text">Handler的原理？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#热修复的原理？"><span class="nav-number">1.2.4.</span> <span class="nav-text">热修复的原理？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM和divlik之间的区别？"><span class="nav-number">1.2.5.</span> <span class="nav-text">JVM和divlik之间的区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android跨进程通信的机制"><span class="nav-number">1.2.6.</span> <span class="nav-text">Android跨进程通信的机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android中资源查找的过程？"><span class="nav-number">1.2.7.</span> <span class="nav-text">Android中资源查找的过程？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVC-MVP-MVVM"><span class="nav-number">1.2.8.</span> <span class="nav-text">MVC MVP MVVM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭app的方法"><span class="nav-number">1.2.9.</span> <span class="nav-text">关闭app的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各个动画的实现机制"><span class="nav-number">1.2.10.</span> <span class="nav-text">各个动画的实现机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap"><span class="nav-number">1.2.11.</span> <span class="nav-text">HashMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity的启动过程是什么？"><span class="nav-number">1.2.12.</span> <span class="nav-text">Activity的启动过程是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AIDL的原理？"><span class="nav-number">1.2.13.</span> <span class="nav-text">AIDL的原理？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NDK的注册方式？"><span class="nav-number">1.2.14.</span> <span class="nav-text">NDK的注册方式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Universal-ImageLoader，Picasso，Fresco，Glide对比"><span class="nav-number">1.2.15.</span> <span class="nav-text">Universal-ImageLoader，Picasso，Fresco，Glide对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OKhttp-Volley-Retrofit对比"><span class="nav-number">1.2.16.</span> <span class="nav-text">OKhttp, Volley, Retrofit对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View绘制的流程"><span class="nav-number">1.2.17.</span> <span class="nav-text">View绘制的流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#屏幕适配解决方案"><span class="nav-number">1.2.18.</span> <span class="nav-text">屏幕适配解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件分发机制"><span class="nav-number">1.2.19.</span> <span class="nav-text">事件分发机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#asynctask的原理"><span class="nav-number">1.2.20.</span> <span class="nav-text">asynctask的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#binder机制"><span class="nav-number">1.2.21.</span> <span class="nav-text">binder机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片加载三级缓存，有一个功能，做一个能放大缩小的图片查看器，加载一张巨大的图片，怎么做"><span class="nav-number">1.2.22.</span> <span class="nav-text">图片加载三级缓存，有一个功能，做一个能放大缩小的图片查看器，加载一张巨大的图片，怎么做</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片加载框架优劣比较"><span class="nav-number">1.2.23.</span> <span class="nav-text">图片加载框架优劣比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#断点续传"><span class="nav-number">1.2.24.</span> <span class="nav-text">断点续传</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四种线程池区别"><span class="nav-number">1.2.25.</span> <span class="nav-text">四种线程池区别</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">一点零点零</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">90.6k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+  <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize("");
+    }
+  </script>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'HLUXSB6s2sdrSljlaJgMe8x8-gzGzoHsz',
+        appKey: 'vaOKTphb8yk9eoDDp5NvC6Ip',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！快活呀！~',
+        avatar:'/upload/avatar.jpg',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

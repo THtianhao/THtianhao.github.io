@@ -83,15 +83,15 @@
 <meta name="description" content="前言ArrayList、LinkedList、Vector是我们在平时开发中，面试中最频繁接触的集合类，所以了解它的实现有助于我们去在不同的需求中进行合适的选择，并且说出一些实现细节更能在面试中能够脱颖而出。可以说他是Java、Android程序员必须掌握的基础知识点。 类结构 简单的说明一下，圆圈是接口，方块是类，从类的结构中可以看到他们有哪些特点：  ArrayList、LinkedList、">
 <meta name="keywords" content="数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ArrayList和LiskedList和Vector的区别(深度解析)">
+<meta property="og:title" content="ArrayList、LinkedList和Vector的区别(深度解析)">
 <meta property="og:url" content="https://tianhao.info/2019/03/22/List/index.html">
 <meta property="og:site_name" content="非淡泊无以明志，非宁静无以致远.">
 <meta property="og:description" content="前言ArrayList、LinkedList、Vector是我们在平时开发中，面试中最频繁接触的集合类，所以了解它的实现有助于我们去在不同的需求中进行合适的选择，并且说出一些实现细节更能在面试中能够脱颖而出。可以说他是Java、Android程序员必须掌握的基础知识点。 类结构 简单的说明一下，圆圈是接口，方块是类，从类的结构中可以看到他们有哪些特点：  ArrayList、LinkedList、">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/THtianhao/Picture/master/20190321014726_list-1.jpg">
-<meta property="og:updated_time" content="2019-03-25T03:16:15.766Z">
+<meta property="og:updated_time" content="2019-03-27T07:08:36.941Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ArrayList和LiskedList和Vector的区别(深度解析)">
+<meta name="twitter:title" content="ArrayList、LinkedList和Vector的区别(深度解析)">
 <meta name="twitter:description" content="前言ArrayList、LinkedList、Vector是我们在平时开发中，面试中最频繁接触的集合类，所以了解它的实现有助于我们去在不同的需求中进行合适的选择，并且说出一些实现细节更能在面试中能够脱颖而出。可以说他是Java、Android程序员必须掌握的基础知识点。 类结构 简单的说明一下，圆圈是接口，方块是类，从类的结构中可以看到他们有哪些特点：  ArrayList、LinkedList、">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/THtianhao/Picture/master/20190321014726_list-1.jpg">
 
@@ -144,7 +144,7 @@
 
 
 
-  <title>ArrayList和LiskedList和Vector的区别(深度解析) | 非淡泊无以明志，非宁静无以致远.</title>
+  <title>ArrayList、LinkedList和Vector的区别(深度解析) | 非淡泊无以明志，非宁静无以致远.</title>
   
 
 
@@ -308,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ArrayList和LiskedList和Vector的区别(深度解析)</h1>
+          <h1 class="post-title" itemprop="name headline">ArrayList、LinkedList和Vector的区别(深度解析)</h1>
         
 
         <div class="post-meta">
@@ -384,7 +384,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  5.9k
+                  6k
                 </span>
               
 
@@ -442,7 +442,8 @@
 <li><strong>RandomAccessSubList</strong>：<strong>平行类</strong>，继承于<code>SubList</code>，主要用于算数</li>
 </ul>
 <p>其实查看<code>AbstractList</code>主要的目的就是分析List的迭代器，因为其他的方法基本上都在子类被覆盖掉了。那么迭代器中，最常出现的错误就是以下异常：</p>
-<h3 id="ConcurrentModificationException"><a href="#ConcurrentModificationException" class="headerlink" title="ConcurrentModificationException"></a>ConcurrentModificationException</h3><blockquote>
+<h3 id="ConcurrentModificationException"><a href="#ConcurrentModificationException" class="headerlink" title="ConcurrentModificationException"></a>ConcurrentModificationException</h3><p>这个异常实际是JAVA Collection的<strong>Fast-Faile</strong>框架，如果在迭代的时候出现问题，则会抛出这个异常。</p>
+<blockquote>
 <p>我们平时在迭代时候进行修改的操作会造成这个错误<code>ConcurrentModificationException</code>其实就是和<code>AbstractList</code>息息相关</p>
 </blockquote>
 <p>如代码：</p>
@@ -877,8 +878,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/31/Reflect-4/" rel="next" title="利用动态代码反射接口">
-                <i class="fa fa-chevron-left"></i> 利用动态代码反射接口
+              <a href="/2019/02/16/AboutWriting/" rel="next" title="惭愧,写了这么多文章才发现">
+                <i class="fa fa-chevron-left"></i> 惭愧,写了这么多文章才发现
               </a>
             
           </div>
@@ -886,10 +887,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/25/AboutWriting/" rel="prev" title="惭愧,写了这么多文章才发现">
-                惭愧,写了这么多文章才发现 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -1096,7 +1093,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">90.6k</span>
+    <span title="Site words total count">91.3k</span>
   
 </div>
 

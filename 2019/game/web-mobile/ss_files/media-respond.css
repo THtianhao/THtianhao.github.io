@@ -1,0 +1,19 @@
+/**
+ *
+ * @authors @SilentBlue
+ * @date    2017-10-23 10:04:41
+ * @version shanxi.gov.cn-media-respond.version.2.0
+ */
+
+.rendering-ie7 .shxidx-pagination .shxidx-page, .rendering-ie7 .common-text-title-bar, .rendering-ie7 .shanxi-gov-page-hide, .rendering-ie7 .shanxi-gov-page-box .shanxi-gov-page-hide a, .rendering-ie7 .shanxi-gov-page-box span, .rendering-ie7 .article-infos-func span, .rendering-ie7 .article-infos-func .article-priter i, .rendering-ie7 .article-infos-func .article-share i, .rendering-ie7 .affairs-list-tree-menus-title i, .rendering-ie7 .keyfield-column-subitem-titlebar, .rendering-ie7 .interview-html a, .rendering-ie7 .article-body a {
+    display: inline;
+    zoom: 1;
+}
+.rendering-ie7 .fix-lowie7 {
+    margin-bottom: -2px;
+}
+@media screen and (max-width: 1279px) {
+    .topbar, .footer, #big_newver_img {
+        width: 1280px;
+    }
+}

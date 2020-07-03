@@ -1,0 +1,80 @@
+
+
+
+div,ul,li,p { margin: 0;padding: 0;}
+
+li {list-style: none;}
+
+body { margin:0; padding:0; font-size:12px; color:#333; font-family: Microsoft YaHei,Simsun,SimHei,Arial;background-color:#ffffff; }
+a{ color:#333; text-decoration:none;cursor: pointer;/*-webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;*/}
+a:hover{ text-decoration: none; color:#333;}
+
+
+
+.sv20200310_rightnav{position: fixed;right:35px;top:110px;z-index: 9999;}
+.sv20200310_rightnav li{ margin-bottom: 10px;background-color: #f2f2f2;width: 60px;height: 61px;}
+.sv20200310_rightnav li a{ display: block; background-color: #f2f2f2; text-align: center;}
+.sv20200310_rightnav li a:hover{ color: #fff; background-color: #006EAB;}
+.sv20200310_rightnav li i{ color: #74ACD6; font-size:26px;line-height: 60px; }
+.sv20200310_rightnav li a:hover i{ color: #fff;}
+.sv20200310_showewm{position: absolute;opacity: 0;z-index: -1;filter: alpha(opacity=0);width: 155px;height: 155px;left:-50px;display: none;}
+
+.sv20200310_rightnav li .ewm_weixin{background: url(sv20200310_kuang130.png) no-repeat;top: -25px;}/*top: -34px*/
+.sv20200310_rightnav li .ewm_weixin img{margin-left: 15px;margin-top: 7px;}
+
+.sv20200310_rightnav li .ewm_weibo{background: url(sv20200310_kuang130.png) no-repeat;top: 40px;}
+.sv20200310_rightnav li .ewm_weibo img{margin-left: 15px;margin-top: 7px;}
+
+.sv20200310_rightnav li .ewm_app{background: url(sv20200310_kuang130.png) no-repeat;top: 120px;}
+.sv20200310_rightnav li .ewm_app img{margin-left: 15px;margin-top: 7px;}
+
+.sv20200310_rightnav li .ewm_sjt{background: url(sv20200310_kuang130.png) no-repeat;top: 260px;}
+.sv20200310_rightnav li .ewm_sjt img{margin-left: 15px;margin-top: 7px;}
+
+.sv20200310_rightnav li .ewmshare{background: url(sv20200310_kuang98.png) no-repeat; height: 88px;top:-18px; padding-top: 10px;width: 137px;padding-left: 12px;}
+
+
+
+.sv20200310_rightnav li .bdsharebuttonbox a{margin-left: 8px;margin-top: 8px;}
+.sv20200310_rightnav li.share {position: relative;}
+.sv20200310_rightnav li{border: 1px solid #dcdcdc;}
+.sv20200310_rightnav li>a{padding-top: 10px;}
+
+.sv20200310_rightnav li i{line-height: 24px;}
+.sv20200310_rightnav li p{line-height: 25px;}
+#sv20200310_toTop{ cursor:pointer;}
+@media all and (max-width: 960px) {
+    .sv20200310_rightnav {
+        display: none;
+    }
+}
+@media screen and (min-width: 1280px) {
+    .sv20200310_rightnav {
+        right: 0px;
+    }
+}
+@media screen and (min-width: 1366px) {
+    .sv20200310_rightnav {
+        right: 0px;
+    }
+}
+@media screen and (min-width: 1400px) {
+    .sv20200310_rightnav {
+        right: 35px;
+    }
+}
+@media screen and (min-width: 1680px) {
+    .sv20200310_rightnav {
+        right: 85px;
+    }
+}
+@media screen and (min-width: 1920px) {
+    .sv20200310_rightnav {
+        right: 135px;
+    }
+}
+
+

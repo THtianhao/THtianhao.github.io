@@ -1,0 +1,516 @@
+/**
+ *
+ * @authors @SilentBlue
+ * @date    2017-10-23 10:04:41
+ * @version shanxi.gov.cn-theme.version.2.0
+ */
+
+body {
+    font-family: '\5FAE\8F6F\96C5\9ED1', '\5B8B\4F53', sans-self;
+    font-size: 16px;
+    background-color: #f5f5f5;
+}
+
+/* 顶部颜色字体 */
+
+.topbar {
+    /* background-color: #27407c;375297 */
+    background-color: #3660c9;
+}
+.topbar a {
+    font-size: 14px;
+    /* color: #bdbdbd; */
+    color: #eee;
+}
+.topbar a:hover {
+    color: #ebf1fd;
+}
+.topbar-nav .topbar-nav--text {
+    border-left: 1px solid #9d9d9d;
+}
+.topbar-nav .topbar-nav--language {
+    border-left: none;
+}
+
+/* /顶部颜色字体 */
+
+
+/* Header */
+
+.search-input {
+    transition: border .3s linear;
+    border: 1px solid #e3e3e3;
+    background-color: #fff;
+}
+.search-input.search-input-hover {
+    border: 1px solid #d3d3d3;
+}
+.search-input.search-input-focus {
+    border: 1px solid #397ab9;
+}
+.search-input-inner {
+    font-size: 14px;
+    color: #ced2da;
+}
+.search-input.search-input-focus .search-input-inner {
+    color: #333;
+}
+.search-hotwd {
+    font-size: 14px;
+    font-weight: 700;
+    color: #667f97;
+}
+.search-hotwd a {
+    font-weight: 400;
+    color: #667f97;
+}
+.search-hotwd a:hover {
+    color: #397ab9;
+}
+
+/* /Header */
+
+
+/* Footer */
+
+.footer {
+    border-top: 2px solid #2f5398;
+    background-color: #fff;
+}
+.friend-link {
+    border-bottom: 1px solid #f5f5f5;
+}
+.friend-link-menu li {
+    font-size: 14px;
+    color: #2e2f31;
+}
+.friend-link-menu .current {
+    font-weight: 700;
+    color: #2f5398;
+    background-color: #f5f5f5;
+}
+.friend-link-inner {
+    background-color: #fafafa;
+}
+.friend-link-submenu li {
+    font-size: 14px;
+}
+.friend-link-submenu .cc-section-title {
+    font-weight: 700;
+}
+.friend-link-submenu .cc-section-title a {
+    color: #2f5398;
+}
+
+/*copyright*/
+
+.copyright {
+    border-top: 1px solid #f5f5f5;
+}
+.copyright-info {
+    font-size: 12px;
+}
+.footer-nav {
+    color: #757575;
+}
+.footer-nav a {
+    font-size: 14px;
+    color: #757575;
+}
+.footer-nav a:hover {
+    color: #667f97;
+}
+.footer-text {
+    padding-left: 12px;
+    background-color: #f5f5f5;
+}
+.footer-text span, .footer-text a {
+    margin-right: 12px;
+    color: #757575;
+}
+.footer-text a:hover {
+    color: #667f97;
+}
+.footer-declare {
+    color: #667f97;
+}
+
+/* /Footer */
+
+
+/* MainNav */
+
+.main-nav-box {
+    border-bottom: 5px solid #20407d;
+}
+.main-nav-home dd {
+    font-size: 18px;
+    font-weight: 700;
+}
+.main-nav-home dd a {
+    display: block;
+    color: #fff;
+}
+.main-nav {
+    background-color: #2f5398;
+}
+.main-nav>li {
+    font-size: 20px;
+    font-weight: 700;
+    border-left: 1px solid #20407d;
+}
+.main-nav>li:hover {
+    border-bottom: 3px solid #23468a;
+    border-left-color: #2a4c8f;
+    background-color: #2f5398;
+}
+.main-nav>li>a {
+    color: #ebf1fd;
+}
+.main-nav>li>a:hover {
+    color: #fff;
+}
+
+/* /MainNav*/
+
+
+/* Main Content */
+
+.headline {
+    background-color: #fff;
+}
+.headline-big {
+    font-size: 39px;
+    font-weight: 700;
+}
+.headline-big a {
+    /* color: #d10101; */
+    color: #0a2167;
+}
+.headline-list {
+    font-size: 18px;
+}
+.headline-list a {
+    /* color: #d10101; */
+    color: #0a2167;
+}
+.headline-list span {
+    font-size: 16px;
+    color: #dedede;
+}
+
+/* /Main Content */
+
+
+/* Text News */
+
+.common-text-title-box {
+    border-bottom: 1px solid #d1d6dc;
+}
+.common-text-title-bar li {
+    font-size: 20px;
+    font-weight: 700;
+    border-left: 1px solid #fff;
+    background-color: #dfeaf7;
+}
+.common-text-title-bar .bdlt0 {
+    border-left: none;
+}
+.common-text-title-bar .tab-current {
+    border-left: 5px solid #c92327;
+    background-color: #2f5398;
+}
+.common-text-title-bar .tab-current a {
+    color: #fff;
+}
+.list-title-color .tab-current span {
+    color: #fff;
+}
+.common-tab-content-box li em {
+    font-size: 14px;
+    font-weight: 400;
+    color: #dedede;
+}
+.common-tab-content-box li em a {
+    color: #2f5398;
+}
+.common-tab-content-box li em a:hover {
+    color: #d10101;
+}
+.common-tab-content-box li span {
+    font-size: 14px;
+    color: #8498ad;
+}
+.conmon-tab-department li .news-department-name, .conmon-tab-department li>a .news-department-name {
+    font-size: 18px;
+    color: #999;
+}
+.conmon-tab-department li>a:hover .news-department-name {
+    color: #d10101;
+}
+.common-text-blucle-title-bar {
+    background: none;
+}
+.common-text-blucle-title-bar li {
+    border-left: none;
+    background-color: #fff;
+}
+.common-text-blucle-title-bar .tab-current {
+    border-left: none;
+    background-color: #fff;
+}
+.common-text-blucle-title-bar .tab-current a {
+    color: #2f5398;
+}
+.common-aside-title-bar .tab-current, .common-aside-blucle-title-bar li, .common-aside-blucle-title-bar .tab-current {
+    background-color: #dfeaf7;
+}
+.common-aside-title-bar .font-color-reset {
+    color: #2f5398;
+}
+
+/* /Text News */
+
+
+/* executive meeting */
+
+.executive-meetings dt {
+    font-size: 15px;
+    font-weight: 700;
+}
+.executive-meetings dt a {
+    color: #e86352;
+}
+.executive-meetings dd {
+    font-size: 14px;
+    color: #fff;
+}
+
+/* /executive meeting */
+
+
+/* Gov Info */
+
+.government-information-publicity li {
+    font-size: 15px;
+}
+
+/* /Gov Info */
+
+
+/* Common Page */
+
+.breadcrumb li {
+    font-size: 16px;
+}
+.breadcrumb li span, .breadcrumb .path-cur span {
+    color: #000;
+}
+.breadcrumb .path-cur {
+    color: #74777b;
+}
+
+/*Meeting*/
+
+.aside-executive-content {
+    font-size: 14px;
+}
+.aside-executive-content>a {
+    color: #fff;
+}
+.aside-executive-content i {
+    margin-right: 14px;
+}
+.aside-executive-content span a {
+    color: #99bcea;
+}
+
+/* /Common Page */
+
+
+/* Common List */
+
+.list-subnavs-wrap {
+    background-color: #f9f9f9;
+}
+.list-subnavs-title {
+    background-color: #2f5398;
+}
+.list-subnavs-title dt {
+    background-color: #c92327;
+}
+.list-subnavs-title dd {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+}
+.list-subnavs-title dd span {
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #20407d;
+}
+.list-subnavs-name {
+    font-size: 16px;
+    font-weight: 400;
+    color: #000;
+    border-bottom: 1px solid #f0f0f0;
+}
+.current {
+    color: #2f5398;
+}
+.current a {
+    color: #2f5398;
+}
+.list-subnavs-box {
+    font-size: 14px;
+    background-color: #fcfcfc;
+}
+.list-subnavs-box li:hover {
+    background-color: #efefef;
+}
+.shanxi-gov-list-filter {
+    background-color: #fbfbfb;
+}
+
+/* pageion */
+
+.shanxi-gov-page-box a {
+    color: #666;
+    background-color: #e7eefb;
+}
+.shanxi-gov-page-box a:hover {
+    background-color: #d2dcef;
+}
+.shanxi-gov-page-box .shanxi-gov-page-button {
+    color: #000;
+}
+.shanxi-gov-page-hide .shanxi-gov-page-current, .shanxi-gov-page-hide .shanxi-gov-page-current:hover {
+    color: #fff;
+    background: #2f5398;
+}
+.shanxi-gov-page-form {
+    font-size: 16px;
+    color: #666;
+}
+.shanxi-gov-page-form-text {
+    font-size: 14px;
+    border: 1px solid #e7eefb;
+}
+.shanxi-gov-page-form-btn {
+    font-size: 14px;
+    color: #666;
+    background-color: #f0f0f0;
+}
+.shanxi-gov-page-form-btn:hover {
+    color: #fff;
+    background-color: #2f5398;
+}
+
+/* /Common List*/
+
+
+/* Common-detail */
+
+.detail-article-infos {
+    font-size: 14px;
+    color: #7a7a7a;
+    border-bottom: 1px solid #eaeaea;
+}
+.article-infos-func span {
+    color: #7a7a7a;
+    border-left: 1px solid #eaeaea;
+}
+.article-infos-func .article-zoom a {
+    color: #7a7a7a;
+}
+.article-infos-func .article-share {
+    font-weight: 700;
+    color: #2f5398;
+}
+.article-share-cnt {
+    background-color: rgba(255, 255, 255, .97);
+}
+.rendering-ie7 .article-share-cnt, .rendering-ie8 .article-share-cnt {
+    background-color: #fff;
+}
+.article-edit {
+    font-size: 14px;
+    color: #7a7a7a;
+}
+.article-edit a {
+    color: #2f5398;
+}
+
+/* Common-detail */
+
+
+/* Relation */
+
+.relatived-articles-title {
+    font-size: 18px;
+    color: #2f5398;
+    border-bottom: 1px solid #eaeaea;
+}
+.shanxi-social-tools {
+    background-color: #e5e5e5;
+}
+.shanxi-social-tools li span {
+    font-size: 16px;
+    color: #fff;
+    background-color: #2f5398;
+}
+
+/* /Relation */
+
+
+/* Affairs Detail */
+
+.affairs-detail-inner {
+    border: 1px solid #eaeaea;
+}
+.affairs-detail-head td {
+    font-size: 14px;
+    color: #7a7a7a;
+}
+.affairs-detail-head-tit {
+    font-weight: bold;
+}
+.affairs-detail-inner-cnt {
+    border: 1px solid #eaeaea;
+}
+.affairs-detail-qcode {
+    border-bottom: 1px solid #eaeaea;
+}
+.affairs-detail-qcode dt {
+    font-size: 12px;
+    color: #7a7a7a;
+}
+
+/* /Affairs Detail */
+
+
+/* Images-Text List */
+
+.img-text-list-item {
+    background-color: #fbfcfc;
+}
+.shanxi-travel-spots-title {
+    font-size: 16px;
+}
+.shanxi-travel-spots-desc {
+    font-size: 14px;
+    color: #666;
+}
+.img-media-list-item dd b {
+    opacity: .7;
+    background-color: #000;
+    filter: alpha(opacity=70);
+}
+.img-media-list-item dd span a {
+    font-size: 16px;
+    color: #fff;
+}
+
+/* /Images-Text List */

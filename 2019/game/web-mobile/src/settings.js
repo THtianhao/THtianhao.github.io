@@ -1,0 +1,1 @@
+window._CCSettings={platform:"web-mobile",groupList:["default"],collisionMatrix:[[true]],rawAssets:{assets:{da41l2LyNFlLG22knMgY0Z:["tree.png",0]}},assetTypes:["cc.Texture2D"],launchScene:"db://assets/Untitled.fire",scenes:[{url:"db://assets/Untitled.fire",uuid:0}],packedAssets:{"05b191453":[0,"9aANK4YsZG0aVPaV1Tugnv"]},orientation:"",uuids:["1bqXGiLidP8Ljhl4MSg2aM"]};

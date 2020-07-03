@@ -1,0 +1,520 @@
+@charset 'UTF-8';
+
+/**
+ *
+ * @authors @SilentBlue
+ * @date    2017-10-23 10:04:41
+ * @version shanxi.gov.cn-global.version.2.0
+ */
+
+
+/*Layer*/
+
+.main-nav>li:hover {
+    height: 57px;
+}
+.mian-nav-layer {
+    position: absolute;
+    z-index: 999;
+    height: 88px;
+    left: 0;
+    width: 100%;
+    padding: 16px 0;
+    top: 60px;
+    opacity: .96;
+    background-color: #fff;
+    filter: alpha(opacity=96);
+}
+.main-nav-sub-1, .index-layer-common {
+    margin: 0 106px;
+    overflow: hidden;
+    height: 100%;
+    font-weight: 500;
+    text-align: left;
+    line-height: 30px;
+}
+.main-nav-sub-1>li {
+    height: 100%;
+    width: 252px;
+    float: left;
+    overflow: hidden;
+}
+.main-nav-sub-1>.province-poslayer {
+    border-right: 1px solid #000;
+    width: 782px;
+    padding-right: 16px;
+    margin-right: 16px;
+    font-size: 18px;
+}
+.main-nav-sub-1>.province-poslayer>p>span {
+    font-weight: 700;
+    width: 64px;
+    margin-right: 8px;
+    font-size: 18px;
+}
+.main-nav-sub-1>.province-poslayer>p>span>i {
+    margin: 0 6px;
+}
+.main-nav-sub-1>.province-poslayer>p>a {
+    margin-right: 8px;
+}
+.main-nav-sub-1>.province-meetlayer {
+    font-size: 20px;
+    font-weight: 700;
+}
+.main-nav-sub-1>.province-meetlayer>p>em {
+    font-weight: 400;
+    font-size: 18px;
+}
+.main-nav-sub-1>.province-meetlayer>p>em>a {
+    margin: 0 3px;
+}
+.index-layer-common {
+    position: relative;
+}
+.index-layer-common>a {
+    font-weight: 700;
+    margin: 0 10px;
+    font-size: 18px;
+}
+.main-nav-sub-2 {
+    left: 72px;
+}
+.main-nav-sub-3 {
+    left: 144px;
+}
+.main-nav-sub-4 {
+    left: 0;
+}
+.main-nav-sub-5 {
+    left: 0;
+}
+.main-nav-sub-6 {
+    left: 0;
+}
+.main-nav-sub-7 {
+    left: 0;
+}
+.main-nav-sub-8 {
+    left: 0;
+}
+
+/* data slide */
+
+.shxidx-carousel {
+    width: 1260px;
+    height: 740px;
+}
+.shxidx-carousel img {
+    width: 1260px;
+    height: 710px;
+}
+.shxidx-carousel b {
+    height: 36px;
+    opacity: .9;
+    background-color: #2f5398;
+    filter: alpha(opacity=90);
+}
+.shxidx-carousel span {
+    font-size: 18px;
+    line-height: 36px;
+    height: 36px;
+    padding: 0 96px;
+    color: #fff;
+}
+.shxidx-pagination {
+    height: 30px;
+    text-align: center;
+    background-color: #f7f5f4;
+}
+.shxidx-page {
+    background-position: -128px -6px;
+}
+.shxidx-pagination .active {
+    background-position: -140px -6px;
+}
+.shxidx-buttons div {
+    width: 40px;
+    height: 80px;
+    margin-top: -80px;
+}
+.shxidx-buttons .shxidx-prev {
+    background-position: 0 -230px;
+}
+.shxidx-buttons .shxidx-prev:hover {
+    background-position: -41px -230px;
+}
+.shxidx-buttons .shxidx-next {
+    background-position: -82px -230px;
+}
+.shxidx-buttons .shxidx-next:hover {
+    background-position: -123px -230px;
+}
+
+/* layout */
+
+.index-main-left {
+    width: 390px;
+    padding: 0 10px;
+}
+.topic-cnt-box {
+    overflow: hidden;
+    height: 315px;
+    margin: 10px 0 15px;
+}
+.index-topic-main .index-topic-list {
+    overflow: hidden;
+    width: 100%;
+    height: 270px;
+}
+.index-topic-list li {
+    width: 388px;
+    height: 130.5px;
+    margin-bottom: 5px;
+    border: 1px solid #d1d6dc;
+}
+.index-topic-list li img {
+    width: 100%;
+    height: 100%;
+}
+.topic-cnt-box .topic-button {
+    line-height: 30px;
+    width: 100%;
+    height: 30px;
+    margin-top: 15px;
+}
+.topic-cnt-box .topic-button span {
+    display: block;
+    width: 180px;
+    cursor: pointer;
+    color: #2f5398;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: #e3e3e3;
+}
+.topic-cnt-box .topic-button span i {
+    display: block;
+    float: left;
+    width: 0;
+    height: 0;
+    margin-top: 10px;
+    margin-right: 8px;
+    margin-left: 55px;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+}
+.up-narrow {
+    border-bottom: 10px solid #015293;
+}
+.down-narrow {
+    border-top: 10px solid #015293;
+}
+
+/* Center */
+
+.index-main-center {
+    width: 480px;
+    margin-left: 10px;
+    padding: 0 10px;
+}
+.affairs-service-box {
+    overflow: hidden;
+    height: 280px;
+    margin: 5px 0;
+}
+.affairs-service-mainlink {
+    position: relative;
+    height: 110px;
+    margin: 5px 0;
+}
+.affairs-service-platform {
+    line-height: 50px;
+    width: 315px;
+    height: 50px;
+    margin-bottom: 10px;
+    background-color: #e3e3e3;
+}
+.affairs-service-platform:hover {
+    background-color: #eaeaea;
+}
+.affairs-service-platform dt {
+    float: left;
+    overflow: hidden;
+    width: 80px;
+    height: 50px;
+}
+.affairs-service-platform .affairs-service-mainlin-bg1 {
+    background-position: -183px -230px;
+}
+.affairs-service-platform .affairs-service-mainlin-bg2 {
+    background-position: -283px -230px;
+}
+.affairs-service-platform dd {
+    text-align: center;
+}
+.affairs-service-platform dd a {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2f5398;
+}
+.affairs-service-showpic {
+    position: absolute;
+    top: 0;
+    right: 0;
+    overflow: hidden;
+    width: 148px;
+    height: 108px;
+    border: 1px solid #d1d6dc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.affairs-service-showpic img {
+    width: 100%;
+    height: 100%;
+}
+.affairs-service-items {
+    overflow: hidden;
+    height: 160px;
+}
+.affairs-service-items li {
+    font-size: 15px;
+    line-height: 105px;
+    position: relative;
+    float: left;
+    overflow: hidden;
+    width: 148px;
+    height: 68px;
+    margin-bottom: 10px;
+    margin-left: 15px;
+    text-align: center;
+    border: 1px solid #d1d6dc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #e3e3e3;
+}
+.affairs-service-items .reset-mglf {
+    margin-left: 0;
+}
+.affairs-service-items li:hover {
+    background-color: #eaeaea;
+}
+.affairs-service-items li a {
+    display: block;
+}
+.affairs-service-items li i {
+    position: absolute;
+    top: 8px;
+    left: 60px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+.affairs-service-items li .affairs-service-ico-1 {
+    background-position: -383px -230px;
+}
+.affairs-service-items li .affairs-service-ico-2 {
+    background-position: -414px -230px;
+}
+.affairs-service-items li .affairs-service-ico-3 {
+    background-position: -445px -230px;
+}
+.affairs-service-items li .affairs-service-ico-4 {
+    background-position: -383px -262px;
+}
+.affairs-service-items li .affairs-service-ico-5 {
+    background-position: -414px -262px;
+}
+.affairs-service-items li .affairs-service-ico-6 {
+    background-position: -445px -262px;
+}
+.mgtp-0 {
+    margin-top: 0;
+}
+.index-files-search-box {
+    font-size: 14px;
+    position: relative;
+    height: 35px;
+    margin: 5px 8px 0;
+}
+.index-files-search-box input {
+    font-size: 14px;
+    position: absolute;
+    overflow: hidden;
+    border: none;
+}
+.index-files-search-box .index-files-search-title {
+    line-height: 31px;
+    top: 2px;
+    width: 310px;
+    height: 31px;
+    padding: 0 10px;
+    color: #96989b;
+    background-color: #e3e3e3;
+}
+.index-files-search-box .index-files-search-submit {
+    line-height: 31px;
+    top: 2px;
+    left: 340px;
+    width: 60px;
+    height: 31px;
+    cursor: pointer;
+    text-align: center;
+    color: #fff;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #2f5398;
+}
+.index-files-search-box .index-files-search-submit:hover {
+    background-color: #20407d;
+}
+.index-files-advance-search {
+    line-height: 35px;
+    position: absolute;
+    right: 0;
+    text-decoration: underline;
+}
+.index-news-publish {
+    font-size: 16px;
+    height: 250px;
+    margin-bottom: 4px;
+    margin-top: 10px;
+}
+.index-news-publish dt {
+    width: 100%;
+    height: 215px;
+    overflow: hidden;
+}
+.index-news-publish dt img {
+    width: 100%;
+    height: 100%;
+}
+.index-news-publish dd {
+    line-height: 34px;
+    overflow: hidden;
+    width: 100%;
+    height: 34px;
+    border-bottom: 1px solid #d1d6dc;
+}
+
+/* /Center */
+
+
+/* Right */
+
+.index-main-right {
+    width: 330px;
+    padding: 0 10px;
+}
+
+/* /Right */
+
+
+/* Intraction */
+
+.power-liability-show {
+    overflow: hidden;
+    width: 100%;
+    height: 95px;
+    position: relative;
+    font-size: 0;
+}
+.b-img {
+    height: 95px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.b-img a {
+    display: block;
+    height: 95px;
+    float: left;
+}
+.idx-small-slide-btn {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    width: 20px;
+    top: 18px;
+    background: url(sprites.png) 0 0 no-repeat;
+}
+.bar-left {
+    left: 0;
+    background-position: -334px -960px;
+}
+.bar-right {
+    right: 0;
+    background-position: -355px -960px;
+}
+.bar-left em, .bar-right em {
+    display: block;
+    width: 100%;
+    height: 60px;
+    margin: 0 auto;
+}
+.b-img a img {
+    width: 100%;
+    height: 100%;
+    transition: transform .6s linear;
+}
+.b-img a img:hover {
+    transform: scale(1.1);
+}
+
+/* ed */
+
+.interaction-box {
+    overflow: hidden;
+    margin: 10px 0 20px;
+}
+.interaction-box li {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 20px;
+    float: left;
+    overflow: hidden;
+    width: 43px;
+    height: 40px;
+    margin-left: 10px;
+    padding: 20px 16px;
+    text-align: center;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #2f5398;
+    background-color: #2f5398;
+}
+.interaction-box li:hover {
+    background-color: #20407d;
+}
+.interaction-box li a {
+    display: block;
+    color: #fff;
+}
+.interaction-box .res-width {
+    margin-left: 0;
+}
+
+/* /Intraction */
+
+.index-cnt-hfix280 {
+    height: 280px;
+    overflow: hidden;
+}
+.index-cnt-hfix245 {
+    height: 245px;
+    overflow: hidden;
+}
+.index-cnt-hfix70 {
+    height: 70px;
+    overflow: hidden;
+}
+.index-cnt-hfix280 li, .index-cnt-hfix245 li, .index-cnt-hfix70 li {
+    line-height: 35px;
+    overflow: visible;
+    height: auto;
+}

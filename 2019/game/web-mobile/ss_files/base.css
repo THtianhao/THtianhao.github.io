@@ -1,0 +1,1399 @@
+﻿/*
+*
+*  @authors @SilentBlue
+* @date 2017-10-23 10:04:41
+* @version shanxi.gov.cn-base.version.2.0
+*
+* */
+
+html {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+body {
+    margin: 0;
+}
+body>div {
+    margin-right: auto;
+    margin-left: auto;
+}
+body, div, ul, ol, ul, li, ol, dl, dd, dt, form, span, p, textarea {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+address, caption, cite, code, dfn, th, var {
+    font-weight: normal;
+    font-style: normal;
+}
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+input {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+input::-moz-focus-inner {
+    padding: 0;
+    border: none;
+}
+select, input {
+    vertical-align: middle;
+}
+select, input, textarea {
+    font-size: 12px;
+    margin: 0;
+}
+input[type='text'], input[type='password'], textarea {
+    outline-style: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+textarea {
+    resize: none;
+}
+select:focus, input:focus, textarea:focus {
+    outline: none;
+}
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+th, td {
+    font-size: 12px;
+    padding: 0;
+}
+img, a img {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+img {
+    border: none;
+}
+strong, em {
+    font-weight: bold;
+    font-style: normal;
+}
+a {
+    text-decoration: none;
+    color: #000;
+    outline-style: none;
+}
+a:hover {
+    text-decoration: none;
+    color: #2f5398;
+}
+.group:after {
+    display: block;
+    visibility: hidden;
+    clear: both;
+    overflow: hidden;
+    height: 0;
+    content: '.';
+}
+.group {
+    zoom: 1;
+}
+.clear {
+    font-size: 0;
+    clear: both;
+    overflow: hidden;
+    height: 0;
+}
+
+/* Base Addition */
+
+.ftsz-14 {
+    font-size: 14px;
+}
+.ftsz-16 {
+    font-size: 16px;
+}
+.ftsz-18 {
+    font-size: 18px;
+}
+.font-coff {
+    color: #fff;
+}
+.bgc-fff {
+    background-color: #fff;
+}
+.bgc-thin-blue {
+    background-color: #dfeaf7;
+}
+.mt5 {
+    margin-top: 5px;
+}
+.mt10 {
+    margin-top: 10px;
+}
+.mt20 {
+    margin-top: 20px;
+}
+.mb10 {
+    margin-bottom: 10px;
+}
+.mb20 {
+    margin-bottom: 20px;
+}
+.padding10 {
+    padding: 10px 10px 0;
+}
+.pad4ing10 {
+    padding: 10px;
+}
+.position-relative {
+    position: relative;
+}
+.position-absolute {
+    position: absolute;
+}
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+.show {
+    display: block;
+}
+.hide {
+    display: none;
+}
+.mg-ltrb-auto {
+    margin: auto;
+}
+.mg-ltrb-center {
+    margin: 0 auto;
+}
+.oflow-hd {
+    overflow: hidden;
+}
+.oflow-x-hd {
+    overflow-x: hidden;
+}
+.oflow-y-hd {
+    overflow-y: hidden;
+}
+.circular-bl {
+    -webkit-border-radius: 0 0 5px 5px;
+    -moz-border-radius: 0 0 5px 5px;
+    border-radius: 0 0 5px 5px;
+}
+.circular-tr10 {
+    -webkit-border-radius: 10px 10px 0 0;
+    -moz-border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px 0 0;
+}
+.box-shadow-com {
+    /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+    margin-bottom: 5px;
+    -webkit-box-shadow: 0 5px 5px 0 rgba(246, 246, 246, .75);
+    /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow: 0 5px 5px 0 rgba(246, 246, 246, .75);
+    /* Firefox 3.5 - 3.6 */
+    box-shadow: 0 5px 5px 0 rgba(246, 246, 246, .75);
+}
+.triangle {
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+}
+
+/* Sprites */
+
+.topbar-nav li i, .logo a, .search-input-btn, .main-nav-home, .main-nav-home dt, .friend-link-menu li i, .shxidx-page, .shxidx-buttons div, .common-tab-content-box li, .affairs-service-platform dt, .affairs-service-items li i, .common-text-blucle-title-bar li, .executive-meetings, .government-information-publicity li, .float-tools, .float-tools-top, .float-tools-innder a i, .float-tools-close, .provic-orgnize .provic-orgnize-name i, .aside-executive-meetings, .historical-year-item, .governor-aside-detail-list li span i, .governor-speech-box .governor-speech-content span, .executive-meetings-showlinks li, .affairs-map-cities-box, .affairs-map-inner, .intraction-writeto-governor, .intraction-mailbox-links li i, .data-search-infobox li i, .data-search-i-items li, .shanxi-index-left, .shanxi-travel-c1-right, .shanxi-insight-slogan, .list-subnavs-title dt, .list-subnavs-name, .article-infos-func .article-priter i, .article-infos-func .article-share i, .affairs-list-aside-subnav li span, .affairs-list-tree-menus-title i, .keyfield-tax-set li, .keyfield-envir-set li, .keyfield-safepro-set li, .keyfield-govbuy-set li, .keyfield-poverty-set li, .keyfield-powres-sigshow, .excutive-meeting-newest-title, .excutive-meeting-viedo dd, .search-result-title-bar>li>i, .suggestion_innner dt i, .suggestion-innner-item li, .date-quicklinks-mend li span i {
+    background: url('sprites.png') 0 0 no-repeat;
+    /*left top*/
+}
+
+/* /Sprites */
+
+
+/* topBar */
+
+.topbar {
+    width: 100%;
+    min-width: 1280px;
+    height: 36px;
+}
+.topbar-inner {
+    line-height: 36px;
+    width: 1280px;
+    height: 36px;
+}
+.topbar-link a {
+    margin-right: 8px;
+    padding-right: 8px;
+}
+.topbar-nav li {
+    float: left;
+    margin: 0 8px;
+}
+.topbar-nav li i {
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin-top: 8px;
+    /* transition: all .5s linear; */
+    cursor: pointer;
+}
+
+/* .topbar-nav li:hover i {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+} */
+
+.topbar-nav li:hover .topbar-nav-icon-weibo {
+    background-position: -21px 0;
+}
+.topbar-nav li .topbar-nav-icon-wechat {
+    background-position: -42px 0;
+}
+.topbar-nav li:hover .topbar-nav-icon-wechat {
+    background-position: -63px 0;
+}
+.topbar-nav li .topbar-nav-icon-app {
+    background-position: -84px 0;
+}
+.topbar-nav li:hover .topbar-nav-icon-app {
+    background-position: -105px 0;
+}
+.topbar-nav .topbar-nav--text {
+    line-height: 26px;
+    height: 26px;
+    margin: 5px 8px 0 0;
+    padding-left: 8px;
+}
+
+/* .topbar-nav .topbar-nav--language {
+    margin-right: 8px;
+} */
+
+
+/* /topBar */
+
+
+/* Header */
+
+.header {
+    width: 1280px;
+    height: 150px;
+}
+.logo {
+    margin-top: 25px;
+}
+.logo a {
+    display: block;
+    width: 475px;
+    height: 100px;
+    background-position: 0 -22px;
+}
+.search {
+    width: 530px;
+    padding: 40px 0 0;
+}
+.search-box {
+    height: 36px;
+}
+.search-input {
+    width: 458px;
+    height: 34px;
+}
+.search-input-inner {
+    line-height: 22px;
+    width: 440px;
+    height: 22px;
+    margin: 6px 0 0 10px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+.search-input-btn {
+    width: 60px;
+    height: 36px;
+    cursor: pointer;
+    border: none;
+    background-position: 0 -125px;
+}
+.search-input-btn:hover {
+    background-position: -61px -125px;
+}
+.search-hotwd {
+    line-height: 18px;
+    height: 18px;
+    margin-top: 10px;
+}
+.search-hotwd a {
+    padding: 0 5px;
+}
+
+/* /Header */
+
+
+/* Footer */
+
+.footer {
+    width: 100%;
+    /* min-width: 1280px; */
+    margin-top: 25px;
+}
+
+/* 👇 */
+
+.footer-nav-wrap {
+    width: 1280px;
+    border-bottom: 2px solid #f5f5f5;
+}
+.footer-nav-inner {
+    margin: 20px 15px;
+}
+.footer-nav-itembox {
+    width: 140px;
+    overflow: hidden;
+    padding-right: 16px;
+    font-size: 14px;
+}
+.footer-nav-itembox>p {
+    font-weight: 700;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #f5f5f5;
+}
+.footer-nav-itembox>ul>li {
+    line-height: 30px;
+}
+.footer-nav-itembox>ul>li>a {
+    color: #757575;
+    font-size: 13px;
+}
+.footer-nav-itembox>ul>li>a:hover {
+    color: #333;
+}
+
+/*👆*/
+
+.friend-link {
+    line-height: 43px;
+    width: 1280px;
+    height: 43px;
+    text-align: center;
+}
+.friend-link-menu li {
+    position: relative;
+    float: left;
+    padding: 0 30px 0 15px;
+    cursor: pointer;
+}
+.friend-link-menu li i {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    width: 8px;
+    height: 5px;
+    transition: all .3s linear;
+    background-position: -492px -22px;
+}
+.friend-link-menu .current i {
+    background-position: -492px -28px;
+}
+.friend-link-menu li:hover i, .friend-link-menu .current i {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+}
+.friend-link-inner {
+    display: none;
+    width: 1280px;
+    margin: 5px auto;
+}
+.friend-link-submenu {
+    overflow: hidden;
+    width: 96%;
+    padding: 20px 2%;
+}
+.friend-link-submenu li {
+    line-height: 24px;
+    float: left;
+    margin: 10px;
+    white-space: nowrap;
+}
+.friend-link-submenu-loop {
+    overflow: hidden;
+}
+
+/*copyright*/
+
+.copyright {
+    width: 1280px;
+    padding: 20px 0;
+}
+.inspection-id {
+    width: 80px;
+    height: 80px;
+}
+.inspection-id img {
+    width: 100%;
+}
+.copyright-info {
+    line-height: 30px;
+    margin: 0 10px;
+}
+.footer-nav a {
+    padding-right: 5px;
+}
+.site-feature a {
+    margin: 0 8px;
+}
+
+/* /Footer */
+
+
+/* MainNav */
+
+.main-nav-box {
+    width: 1280px;
+    height: 55px;
+}
+.main-nav-home {
+    line-height: 58px;
+    width: 150px;
+    height: 55px;
+    background-position: 0 -165px;
+}
+.main-nav-home dt {
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin-top: 12px;
+    margin-right: 10px;
+    margin-left: 30px;
+    background-position: -292px -165px;
+}
+.main-nav-home dd a {
+    display: block;
+}
+.main-nav {
+    width: 1130px;
+    height: 50px;
+    margin-top: 5px;
+}
+.main-nav>li {
+    line-height: 50px;
+    float: left;
+    width: 140px;
+    height: 50px;
+    -webkit-transition: border-left-color .2s, height .2s, margin-top .2s;
+    -moz-transition: border-left-color .2s, height .2s, margin-top .2s;
+    -o-transition: border-left-color .2s, height .2s, margin-top .2s;
+    transition: border-left-color .2s, height .2s, margin-top .2s;
+    text-align: center;
+}
+.main-nav>li:hover {
+    width: 140px;
+    height: 52px;
+    margin-top: -5px;
+}
+.main-nav>li>a {
+    display: block;
+}
+
+/* /MainNav*/
+
+
+/* Main Content */
+
+.main-content {
+    width: 1280px;
+    margin: 0 auto;
+}
+.headline {
+    height: 120px;
+    padding: 0 10px;
+    text-align: center;
+}
+.headline-big {
+    line-height: 60px;
+    overflow: hidden;
+    height: 60px;
+    padding-top: 10px;
+}
+.headline-list {
+    line-height: 30px;
+    overflow: hidden;
+    height: 30px;
+}
+.headline-list span {
+    padding: 0 5px;
+}
+.slidebox-news {
+    height: 740px;
+    padding: 10px;
+    background-color: #fff;
+}
+
+/* /Main Content */
+
+
+/* Common Slide */
+
+.shxidx-carousel .shxidx-wrapper::after {
+    line-height: 0;
+    display: block;
+    visibility: hidden;
+    clear: both;
+    height: 0;
+    content: '.';
+}
+.shxidx-carousel {
+    position: relative;
+    display: none;
+    width: 100%;
+    -ms-touch-action: pan-y;
+}
+.shxidx-carousel .shxidx-wrapper {
+    position: relative;
+    display: none;
+    -webkit-transform: translate3d(0px, 0px, 0px);
+    -moz-transform: translate3d(0px, 0px, 0px);
+    -ms-transform: translate3d(0px, 0px, 0px);
+    -o-transform: translate3d(0px, 0px, 0px);
+    transform: translate3d(0px, 0px, 0px);
+}
+.shxidx-carousel .shxidx-wrapper-outer {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+.shxidx-carousel .shxidx-wrapper-outer.autoHeight {
+    -webkit-transition: height 500ms ease-in-out;
+    -moz-transition: height 500ms ease-in-out;
+    -ms-transition: height 500ms ease-in-out;
+    -o-transition: height 500ms ease-in-out;
+    transition: height 500ms ease-in-out;
+}
+.shxidx-carousel .content-imgs-slide-item {
+    float: left;
+}
+.shxidx-controls .shxidx-page, .shxidx-controls .shxidx-buttons div {
+    cursor: pointer;
+}
+.shxidx-controls {
+    /* position: relative; */
+    margin: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -khtml-user-select: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.shxidx-carousel img {
+    display: block;
+}
+.grabbing {
+    cursor: url(grabbing.png) 8 8, move;
+}
+.shxidx-carousel .shxidx-wrapper, .shxidx-carousel .shxidx-item {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+}
+.shxidx-carousel .content-imgs-slide-item {
+    position: relative;
+    display: block;
+}
+.shxidx-carousel b {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+}
+.shxidx-carousel span {
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    /* width: 100%; */
+}
+.shxidx-pagination {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+}
+.shxidx-pagination .shxidx-page {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 10px 5px;
+}
+.shxidx-pagination .active {
+    width: 25px;
+}
+.shxidx-buttons {
+    display: none;
+}
+.shxidx-buttons div {
+    position: absolute;
+    top: 50%;
+}
+.shxidx-prev {
+    left: 0;
+}
+.shxidx-next {
+    right: 0;
+}
+
+/* Common Slide */
+
+
+/* Text News */
+
+.common-text-title-box {
+    height: 45px;
+}
+.common-text-title-bar {
+    display: inline-block;
+    overflow: hidden;
+    height: 45px;
+    padding-right: 21px;
+    background: url('bg-textbar-ul.png') right 0 no-repeat;
+}
+.common-text-title-bar li {
+    line-height: 40px;
+    float: left;
+    height: 40px;
+    margin-top: 5px;
+    padding: 0 20px;
+    transition: all .2s linear;
+    text-align: center;
+}
+.common-twowords-title-bar li {
+    padding: 0 40px;
+}
+.common-text-title-bar li a {
+    display: block;
+}
+.common-text-title-bar .tab-current {
+    line-height: 45px;
+    height: 45px;
+    margin-top: 0;
+}
+.common-tab-content-box {
+    overflow: hidden;
+    margin: 5px 0;
+}
+.common-tab-content-box li {
+    line-height: 35px;
+    overflow: hidden;
+    height: 35px;
+    padding-left: 8px;
+    background-position: 0 -2595px;
+}
+.common-tab-content-box li em {
+    margin-left: 6px;
+}
+.common-tab-content-box li em a {
+    margin-left: 6px;
+}
+.common-tab-content-box li span {
+    margin-left: 6px;
+}
+.conmon-tab-department li {
+    padding-left: 0;
+    background: none;
+}
+.common-text-blucle-title-bar {
+    padding-right: 0;
+}
+.common-text-blucle-title-bar li {
+    padding: 0 8px;
+    transition: none;
+    background-position: 0 -384px;
+}
+.common-text-blucle-title-bar .bg-img-none {
+    background: none;
+}
+.common-text-blucle-title-bar .tab-current {
+    line-height: 40px;
+    height: 40px;
+    margin-top: 5px;
+}
+
+/* /Text News */
+
+
+/* executive meeting */
+
+.executive-meetings {
+    height: 140px;
+    padding: 60px 15px 0;
+    background-position: 0 -450px;
+}
+.executive-meetings dt {
+    line-height: 35px;
+    overflow: hidden;
+    height: 35px;
+    text-align: center;
+}
+.executive-meetings dt a span {
+    margin-right: 8px;
+}
+.executive-meetings dd {
+    line-height: 24px;
+    overflow: hidden;
+    height: 96px;
+}
+
+/* /executive meeting */
+
+
+/* Gov Info */
+
+.government-information-publicity {
+    overflow: hidden;
+    margin: 5px 0;
+    padding: 0 10px;
+}
+.government-information-publicity li {
+    line-height: 35px;
+    float: left;
+    overflow: hidden;
+    /*width: 130px;*/
+    height: 35px;
+    margin-left: 10px;
+    padding-left: 20px;
+    background-position: 0 -668px;
+}
+.government-information-publicity li:hover {
+    background-position: 0 -719px;
+}
+.government-information-publicity .reset-mglf {
+    margin-left: 0;
+}
+.government-information-publicity .res-width {
+    width: auto;
+}
+
+/* /Gov Info */
+
+
+/* Float Tools */
+
+.float-tools-innder .float-tools-qcode {
+    position: absolute;
+    z-index: 2;
+    bottom: 200px;
+    height: auto;
+    right: 1px;
+    width: 90px;
+    border: 1px solid #e2e2e2;
+    -webkit-transition: all 1s;
+    -moz-transition: all 1s;
+    -ms-transition: all 1s;
+    -o-transition: all 1s;
+    transition: all 1s;
+    -webkit-transform: scale(.01);
+    -moz-transform: scale(.01);
+    -ms-transform: scale(.01);
+    -o-transform: scale(.01);
+    transform: scale(.01);
+    -webkit-transform-origin: 95% 95%;
+    -moz-transform-origin: 95% 95%;
+    -ms-transform-origin: 95% 95%;
+    -o-transform-origin: 95% 95%;
+    transform-origin: 95% 95%;
+    opacity: 0;
+    /* background: url(icon-common-sprites.png) -180px -1070px no-repeat; */
+    filter: alpha(opacity=0);
+    background-color: #fff;
+    text-align: center;
+    color: #3664b9;
+    font-size: 14px;
+    padding: 5px;
+}
+.float-tools-innder .float-tools-qcode>img {
+    width: 100%;
+    display: block;
+    margin-bottom: 5px;
+}
+.float-tools-icon-1:hover+.float-tools-qcode, .float-tools-icon-2:hover+.float-tools-qcode {
+    right: 1px;
+    bottom: 200px;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+.float-tools-icon-2:hover+.float-tools-qcode {
+    right: 70px;
+    bottom: 170px;
+}
+.float-tools {
+    position: fixed;
+    top: 60%;
+    right: 0;
+    width: 97px;
+    height: 197px;
+    background-position: -403px -450px;
+}
+.float-tools a, .float-tools-innder a i {
+    display: block;
+}
+.float-tools-innder {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    height: 197px;
+}
+.float-tools-innder a {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    z-index: 3;
+}
+.float-tools-innder a i {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    transition: all .4s none;
+    background-position: -372px -125px;
+}
+.float-tools-innder a:hover i {
+    /* -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%; */
+    transform: scale(1.1);
+}
+.float-tools-innder .float-tools-icon-1 {
+    top: 18px;
+    right: 10px;
+}
+.float-tools-innder .float-tools-icon-1 i {
+    background-position: -372px -125px;
+}
+.float-tools-innder .float-tools-icon-1:hover i {
+    background-position: -372px -162px;
+}
+.float-tools-innder .float-tools-icon-2 {
+    /*+6*/
+    top: 58px;
+    right: 48px;
+    /*-2*/
+}
+.float-tools-innder .float-tools-icon-2 i {
+    background-position: -404px -125px;
+}
+.float-tools-innder .float-tools-icon-2:hover i {
+    background-position: -404px -162px;
+}
+.float-tools-innder .float-tools-icon-3 {
+    /*+6*/
+    top: 108px;
+    right: 48px;
+    /*-2*/
+}
+.float-tools-innder .float-tools-icon-3 i {
+    background-position: -436px -125px;
+}
+.float-tools-innder .float-tools-icon-3:hover i {
+    background-position: -436px -162px;
+}
+.float-tools-innder .float-tools-icon-4 {
+    /*+6*/
+    top: 150px;
+    right: 12px;
+    /*-2*/
+}
+.float-tools-innder .float-tools-icon-4 i {
+    background-position: -468px -125px;
+}
+.float-tools-innder .float-tools-icon-4:hover i {
+    background-position: -468px -162px;
+}
+.float-tools-top, .float-tools-close {
+    position: absolute;
+    z-index: 5;
+    top: 59px;
+    right: 0;
+    width: 38px;
+    height: 79px;
+    background-position: -332px -125px;
+}
+.float-tools-close {
+    background-position: -332px -450px;
+}
+.float-tools-top a, .float-tools-close a {
+    width: 100%;
+    height: 100%;
+}
+
+/* /Float Tools */
+
+
+/* Common Page */
+
+.breadcrumb {
+    line-height: 30px;
+    height: 30px;
+    padding: 10px 0 10px 30px;
+}
+.breadcrumb li {
+    float: left;
+    margin-right: 8px;
+}
+.breadcrumb li span, .breadcrumb .path-cur span {
+    padding-right: 5px;
+}
+.main-content-left {
+    width: 840px;
+}
+.main-content-right {
+    width: 400px;
+    height: 100%;
+    margin-bottom: -8889px;
+    padding-bottom: 8889px;
+}
+.aside-executive-meetings {
+    position: relative;
+    width: 400px;
+    height: 120px;
+    background-position: 0 -780px;
+}
+.aside-executive-content {
+    line-height: 24px;
+    position: absolute;
+    top: 75px;
+    left: 50px;
+    overflow: hidden;
+    height: 24px;
+}
+.aside-executive-content i {
+    font-style: normal;
+    margin-right: 14px;
+}
+.aside-executive-content span {
+    margin-left: 14px;
+}
+
+/* /Common Page */
+
+
+/* Common List */
+
+.resp-height {
+    height: 100%;
+    margin-bottom: -8889px;
+    padding-bottom: 8889px;
+}
+.list-subnavs-wrap {
+    width: 230px;
+}
+.line-file-10 {
+    height: 10px;
+}
+.list-subnavs-title {
+    line-height: 50px;
+    height: 50px;
+}
+.list-subnavs-title dt {
+    float: left;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    background-position: -15px -2260px;
+}
+.list-subnavs-name {
+    line-height: 49px;
+    height: 49px;
+    padding-left: 32px;
+    background-position: -390px -1419px;
+}
+.current {
+    background-position: -390px -1491px;
+}
+.list-subnavs-box li {
+    line-height: 36px;
+    height: 36px;
+    padding-left: 35px;
+}
+.list-subnavs-main {
+    width: 1020px;
+}
+.list-full-main {
+    width: 100%;
+}
+.shanxi-gov-list-filter {
+    height: 1px;
+    margin: 18px 0;
+}
+
+/* pageion */
+
+.shanxi-gov-page-box {
+    clear: both;
+    overflow: hidden;
+    text-align: center;
+}
+.shanxi-gov-page-box a {
+    line-height: 42px;
+    display: inline-block;
+    overflow: hidden;
+    width: 42px;
+    height: 42px;
+    margin-left: 5px;
+    text-align: center;
+}
+.shanxi-gov-page-box .shanxi-gov-page-button {
+    padding: 0 6px;
+}
+.shanxi-gov-page-hide {
+    display: inline-block;
+    text-align: center;
+}
+.shanxi-gov-page-hide .shanxi-gov-page-current, .shanxi-gov-page-hide .shanxi-gov-page-current:hover {
+    line-height: 42px;
+    display: inline-block;
+    overflow: hidden;
+    width: 42px;
+    height: 42px;
+    text-align: center;
+}
+.shanxi-gov-page-form {
+    line-height: 42px;
+    display: inline-block;
+    overflow: hidden;
+    height: 42px;
+    margin-left: 5px;
+}
+.shanxi-gov-page-form-text {
+    line-height: 32px;
+    width: 40px;
+    height: 32px;
+    margin-right: 5px;
+    text-align: center;
+}
+.shanxi-gov-page-form-btn {
+    line-height: 42px;
+    width: 42px;
+    height: 42px;
+    border: none;
+}
+
+/* /Common List*/
+
+
+/* Common-detail */
+
+.common-detail-page-printer {
+    position: relative;
+    padding: 18px 30px;
+}
+.detail-article-title {
+    line-height: 50px;
+    text-align: center;
+}
+.detail-article-title h2 {
+    font-weight: 700;
+    font-size: 34px;
+}
+.detail-article-title h3 {
+    font-weight: 500;
+    font-size: 24px;
+}
+.detail-article-title h4 {
+    font-weight: 500;
+    font-size: 24px;
+    font-family: "楷体";
+}
+.detail-article-title h5 {
+    font-weight: 500;
+    font-size: 32px;
+}
+.detail-article-infos {
+    padding: 18px 0 12px;
+}
+.detail-article-infos .article-infos-source span {
+    margin-right: 14px;
+}
+.detail-article-infos .article-infos-source i {
+    font-style: normal;
+}
+.article-infos-func span {
+    display: inline-block;
+    padding: 0 7px;
+}
+.article-infos-func .article-priter {
+    cursor: pointer;
+    border-left: none;
+}
+.article-infos-func .article-priter i {
+    display: inline-block;
+    overflow: hidden;
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    background-position: -327px -1782px;
+}
+.article-infos-func .article-zoom i {
+    font-style: normal;
+}
+.article-infos-func .article-zoom a {
+    margin: 0 2px;
+}
+.article-infos-func .article-share {
+    cursor: pointer;
+}
+.article-infos-func .article-share i {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    background-position: -327px -1805px;
+}
+.article-share-cnt {
+    position: absolute;
+    right: 30px;
+    overflow: hidden;
+    width: 60px;
+    padding-top: 10px;
+    text-align: center;
+}
+.article-share-cnt a {
+    display: block;
+    margin: 4px auto;
+}
+.article-body {
+    margin-top: 10px;
+}
+.article-body a {
+    display: inline-block;
+    color: #3563b8;
+    border-bottom: 1px solid #3563b8;
+}
+.article-body a:hover {
+    color: #2f5398;
+}
+.rendering-ie7 .article-share-cnt {
+    margin-top: 20px;
+}
+.article-edit {
+    line-height: 30px;
+    margin-top: 10px;
+    text-align: right;
+}
+.article-edit a {
+    margin-left: 7px;
+}
+
+/* Common-detail */
+
+
+/* Relation */
+
+.relatived-articles {
+    padding: 10px 40px;
+}
+.relatived-articles-title {
+    line-height: 42px;
+}
+.shanxi-social-tools {
+    padding: 10px 0;
+}
+.shanxi-social-tools li {
+    float: left;
+    overflow: hidden;
+    width: 186px;
+    height: 150px;
+    margin-left: 20px;
+}
+.shanxi-social-tools .shanxi-social-mailbox {
+    width: 536px;
+}
+.shanxi-social-tools li span {
+    line-height: 20px;
+    display: block;
+    float: left;
+    width: 20px;
+    height: 100%;
+    padding: 16px 8px;
+    text-align: center;
+}
+.shanxi-social-tools li img {
+    height: 100%;
+}
+
+/* /Relation */
+
+
+/* Affairs Detail */
+
+.affairs-detail-box {
+    width: 796px;
+    margin: 16px auto;
+}
+.affairs-detail-inner {
+    padding: 15px 19px;
+}
+.affairs-detail-head {
+    width: 756px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+.affairs-detail-head td {
+    line-height: 24px;
+    height: 24px;
+}
+.affairs-detail-head-tit {
+    width: 10%;
+}
+.affairs-detail-head-cnt {
+    width: 45%;
+}
+.affairs-detail-inner-cnt {
+    margin-top: 19px;
+    padding: 15px 19px;
+}
+.affais-detail-buttons {
+    width: 200px;
+    height: 24px;
+    margin: 20px auto;
+}
+.affais-detail-buttons li {
+    float: left;
+    width: 78px;
+    height: 24px;
+    margin: 0 10px;
+}
+.affais-detail-buttons li input {
+    height: 22px;
+}
+.affairs-detail-qcode {
+    width: 796px;
+    height: 180px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
+.affairs-detail-qcode dt {
+    line-height: 30px;
+    overflow: hidden;
+    width: 150px;
+    height: 30px;
+    margin: 0 auto;
+}
+.affairs-detail-qcode dd {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+}
+.affairs-detail-qcode dd img {
+    width: 100%;
+    height: 100%;
+}
+
+/* /Affairs Detail */
+
+
+/* Images-Text List */
+
+.img-text-list-item {
+    width: 505px;
+    height: 150px;
+    margin-bottom: 10px;
+    padding: 15px 0;
+}
+.img-text-list-item dt {
+    float: left;
+    overflow: hidden;
+    width: 250px;
+    height: 100%;
+    text-align: center;
+}
+.img-text-list-box dt img {
+    /* width: 100%; */
+    height: 100%;
+    transition: transform 1s;
+}
+.img-text-list-box dl:hover img {
+    transform: scale(1.05);
+}
+.img-text-list-item dd {
+    float: right;
+    width: 240px;
+    margin-right: 5px;
+}
+.shanxi-travel-spots-title {
+    line-height: 30px;
+    height: 30px;
+}
+.shanxi-travel-spots-desc {
+    line-height: 26px;
+}
+.img-media-list-item {
+    position: relative;
+    width: 245px;
+    margin-bottom: 12px;
+    margin-left: 13px;
+}
+.reset-mglf {
+    margin-left: 0;
+}
+.img-media-list-item dt {
+    overflow: hidden;
+    width: 100%;
+    height: 180px;
+}
+.img-media-list-item dd {
+    line-height: 30px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+}
+.img-media-list-item dd b {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+.img-media-list-item dd span {
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0 8px;
+}
+.img-media-list-item dd span a {
+    display: block;
+}
+
+/* /Images-Text List
